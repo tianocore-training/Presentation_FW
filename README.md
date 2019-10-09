@@ -29,29 +29,29 @@
 
 -->
 
-# Presenations_FW
+# Presentations_FW
 Presentations for UEFI / EDK II Training
 
 To see the Slides with links to the presentations goto https://gitpitch.com/tianocore-training/Tianocore_Training_Contents/master#/
 
 To see schedule  : https://github.com/tianocore-training/Tianocore_Training_Contents/wiki#schedule--outline
 
-## Presenations started in the FW directory
+## Presentations started in the FW directory
 - FW
    - **Presentations**
      
-### Key to presenation:
+### Key to presentation:
 |First char of file name | description | 
 | ----------------- | ------------------ | 
-| numbers 00 - 19   | Normal sequence to the 3 Day traininig with Windows Labs |
-| "L" | 3 Day training cooresponding with Linux Labs   |
+| numbers 00 - 19   | Normal sequence to the 3 Day training with Windows Labs |
+| "L" | 3 Day training corresponding  with Linux Labs   |
 | "U4" | For presentations in Unit 4 |
-| "O" | Outdated but still maybe usefull |
+| "O" | Outdated but still maybe useful |
 
    
-Note: please also download the cooresponding Lab Material    
+Note: please also download the corresponding Lab Material    
    
-## Presenation and Lab Material should be combined to be as the following:
+## Presentation and Lab Material should be combined to be as the following:
 
 - FW
   - **Presentations**
