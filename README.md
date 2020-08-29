@@ -1,7 +1,7 @@
 <!--- @file
   Readme.md for UEFI / EDK II Training Presenation PDFs
 
-  Copyright (c) 2019, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) 2020, Intel Corporation. All rights reserved.<BR>
 
   Redistribution and use in source (original document form) and 'compiled'
   forms (converted to PDF, epub, HTML and other formats) with or without
@@ -43,7 +43,7 @@ To see schedule  : https://github.com/tianocore-training/Tianocore_Training_Cont
 ### Key to presentation:
 |First char of file name | description | 
 | ----------------- | ------------------ | 
-| numbers 00 - 19   | Normal sequence to the 3 Day training with Windows Labs |
+| "A" - "E" _numbers_   | Normal sequence to the 5 Module training  |
 | "L" | 3 Day training corresponding  with Linux Labs   |
 | "U4" | For presentations in Unit 4 |
 | "O" | Outdated but still maybe useful |
@@ -57,6 +57,6 @@ Note: please also download the corresponding Lab Material
   - **Presentations**
   - Documentation
   - DriverWizard
-  - edk2-ws - Same as https://github.com/tianocore/edk2 and https://github.com/tianocore/edk2-libc
-  - LabSampleCode
+  - edk2-ws -  overwrite for https://github.com/tianocore/edk2-libc and Setup script for environment
+  - LabSampleCode - all the solutions to the lab exercises
 
