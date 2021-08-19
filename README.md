@@ -1,7 +1,7 @@
 <!--- @file
   Readme.md for UEFI / EDK II Training Presenation PDFs
 
-  Copyright (c) 2020, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) 2021, Intel Corporation. All rights reserved.<BR>
 
   Redistribution and use in source (original document form) and 'compiled'
   forms (converted to PDF, epub, HTML and other formats) with or without
@@ -32,8 +32,6 @@
 # Presentations_FW
 Presentations for UEFI / EDK II Training
 
-To see the Slides with links to the presentations goto https://gitpitch.com/tianocore-training/Tianocore_Training_Contents/master#/
-
 To see schedule  : https://github.com/tianocore-training/Tianocore_Training_Contents/wiki#schedule--outline
 
 ## Presentations started in the FW directory
@@ -54,7 +52,7 @@ Note: please also download the corresponding Lab Material
 ## Presentation and Lab Material should be combined to be as the following:
 
 - FW
-  - **Presentations**
+  - **Presentations** (this repo)
   - Documentation
   - DriverWizard
   - edk2-ws -  overwrite for https://github.com/tianocore/edk2-libc and Setup script for environment
