@@ -1,7 +1,7 @@
 # Unit Test Framework Lab
 The following  is a lab for using the Unit Test Framework 
 
-## Slide 1  @title[CI Unit Test Framework for Developer Validation Lab]
+## Slide 1  CI Unit Test Framework for Developer Validation Lab
 
 ## UEFI & EDK II Training
 
@@ -10,7 +10,47 @@ The following  is a lab for using the Unit Test Framework
 <br>
 <a href='http://www.tianocore.org'>tianocore.org</a>
 
-## **About**
+
+<!---
+Note:
+
+  LabGuid.md for UEFI / EDK II Training  CI Unit Test Framework for Developer Validation Lab
+
+  Copyright (c) 2021, Intel Corporation. All rights reserved.<BR>
+
+  Redistribution and use in source (original document form) and 'compiled'
+  forms (converted to PDF, epub, HTML and other formats) with or without
+  modification, are permitted provided that the following conditions are met:
+
+  1) Redistributions of source code (original document form) must retain the
+     above copyright notice, this list of conditions and the following
+     disclaimer as the first lines of this file unmodified.
+
+  2) Redistributions in compiled form (transformed to other DTDs, converted to
+     PDF, epub, HTML and other formats) must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+
+  THIS DOCUMENTATION IS PROVIDED BY TIANOCORE PROJECT "AS IS" AND ANY EXPRESS OR
+  IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+  EVENT SHALL TIANOCORE PROJECT  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+-->
+
+
+---
+
+
+## Slide 2 **About**
+### **About**
 
 This lab will show how to build and run a unit test sample code in the host-based environment.
 
@@ -19,6 +59,7 @@ This lab will show how to build and run a unit test sample code in the host-base
 - Create a Host Unit Test Framework for a simple function
 - Add a UEFI Shell Unit Test Framework using the `EmulatorPkg`
 
+## Slide 3 **Prerequisites**
 ### **Prerequisites**
 * Windows 10:
   * Stuart CI Visual Studio VS2017 or VS2019
@@ -30,56 +71,83 @@ This lab will show how to build and run a unit test sample code in the host-base
 * Python 3.7.x or greater on Path and Scripts on path
 * Git on Path
 
-## **1. How to build**
+
+## Slide 4 Steps for this Lab
+### **Steps for this Lab**
+
+1. How to build
+2. Build and Run for Stuart CI Locally
+3. Or Build and Run for Windows Non-Stuart CI
+4. Run the Host Unit test locally
+5. Create and Add a unit test case to test a function
+6. Add the Unit test case the UEFI Shell
 
 
+Solutions: See in the LabMaterial_FW/FW/    	/LabSampleCode/LessonU_Unit_Test
 
-### **Setup Lab material from previous lab**   
+---
 
-**SKIP** if already done
+## Slide 5 Lab Setup
+### **Lab Setup**
 
-Perform Lab Setup from previous Labs  <a href="https://github.com/tianocore-training/Platform_Build_Win_Emulator_Lab/blob/master/Lab_guide.md#slide-12--titlecreate-work-space-directory">LabGuide</a>  Slides 12 - 17
+### **1. Setup Lab material from previous lab**
 
+**SKIP** to 2 if already done
 
-## **2. Build and Run for Stuart CI Locally**
+- Windows
+  - Perform Lab Setup from previous Labs  <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md">LabGuide</a><br>
+- Linux
+  - Perform Lab Setup from previous Labs  <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md">LabGuide</a>  
+
+### **2. Build and Run for Stuart CI Locally**
 The following steps are for Building with the CI Pytool locally for the UnitTestFrameworkPkg Host based Unit Tests. Note that the "`<Your tag>`" in the examples below needs to be one of the prerequisite compilers above:
 * Windows - Visual Studio "`2017`" or "`2019`"
 * Ubuntu 18.04 or Fedora - "`GCC5`" 
 
+---
 
+## **1. How to Build**
 
-1. Open commamd Prompt - CD C:\FW\Edk2-ws and run setup script to setup `WORKSPACE` and Packages path
+1. Set up environment
+  - Windows
+     - Open commamd Prompt - CD C:\FW\Edk2-ws and run setup script to setup `WORKSPACE` and Packages path
+```shell
+        $ cd C:\FW\edk2-ws
+        $ Setenv.bat
+        $ cd edk2
 ```
-$ cd C:\FW\edk2-ws
-$ Setenv.bat
-$ cd edk2
+  - Linux
+    - Open a terminal prompt
+```shell
+        bash$ cd ~src/edk2-ws
+        bash$ export WORKSPACE=$PWD
+        bash$ export PACKAGES_PATH=$WORKSPACE/edk2:$WORKSPACE/edk2-libc
+        bash$ cd edk2
 ```
-
-
 2. Install the pip requirements  (Pip is in the `Pythonxx/Scripts` Directory Also Note, Proxy option  needed behind a firewall)
 ```shell
-$ pip install --upgrade -r pip-requirements.txt
+ $ pip install --upgrade -r pip-requirements.txt
 
 :: With proxy:
 
-$ pip install --upgrade -r pip-requirements.txt --proxy http://proxy-chain.intel.com:911
+ $ pip install --upgrade -r pip-requirements.txt --proxy http://proxy-chain.intel.com:911
 ```
 
 3. Get the code dependencies (done only when submodules change)
 ```shell
-$ stuart_setup -c .pytool\CISettings.py TOOL_CHAIN_TAG=<Your TAG>
+   $ stuart_setup -c .pytool\CISettings.py TOOL_CHAIN_TAG=<Your TAG>
 ```
 4. Update other dependencies (done on new command prompt)
 ```shell
-$ stuart_update -c .pytool\CISettings.py TOOL_CHAIN_TAG=<Your TAG>
+   $ stuart_update -c .pytool\CISettings.py TOOL_CHAIN_TAG=<Your TAG>
 ```
 5. Build the BaseTools (done only when BaseTools change and first time)
 ```shell
-$ python BaseTools\Edk2ToolsBuild.py -t <Your TAG>
+   $ python BaseTools\Edk2ToolsBuild.py -t <Your TAG>
 ```
 6. Compile and Run the Host based Unit Test modules
 ```shell
-$ stuart_ci_build -c .pytool\CISettings.py TOOL_CHAIN_TAG=<Your TAG> -p UnitTestFrameworkPkg -t NOOPT -a X64
+   $ stuart_ci_build -c .pytool\CISettings.py TOOL_CHAIN_TAG=<Your TAG> -p UnitTestFrameworkPkg -t NOOPT -a X64
 ```
 
 ### **Output from Stuart CI Build and Run**
@@ -110,37 +178,56 @@ PROGRESS - Success
 Build the `BaseTools`
 ```
 
-## **3. Build and Run for Windows Non-Stuart CI**
+## **3. Build and Run Non-Stuart CI**
 
-Additional Prerequisites for Non-Stuart CI
-
-* Download the Nasm Assembler and then copy the expanded zip contents to `C:/Nasm`. Create the directory if it does not exist.  Download from: https://www.nasm.us/pub/nasm/releasebuilds/2.12.02/win64/
-
+### **3.1 Windows**
 
 Open A Visual Studio Command Prompt
 * From the "Windows" key scroll down in the applications menu to **folder** of "Visual Studio 20xx" where xx is either 15, 17 or 19. (make sure you click on the folder and not the application itself)
 * Then click on the command prompt for "Developer Command Prompt for VS20xx"
 * This will open a black Command line window for you to invoke the build and run commands
-* At the command prompt Change directgory (Cd) to the WorkSpace/edk2 directory (the directory from the `git clone` above)
+* At the command prompt Change directgory (Cd) to the WorkSpace/edk2 directory 
+1. Set up environment
 ```
-$ cd C:\FW\edk2-ws
-$ Setenv.bat
-$ cd edk2
+    $ cd C:\FW\edk2-ws
+    $ Setenv.bat
+    $ cd edk2
 ```
 
-Build the BaseTools 
+2. Build the BaseTools
 At the command prompt in the directory of your Workspace/edk2 invoke the following:
 
 ```shell 
-$ edksetup.bat Rebuild
+    $ edksetup.bat Rebuild
 ```
-Build the `UnitTestFrameworkPkg` Unit Test Host, below builds using Visual Studio 2015, 
+3. Build the `UnitTestFrameworkPkg` Unit Test Host, below builds using Visual Studio 2015, 
 ```shell
-$ build -b NOOPT -t VS2015x86 -a X64 -p UnitTestFrameworkPkg\Test\UnitTestFrameworkPkgHostTest.dsc 
+    $ build -b NOOPT -t VS2015x86 -a X64 -p UnitTestFrameworkPkg\Test\UnitTestFrameworkPkgHostTest.dsc 
 ```
 For other Visual Studio versions change the "`-t`" option to:
 * 2017 use `-t VS2017` 
 * 2019 use `-t VS2019`
+
+### **3.2 Linux**
+
+1. Run Make
+
+```shell
+    bash$ cd ~/src/edk-ws/edk2
+    bash$ make –C BaseTools/
+```
+* Make sure the tests pass OK
+
+2. Run edksetup
+```shell
+    bash$ . edksetup.sh
+```
+
+3. Build the `UnitTestFrameworkPkg` Unit Test Host
+```shell
+    $ build -b NOOPT -t GCC5 -a X64 -p UnitTestFrameworkPkg\Test\UnitTestFrameworkPkgHostTest.dsc 
+```
+
 
 ## **4. Run the Host Unit test locally**
 
@@ -152,11 +239,11 @@ For example, the following is the directory if using VS 2017
 %WORKSPACE%\Build\UnitTestFrameworkPkg\HostTest\NOOPT_VS2017\X64\SampleUnitTestHost.exe
 
 ```
-Then run the host application
+Then run the host application (note for Linx no .exe extention)
 
 ```shell
 
-$ SampleUnitTestHost.exe
+    $ SampleUnitTestHost.exe
 ```
 Result from running Unit test
 ```
@@ -299,6 +386,7 @@ Log Output End
 ```
 
 #### **Optional** - Run test results with Automatic test results 
+<i>Note the following is using Windows</i><br>
 Use a Script file to get (Errorlevel==0) for a test pass or (Errorlevel==1) for a test Failure. 
 
 To test automatically test pass/fail using a script file, check for string "\<failed\>" in XML file from other sample unit test with Host .EXE using a grep or on Windows `FindStr`
@@ -336,9 +424,9 @@ The following will show the steps for creating a Unit Test case for testing a ve
 #### 5.1. Create a new directory called CheckPrimeUnitTest 
 from %WORKSPACE%/UnitTestFrameworkPkg/Test/UnitTest/Sample
 ```
-$ CD UnitTestFrameworkPkg/Test/UnitTest/Sample
-$ Mkdir CheckPrimeUnitTest
-$ CD CheckPrimeUnitTest
+$ cd UnitTestFrameworkPkg/Test/UnitTest/Sample
+$ mkdir CheckPrimeUnitTest
+$ cd CheckPrimeUnitTest
 ```
 
 #### 5.2. Create a file with the function "`PrimeNumber()`" below code. 
