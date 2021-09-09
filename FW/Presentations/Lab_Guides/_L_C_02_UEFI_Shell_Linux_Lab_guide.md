@@ -3,13 +3,13 @@
 <br><br><br><br><br>
 ##  UEFI & EDK II Training 
 
-#### UEFI Shell Lab - Windows Emulator Package
+#### UEFI Shell Lab - Linux
 
 <br>
 <a href='http://www.tianocore.org'>tianocore.org</a>
 
 <!---
- Lab_Guide.md for UEFI / EDK II Training  UEFI Shell Windows Lab
+ Lab_Guide.md for UEFI / EDK II Training  UEFI Shell Linux Lab
 
   Copyright (c) 2020-2021, Intel Corporation. All rights reserved.<BR>
 
@@ -44,10 +44,7 @@
 
 ###  Lesson Objective  <br>
 
-<!---  Add bullets using https://fontawesome.com/cheatsheet certificate
--->
-
-- Run UEFI Shell  (Windows Emulation)
+- Run UEFI Shell  OVMF with QEMU
 - Run UEFI Shell Commands 
 - Run UEFI Shell Scripts 
 
@@ -62,37 +59,49 @@
 
 
 
-## Slide  4  @title[Running Emulator]
- <b>Invoke Win Emulation</b> 
+## Slide  4  @title[QEMU Running OVMF]
+ <b>QEMU Running OVMF</b> 
 
 <br>
 <br>
 <br>
-From the VS command Prompt
+Open a terminal
 
+
+Change to run-ovmf directory 
 ```
-> CD \FW\edk2-ws
-C:\FW\edk2>\edk2-ws> set WORKSPACE=%CD%
-C:\FW\edk2>\edk2-ws> set PACKAGES_PATH=%WORKSPACE%\edk2;%WORKSPACE%\edk2-libc
-C:\FW\edk2>\edk2-ws> cd edk2
-C:\FW\edk2>\edk2-ws\edk2> edksetup Rebuild
-C:\FW\edk2>\edk2-ws\edk2> Build -a X64
-C:\FW\edk2>\edk2-ws\edk2> RunEmulator.bat
-
+  bash$ cd $HOME/run-ovmf
 ```
+
+Run the RunQemu.sh Linux shell script
+```
+bash$ . RunQemu.sh
+```
+See Platform Build lab for setup OVMF
 
 ---
 
+## Slide  5  @title[QEMU Running OVMF]
 
-## Slide  5  @title[UEFI Shell Lab Commands Section]
+###  QEMU Running OVMF
 
-###  UEFI Shell Commands  
+Type "F2" to get into the emulation setup or "Exit" from the Shell prompt 
 
-Commands from the Command Line Interface 
+---
+## Slide  6  @title[QEMU boot to UEFI Shell]
+
+###  QQEMU boot to UEFI Shell
+
+---
+## Slide  7  @title[UEFI Shell Commands]
+
+### UEFI Shell Commands]
+
+Commands from the Command Line Interface
 
 
 ---
-## Slide  6  @title[Common Shell Commands ]
+## Slide  8  @title[Common Shell Commands ]
 ###  Common Shell Commands For Debugging 
 
 ```shell
@@ -106,6 +115,7 @@ devtree
 dh
 Load
 dmpstore
+pci
 stall
 ```
 
@@ -121,7 +131,7 @@ We are not going to go all were these in detail but just to make you aware of th
 
 ---
 
-## Slide  7  @title[Shell Help Command ]
+## Slide  9  @title[Shell Help Command ]
 ###  Shell Help 
 
 
@@ -166,7 +176,7 @@ To exit, this emulation simply type: "reset"
 
 
 ---
-## Slide  8  @title[Shell memmap Command ]
+## Slide  10  @title[Shell memmap Command ]
 ###  Shell "memmap" 
 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
@@ -205,7 +215,7 @@ Shell>
 
 ---
 
-## Slide  9  @title[Shell mm Command help ]
+## Slide  11  @title[Shell mm Command help ]
 ###  Shell "mm" 
 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
@@ -334,7 +344,7 @@ Shell>
 
 
 ---
-## Slide  10  @title[Shell mm   Command ]
+## Slide  12  @title[Shell mm   Command ]
 ###  Shell "mm" 
 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
@@ -365,7 +375,7 @@ Shell>
 ```
 
 
-Do <font color="red">**not**</font> try in Win Emulator. Because the emulator will crash.
+Try
 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
  mm 0 
@@ -381,7 +391,7 @@ This command allows changing the contents of each memory location.
 
 
 ---
-## Slide  11  @title[Shell mem Command ]
+## Slide  13  @title[Shell mem Command ]
 ###  Shell "mem" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 mem
@@ -423,7 +433,7 @@ Note:
 ---
 
 
-## Slide  12  @title[Shell drivers Command ]
+## Slide  14  @title[Shell drivers Command ]
 ###  Shell "drivers" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 drivers -b
@@ -480,7 +490,7 @@ drivers -?
 
 
 ---
-## Slide  13  @title[Shell devices Command ]
+## Slide  15  @title[Shell devices Command ]
 ###  Shell "devices" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 devices
@@ -508,11 +518,11 @@ CTRL E G G #P #D #C  Device Name
 Shell>
 
 ```
-For the Windows Emulation there is not that many devices
+
 
 
 ---
-## Slide  14  @title[Shell devtree Command ]
+## Slide  16  @title[Shell devtree Command ]
 ###  Shell "devtree" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 devtree
@@ -547,7 +557,7 @@ Shell>
 
 
 ---
-## Slide  15  @title[Shell handle Database Command ]
+## Slide  17  @title[Shell handle Database Command ]
 ###  Shell handle database - "dh" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 dh -b
@@ -585,7 +595,7 @@ Press ENTER to continue or 'Q' break:
 
 ---
 
-## Slide  16  @title[Shell Load Command ]
+## Slide  18  @title[Shell Load Command ]
 ###  Shell "load" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 load -?
@@ -627,7 +637,7 @@ Shell>
 ```
 
 ---
-## Slide  17  @title[Shell Load Command ]
+## Slide  19  @title[Shell Load Command ]
 ###  Shell "Dmpstore" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 dmpstore -all -b
@@ -662,8 +672,8 @@ Variable NV+RT+BS 'EFIGlobalVariable:Boot0004' DataSize = 0x9C
   Press ENTER to continue or 'Q' break:
 ```
 ---
-## Slide  18  @title[Shell Stall Command ]
-###  Shell "PCI"
+## Slide  20  @title[Shell Stall Command ]
+###  Shell "PCI" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 pci -? -b
  </font>&nbsp;&nbsp; </font></span>
@@ -672,9 +682,9 @@ Display the help for the PCI command
 ```
 Displays PCI device list or PCI function configuration space and PCIe extended
 configuration space.
-
+ 
 PCI [Bus Dev [Func] [-s Seg] [-i [-ec ID]]]
-
+ 
   -s   - Specifies optional segment number (hexadecimal number).
   -i   - Displays interpreted information.
   -ec  - Displays detailed interpretation of specified PCIe extended capability
@@ -682,7 +692,7 @@ PCI [Bus Dev [Func] [-s Seg] [-i [-ec ID]]]
   Bus  - Specifies a bus number (hexadecimal number).
   Dev  - Specifies a device number (hexadecimal number).
   Func - Specifies a function number (hexadecimal number).
-
+ 
 NOTES:
   1. This command displays a list of all the PCI devices found in the system. It
      also displays the configuration space of a PCI device according to the
@@ -694,19 +704,20 @@ NOTES:
   3. If no parameters are specified, all PCI devices are listed.
   4. If the 'Bus' and 'Dev' parameters are specified but the 'Func' or
      'Seg' parameters are not, Function or Seg are set to the default value of 0.
+ 
 EXAMPLES:
   * To display all PCI devices in the system:
     Shell> pci
-
+ 
   * To display the configuration space of Bus 0, Device 0, Function 0:
     Shell> pci 00 00 00 -i
-
+ 
   * To display configuration space of Segment 0, Bus 0, Device 0, Function 0:
     Shell> pci 00 00 00 -s 0
 
 ```
 ---
-## Slide  19  @title[Shell Stall Command ]
+## Slide  21  @title[Shell Stall Command ]
 ###  Shell "stall" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 stall 10000000
@@ -724,7 +735,7 @@ Shell>
 
 
 
-## Slide  20  @title[UEFI Shell Lab Scripts Section]
+## Slide  22  @title[UEFI Shell Lab Scripts Section]
 
 
 ### UEFI Shell Scripts
@@ -733,7 +744,7 @@ Shell>
 Use Scripting with UEFI Shell 
 
 ---
-## Slide  21  @title[UEFI Shell Scripts ]
+## Slide  23  @title[UEFI Shell Scripts ]
 ###  UEFI Shell Scripts 
 <br>
 The UEFI Shell can execute commands from a file, which is called a batch script file (<font face="consolas" color="cyan"><b>.nsh</b></font> files).  
@@ -747,7 +758,7 @@ The UEFI Shell can execute commands from a file, which is called a batch script 
 
 ---
 
-## Slide  22  @title[Writing UEFI Shell Scripts]
+## Slide  24  @title[Writing UEFI Shell Scripts]
 ###  Writing UEFI Shell Scripts  
 
 
@@ -762,17 +773,15 @@ Shell> fs0:
 FS0:\> edit HelloScript.nsh 
 ```
 
-**Type:** `echo Hello World`  inside the editor
+**Type:** `echo Hello World`  inside the editor  
 
-Note do not use double quotes
 
-To save and exit
-- Press "F2"
+- Press "F2" or "Control S" to save file
 - Enter 
-- Press "F3" to exit
+- Press "F3" or "Control-Q" to exit
 
 ---
-## Slide  23  @title[Hello World Script]
+## Slide  25  @title[Hello World Script]
 ###  Hello World Script 
 
 
@@ -787,23 +796,20 @@ Hello World
 FS0:\>
 ```
 
-Close - at the shell prompt type : `reset`
+Close the QEMU
 
 
-## Slide  24  @title[UEFI Shell Nested Scripts ]
+
+## Slide  26  @title[UEFI Shell Nested Scripts ]
 ###  UEFI Shell Nested Scripts  
 
-Copy the Scripts from the `/FW/LabSampleCode/ShellScripts` to the Emulator runtime directory  `C:/FW/edk2-ws/edk2/Build/EmulatorX64\DEBUG_VS20`<i>nn</i>`\X64`
+QEMU: Copy the Scripts from the `~/FW/LabSampleCode/ShellScripts` to the run-ovmf directory  `~/run-ovmf/hda-contents`
 
-Where *nn* is :
-- 15x86 for VS2015x86
-- 17 for VS2017
-- 19 for VS2019
 
 
 
 ---
-## Slide  25  @title[UEFI Shell Script Example]
+## Slide  27  @title[UEFI Shell Script Example]
 <br>
 ### UEFI Shell Script Example 
 
@@ -833,13 +839,14 @@ walk through the script calling the second script
   - %a counting down...
   
 ---
-## Slide  26  @title[Run UEFI Shell Scripts ]
+## Slide  28  @title[Run UEFI Shell Scripts ]
 ###  Run UEFI Shell Scripts 
 
-
-
-From the VS command Prompt
-   `C:\FW\edk2> Build Run`
+Run the RunQemu.sh from the terminal (Cnt-Alt-T)
+```
+   bash$ cd ~run-ovmf
+    bash$ . RunQemu.sh
+```
 
 
  At the Shell prompt Type  
@@ -853,48 +860,49 @@ FS0:\> Edit Script1.nsh
 
 --- 
 
-## Slide  27  @title[Run UEFI Shell Scripts cont ]
+## Slide  29  @title[Run UEFI Shell Scripts cont ]
 ###  Run UEFI Shell Scripts 
 
 - Remove the "`#`" on the first line
 
 
-- Press "F2"
-- Enter
-- Press "F3" to exit
+
+- Press "F2" or "Control S" to save file
+- Enter 
+- Press "F3" or "Control-Q" to exit
 - Type : `FS0:\> Script1`
 
 
 ---  
-## Slide  28  @title[Summary]
+## Slide  30  @title[Summary]
 
 ### Summary  <br>
 
-- Run UEFI Shell  (Windows Emulation)
+- Run UEFI Shell  in QEMU
 - Run UEFI Shell Commands 
 - Run UEFI Shell Scripts 
 
  
 
 ---
-## Slide  29  @title[Questions]
+## Slide  31  @title[Questions]
 ### Questions
 
 ---
-## Slide  30  @title[Return to Main Training Page]
+## Slide  32  @title[Return to Main Training Page]
 ### Return to Main Training Page
 
 
 
-
 ---
-## Slide  31  @title[Logo Slide]
+## Slide  33  @title[Logo Slide]
 
 ### logo
 
+Return to Training Table of contents for next presentation <a href="https://github.com/tianocore-training/Tianocore_Training_Contents/wiki">link</a>
 
 ---
-## Slide  32  @title[Acknowledgements]
+## Slide  34  @title[Acknowledgements]
 #### Acknowledgements 
 
 ```

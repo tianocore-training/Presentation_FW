@@ -1,12 +1,12 @@
 ## Slide 1
 # UEFI & EDK II Training
 
-## How to Write a UEFI Application with Windows Labs
+## How to Write a UEFI Application with Linux Labs
 <br>
 <a href='http://www.tianocore.org'>tianocore.org</a>
 
 <!---
- Lab_Guide.md for How to Write a UEFI Application with Windows Labs
+ Lab_Guide.md for How to Write a UEFI Application with Linux Labs
 
   Copyright (c) 2020-2021, Intel Corporation. All rights reserved.<BR>
 
@@ -111,7 +111,7 @@ Note:
 ## Slide 7 @title[EDK II HelloWorld  App  Lab ]
 <b>EDK II HelloWorld  App  Lab  </b></p>
 
-First Setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#slide-10--titlelab-1--build-emulator-section">Lab Setup for Emulator </a>
+First Setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md">Lab Setup for Emulator </a>
 
 Locate and Open <br>
 `edk2/MdeModulePkg/Application/HelloWorld/HelloWorld.c`
@@ -123,14 +123,26 @@ Notice the PCD values
 Build Emulation <br>
 Then Run HelloWorld at the Shell command interface 
 
+
+Edit and add the following line (at the end of the file)
+
+
+Edit OvmfPkg/OvmfPkgX64.dsc  add HelloWorld.inf - Save
+
+```
+[Components]
+. . . 
+# Add new modules here
+ MdeModulePkg/Application/HelloWorld/HelloWorld.inf
+```
+Build the OvmfPkgX64 from Terminal Prompt (Cnt-Alt-T)
+```
+ bash$ cd ~/src/edk2-ws/edk2
+ bash$ build  –D ADD_SHELL_STRING 
+```
+
+
 Note:
-
-- So the steps for getting the source code, hopefully everyone did this prior to this training because it does take some time to download.
-- So here are the steps:
-
-- First create a directory, and for our example case we are using the directory "~src/Fw/edk2-ws"  Linux or
-
-"C:\Fw\edk2-ws" Windows
 
 ---
 
@@ -141,33 +153,30 @@ Note:
 ## Slide 8 @title[EDK II HelloWorld  App  Lab steps]
 <p align="left"><b>EDK II HelloWorld  App  Lab  </b></p>
 
-Open a VS  Command Prompt and type: `cd C:\FW\edk2-ws` then 
-```shell
 
-  C:/FW/edk2-ws> Setenv.bat
-  C:/FW/edk2-ws> cd edk2
-  C:/FW/edk2-ws/edk2> edksetup.bat
 
+Copy the HelloWorld.efi to the ~run-ovmf/hda-contents directory
 ```
-Build the EmulatorPkg for Windows X64 (run WinHost.exe from Build/EmulatorX64/ . . ./X64 )
-
-
-```shell
-  C:/FW/edk2-ws/edk2> Build –D ADD_SHELL_STRING
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
+  bash$ cd ~/run-ovmf/hda-contents
+  bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/HelloWorld.efi
+```
+CD to the run-ovmf directory and run Qemu with the RunQemu.sh shell
+ ```
+  bash$ cd ~/run-ovmf
+  bash$ . RunQemu.sh
 ```
 At the UEFI Shell prompt
-```shell
+```
 Shell> Helloworld
 UEFI Hello World!
 Shell> 
 ```
 
+
 <font color="green">How can we force the HelloWorld application to print out 3 times ?</font>
 
 
 Note:
-RunEmulator.bat will run WinHost.exe from Build/EmulatorX64/DEBUG_TAG/X64 
 
 ---
 ## Slide 9 @title[EDK II HelloWorld  App  Lab location]
@@ -224,22 +233,28 @@ Source from Helloworld.c
 
 Note:
 
-- look in file: `C:\fw\edk2\MdeModulePkg\MdeModulePkg.Dec`
-
+- look in file: `C:\fw\edk2\MdeModulePkg\MdeModulePkg.Dec` 
+ 
 - This PCD defines the print string.
 -  This PCD is a sample to explain String typed PCD usage.
 -  `gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintString|L"UEFI Hello World!\n"|VOID*|0x40000004`
 
 Solution:
-1. Edit the file C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc
+1. Edit the file ~src/edk2-ws/edk2/OvmfPkg/OvmfPkgX64.dsc
   - After the section [PcdsFixedAtBuild], add the new line :  
   - `[PcdsFixedAtBuild]`
   - `gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintTimes|3`
 
-2. Re-Build – Cd to FW/edk2 dir 
-  - `bash$ build -D ADD_SHELL_STRING`
-  - 
 
+2. Re-Build – Cd to ~/src/edk2-ws/edk2~ dir 
+```
+bash$ build –D ADD_SHELL_STRING
+```
+3. Copy  Helloworld.efi 	 
+```
+bash$ cd ~/run-ovmf/hda-contents
+bash$ cp ~/src/Build/OvmfX64/DEBUG_GCC5/X64/HelloWorld.efi .
+```
 
 ---
 ## SLide 12 @title[EDK II HelloWorld  App  Lab solution 02]
@@ -248,9 +263,13 @@ Solution:
 
 Note:
 
-3. RunEmulator.bat
+4. Run QEMU
+```
+ bash$ cd ~/run-ovmf
+ bash$ . RunQemu.sh
+```
 
-4. At the Shell prompt
+5. At the Shell prompt
 ```
  Shell> Helloworld
  UEFI Hello World!
@@ -258,10 +277,10 @@ Note:
  UEFI Hello World!
  Shell> 
 ```
-5. Exit with Reset at the shell
+6. Exit QEMU
 
 - How can we change the string of the HelloWorld application?
-- Also see  ~src/edk2/MdeModulePkg/MdeModulePkg.Dec
+- Also see  ~src/edk2-ws/edk2/MdeModulePkg/MdeModulePkg.Dec
 
 
 
@@ -326,9 +345,9 @@ Note:
 
 
 #### Steps
-1. Copy the LabSampleCode/SampleApp directory to FW/edk2-ws/edk2
+1. Copy the LabSampleCode/SampleApp directory to ~/src/edk2-ws/edk2
 2. Edit SampleApp.inf
-  - Look in the INF for "XXXXXXXXXXX" sections that will need information
+  - Look in the INF for "XXXXXXXXXXX" sections that will need information  
   - Create Name & GUID, and then fill in the MODULE_TYPE 
 
 
@@ -385,7 +404,7 @@ Note:
 Get a GUID: <a href="http://www.guidgenerator.com/">guidgerator.com</a>
 
 Note:
-
+https://www.guidgen.com/
 ####  to get a Guid - http://www.guidgenerator.com/
 
 - Now here is a sample INF file
@@ -440,7 +459,7 @@ Note:
 ## SLide 19 @title[Lab 2: Application Lab – Update Files]
 ### <b>Lab 2: Application Lab – Update Files</b> 
 <ul style="list-style-type:none">
- <li><span style="font-size:01.em" >1.&nbsp;&nbsp; <font color="Green">`.DSC` </font> (EmulatorPkg/EmulatorPkg.dsc)</span>  </li>
+ <li><span style="font-size:01.em" >1.&nbsp;&nbsp; <font color="Green">`.DSC` </font> (OvmfPkg/OvmfPkgX64.dsc)</span>  </li>
   <ul style="list-style-type:none" style="line-height:0.7;">
      <li><span style="font-size:01.em" >`[Components . . .]`</span>  </li>
      <li><span style="font-size:01.em" >&nbsp;&nbsp;Add INF to components section, before build options </span>  </li>
@@ -475,9 +494,9 @@ Note:
 Note:
 
 - So what are our steps for adding that
-- So first we need to add the MDE package to the INF file and you need to reference the file by the DEC file so under the [packages] section you Are going to add "MdePkg/MdePkg.dec"
+- So first we need to add the MDE package to the INF file and you need to reference the file by the DEC file so under the [packages] section you Are going to add "MdePkg/MdePkg.dec" 
 - Under the [LibraryClasses] section of the INF you’re going to add a reference to "UefiApplicationsEntryPoint" . And just as an interesting note is actually dependent on the "UefiBootServiecesTableLib".
-- Next in the .C. file you are going to add some header references, the "Uefi.h" and "Library/UefiApplicationEntryPoint.h"
+- Next in the .C. file you are going to add some header references, the "Uefi.h" and "Library/UefiApplicationEntryPoint.h"  
 - Then in the DSC file under the "[components]" section you’re going to add a reference to your new sample INF file.
 
 ---
@@ -488,7 +507,7 @@ Note:
 
 Note:
 
-EmulatorPkg/EmulatorPkg.dsc in the components sectio of the file towards the botom
+OvmfPkg/OvmfPkgX64.dsc in the components section of the file towards the botom
 
 ```
  SampleApp/SampleApp.inf
@@ -514,22 +533,32 @@ SampleApp/SampleApp.c - near the top of the file
 ---
 ## Slide 21 @title[Lab 2: Will it compile now? ]
 ### <b>Lab 2 : Will it compile now?</b> 
-<p style="line-height:90%"><span style="font-size:01.em" >Yes, At the VS Command Prompt 
+<p style="line-height:90%"><span style="font-size:01.em" >Yes, SampleApp – Cd to ~/src/edk2-ws/edk2 directory 
 
 ```shell
-  C:/FW/edk2-ws/edk2> Build –D ADD_SHELL_STRING 
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
+bash$ cd  ~/src/edk2-ws/edk2 directory 
+bash$ build –D ADD_SHELL_STRING 
 ```
+Copy  SampleApp.efi  to hda-contents	  
+```
+ bash$ cd ~/run-ovmf/hda-contents
+ bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/SampleApp.efi .
+```
+
+Test by Invoking Qemu
+```
+ bash$ cd ~/run-ovmf
+ bash$ . RunQemu.sh
+```
+
+
 <span style="font-size:01.em" >Run the application from the shell</span>
 ```shell
  Shell> SampleApp
 ```
 <p style="line-height:70%"><span style="font-size:01.em" >Notice that the program will immediately unload because the main function is empty 
 
-<span style="font-size:01.em" >Exit</span>
-```shell
- Shell> Reset
-```
+<span style="font-size:01.em" >Exit QEMU</span>
 
 Note:
 
@@ -537,7 +566,7 @@ Note:
 
 - And the answer is yes. 
 - It will compile and it will even run at this point but we haven’t really added any functionality to this sample code at this point and so since the main function is empty it will unload as soon as it is called.
-- So to test it after it has build successfully you then type RunEmulator.batin the EDK2 directory and to run your application type in the base name that you gave it in your INF file, type that name at the shell and it will run, but it won’t do anything because there is nothing for it to do.
+- So to test it after it has build successfully you then type Run QUEM and to run your application type in the base name that you gave it in your INF file, type that name at the shell and it will run, but it won’t do anything because there is nothing for it to do.
 
 
 - another note:   The program will immediately unload because the main function is empty
@@ -560,6 +589,9 @@ The `FILE_GUID` was invalid or not updated from "`XXX…`" to a proper formatted
 ### <b>Possible Build Errors</b> 
 
 Note:
+
+Error on SampleApp.inf
+
 
 The `[Packages]` was invalid  or did not specify MdePkg/MdePkg.dec properly
 
@@ -599,7 +631,8 @@ Note:
 The build for EmulatorPkg is using build MACRO Switch:<br>
 <font color="green">-D ADD_SHELL_STRING</font>  – used to change a string in the UEFI Shell application, only used for EDK II Training (requires ShellPkg be re-built on a change of this switch)
 
-### edit EmulatorPkg.dsc Notepad
+### edit ~/src/edk2-ws/edk2/OvmfPkg/OvmfPkgX64.dsc
+
 
 ```
 # For UEFI / EDK II Training 
@@ -617,52 +650,99 @@ The build for EmulatorPkg is using build MACRO Switch:<br>
 ## Slide 29 @title[Lab 2.1: Compiling w/ Build Switch ]
 ### <b>Lab 2.1: Compiling w/out Build Switch</b> 
 
-At the VS Command Prompt, Build <font color="green">without</font> the `-D` Switch</span>
 
-```
-  C:/FW/edk2-ws/edk2> Build
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
-```
 
- Check the Shell Version with the "`Ver`" command
- Build with the `-D  ADD_SHELL_STRING` switch 
-
-```
-  C:/FW/edk2-ws/edk2> Build -D  ADD_SHELL_STRING
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
+```shell
+bash$ cd  ~/src/edk2-ws/edk2 
+bash$ build 
 ```
 
- Check the Shell Version with the "`Ver`" command
+Copy  OVMF.fd  to run-ovmf 	  
+
+```
+ bash$ cd ~/run-ovmf/
+ bash$ cp ~/src/Build/OvmfX64/DEBUG_GCC5/FV/OVMF.fd bios.bin
+```
+
+Test by Invoking Qemu
+```
+ bash$ cd ~/run-ovmf
+ bash$ . RunQemu.sh
+```
+Check the Shell Version with the "Ver" command
 
 
-<font color="green">Note:</font>
+<span style="font-size:01.em" >Exit QEMU</span>
 
-You will need to Delete directory:   Build/EmulatorX64/DEBUG_tag/X64/ShellPkg 
-
-Between each build
 
 ---
-## Slide 30 @title[Lab 2.1: Compiling w/out Build Switch 02]
+## Slide 30 @title[Lab 2.1: Compiling w/ Build Switch 02]
+### <b>Lab 2.1: Compiling w/ Build Switch</b> 
+
+
+
+```shell
+bash$ cd  ~/src/edk2-ws/edk2 
+bash$ build -D ADD_SHELL_STRING
+```
+
+Copy  OVMF.fd  to run-ovmf 	  
+
+```
+ bash$ cd ~/run-ovmf/
+ bash$ cp ~/src/Build/OvmfX64/DEBUG_GCC5/FV/OVMF.fd bios.bin
+```
+
+Test by Invoking Qemu
+```
+ bash$ cd ~/run-ovmf
+ bash$ . RunQemu.sh
+```
+Check the Shell Version with the "Ver" command
+
+
+Exit QEMU
+
+---
+## Slide 31 @title[Lab 2.1: Compiling w/out Build Switch 02]
 ### <b>Lab 2.1: Compiling w/out Build Switch</b> 
 
-Edit the file `C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc`<br>
+
+
+Edit the file `~/src/edk2-ws/edk2/OvmfPkg/OvmfPkgX64.dsc`<br>
 
 Change the `ADD_SHELL_STRING  = FALSE` to `TRUE`  
 
-Re-build - CD to `C:\FW\edk2-ws\edk2`
-```
-   C:/FW/edk2-ws/edk2> Build
-   C:/FW/edk2-ws/edk2> RunEmulator.bat
+
+``shell
+bash$ cd  ~/src/edk2-ws/edk2 
+bash$ build 
 ```
 
-Check the Shell Version with the "`Ver`" command
+Copy  OVMF.fd  to run-ovmf 	  
+
+```
+ bash$ cd ~/run-ovmf/
+ bash$ cp ~/src/Build/OvmfX64/DEBUG_GCC5/FV/OVMF.fd bios.bin
+```
+
+Test by Invoking Qemu
+```
+ bash$ cd ~/run-ovmf
+ bash$ . RunQemu.sh
+```
+Check the Shell Version with the "Ver" command
+
+
+Exit QEMU
+
 
 Note:
 Will need to Delete dir:   %WORKSPACE%/Build/EmulatorX64/DEBUG_tag/X64/ShellPkg 
 Between each build
 
 ---
-## Slide 31@title[Lab 2: What we learned from LAB 2]
+## Slide 32@title[Lab 2: What we learned from LAB 2]
 ### <b>What we learned from LAB 2</b> 
 <br>
 
@@ -675,19 +755,15 @@ Between each build
 
 
 ---
-## Slide 32 @title[Lab 2: If there are Build Errors ]
+## Slide 33 @title[Lab 2: If there are Build Errors ]
 ### <b>Lab 2: If there are build errors …</b> 
 <br>
 See class files for the solution 
 
 - . . .FW/LabSampleCode/LessonB.2
-- Copy the .inf and .c files to  C:/FW/edk2-ws/edk2/SampleApp
+- Copy the .inf and .c files to  ~src/edk2-ws/edk2/SampleApp
 - Search sample DSC for reference to SampleApp.inf and add this line to your workspace DSC file: <br>
-C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc
-
-```
-   SampleApp/SampleApp.inf
-```
+~src/edk2-ws/edk2/OvmfPkg/OvmfPkgX64.dsc
 
 Invoke " build" again and check the solution
 
@@ -697,7 +773,7 @@ Note:
 
 
 ---
-Slide 33 @title[Add more Functionality Section]
+Slide 34 @title[Add more Functionality Section]
 
 ### Add Functionality 
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Functionality to the Simple UEFI Application : </span>
@@ -714,7 +790,7 @@ Next 3 Labs</span>
 <font color="green">Solutions in .../FW/LabSampleCode/LabSolutions/LessonB.<i>n</i></font>
 
 ---
-## Slide 34 @title[Lab 3: Print the UEFI System Table]
+## Slide 35 @title[Lab 3: Print the UEFI System Table]
 <br>
 
 ### Lab 3: Print the UEFI System Table 
@@ -724,7 +800,7 @@ Add code to print the hex address of the EFI System Table pointer to the console
 
 ---
 
-## Slide 35 @title[Lab 3 : Add System Table Code]
+## Slide 36 @title[Lab 3 : Add System Table Code]
 ### <b>Lab 3 : Add System Table Code</b> 
 
 Add code to print to the console the hex address of the system table pointer
@@ -742,7 +818,7 @@ Note:
 - So also as an exercise you can look at the file in the sample lab code Min.dsc, this is a platform description file without a platform or any packages that go with it,  and this demonstrates the minimal contents for a DSC file that can build this application. So it will build a single application orientated toward the one we just created except nothing else. So unlike the Emulator platform description file, if you were to look at it, There are huge amounts of other components, library classes, and all of that, this Min.dsc only does the minimum requirements.
 
 ---
-## Slide 36 @title[Locating the "Print" Function ]
+## Slide 37 @title[Locating the "Print" Function ]
 ### <b>Lab 3 : Locating the `Print()` Function </b> 
 
 1. Search the `MdePkg Document With Libraries.chm` and find that the Print function by clicking on the "Index" tab
@@ -762,7 +838,7 @@ Note:
 - bash$ sudo aptitude install kchmviewer
 
 ---
-## Slide 37 @title[Modifying .C & .INF Files ]
+## Slide 38 @title[Modifying .C & .INF Files ]
 ### <b>Lab 3 : Modifying .C & .INF Files</b> 
 
 
@@ -801,34 +877,40 @@ Note:
 
 ---
 
-## Slide 38 @title[Build and Test SampleApp]
+## Slide 39 @title[Build and Test SampleApp]
 ### <b>Lab 3 : Build and Test SampleApp</b> 
 
-At the VS Command Prompt 
-```
-  C:/FW/edk2-ws/edk2> Build
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
-```
-
-Run the application from the shell</span>
-```
- Shell> SampleApp
- System Table: 0x07E34018
- Shell> 
-```
-Verify by using the Shell "`mem`" command
-Exit
+Build SampleApp – Cd to ~/src/edk2-ws/edk2 directory 
 
 ```
- Shell> Reset
+bash$ cd ~/src/edk2-ws/edk2
+bash$ build
 ```
+Copy  SampleApp.efi  to hda-contents	  
+```
+ bash$ cd ~/run-ovmf/hda-contents
+ bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/SampleApp.efi .
+```
+
+Test by Invoking Qemu
+```
+ bash$ cd ~/run-ovmf
+ bash$ . RunQemu.sh
+```
+Run the application from the shell
+```
+	Shell> SampleApp
+    System Table: 0x07E34018
+```
+Exit QEMU
+
 
 Note:
 
 End of LAB 3
 
 ---
-## Slide 39 @title[Lab 4: Waiting for an Event]
+## Slide 40 @title[Lab 4: Waiting for an Event]
 <br>
 
 ### Lab 4: Waiting for an Event 
@@ -840,7 +922,7 @@ In this lab, you’ll learn how to locate code and .chm files to help write EFI 
 Note:
 ---
 
-## Sldie 40 @title[Lab 4 : Add Wait for Event ]
+## Sldie 41 @title[Lab 4 : Add Wait for Event ]
 ### <b>Lab 4 : Add Wait for Event</b> 
 <br>
 
@@ -857,11 +939,11 @@ Note:
 
 - Hint: use the MdePkg.chm to find where the "WaitForEvent" and the "WaitForKey" functions are located
 - Another Hint: The system table is passed in as a parameter to your sample application
-- Search the EDK II code for "WaitForEvent"
+- Search the EDK II code for "WaitForEvent" 
 - Test by running your application in the Shell
 
 ---
-## Slide 41 @title[Lab 4 : How to locate functions? ]
+## Slide 42 @title[Lab 4 : How to locate functions? ]
 ### <b>Lab 4 : HOW?</b> 
 
 Locate Functions:  
@@ -890,7 +972,7 @@ Note:
 
 
 ---
-## Slide 42 @title[Lab 4 :Update the C File for WaitForKey ]
+## Slide 43 @title[Lab 4 :Update the C File for WaitForKey ]
 ### <b>Lab 4 : Update the C File for `WaitForKey`</b> 
 
 
@@ -920,7 +1002,7 @@ UefiMain (
 
 ---
  
-## Slide 43 @title[Lab 4 :Test Compile ]
+## Slide 44 @title[Lab 4 :Test Compile ]
 ### <b>Lab 4 :Test Compile</b> 
 <br>
 However, this won’t compile … gBS and gST are not defined.
@@ -938,19 +1020,11 @@ Add the boot services lib to SampleApp.c . . .
 
 
 Note:
-- However, this won’t compile … gBS and gST are not defined.
-
-- Search the MdePkg.chm for "gBS" and "gST" – they are located in UefiBootServicesTableLib.h
-
-  - Add the boot services lib to SampleApp.c …
-  - #include <Library/UefiBootServicesTableLib.h>
-
--  (hint: Lesson B.4 has the solution)
 
 ---
 
  
-## Slide 44 @title[Lab 4 : Update SampleApp.c for gBS & gST ]
+## Slide 45 @title[Lab 4 : Update SampleApp.c for gBS & gST ]
 ### <b>Lab 4 : Update for `gBS` & `gST`</b> 
 <br>
 
@@ -992,30 +1066,35 @@ UefiMain (
 Note:
 ---
 
-## Slide 45 
+## Slide 46
 
 ### <b>Lab 4: Build and Test SampleApp</b> 
-At the VS Command Prompt 
 
-```shell
-  C:/FW/edk2-ws/edk2> Build
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
+Build SampleApp – Cd to ~/src/edk2-ws/edk2 directory 
+```
+bash$ cd  ~/src/edk2-ws/edk2
+bash$ build
+```
+Copy  SampleApp.efi  to hda-contents	  
+```
+ bash$ cd ~/run-ovmf/hda-contents
+ bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/SampleApp.efi .
+```
+Test by Invoking Qemu
+```
+ bash$ cd ~/run-ovmf
+ bash$ . RunQemu.sh
 ```
 Run the application from the shell
+```
+     Shell> SampleApp
+     System Table: 0x07E34018
 
-```shell
- Shell> SampleApp
- System Table: 0x07E34018
- Press any key to continue:
- Shell> 
+     Press any key to continue:
 ```
 Notice that the SampleApp will wait until a key press to continue.
 
-Exit
-```shell
- Shell> Reset
-```
-
+Exit QEMU
 
 Note:
 
@@ -1025,7 +1104,7 @@ End of Lab 4
 
 
 ---
-## Slide 46 @title[Lab 5: Creating a Simple Typewriter Function]
+## Slide 47 @title[Lab 5: Creating a Simple Typewriter Function]
 <br>
 
 ### Lab 5: Creating a Simple Typewriter Function 
@@ -1037,7 +1116,7 @@ Note:
 
 --- 
 
-## Slide 47 @title[Lab 5 :Create a Simple Typewriter Function]
+## Slide 48 @title[Lab 5 :Create a Simple Typewriter Function]
 ### <b>Lab 5 : Typewriter Function</b> 
 <br>
 
@@ -1051,7 +1130,7 @@ Create a Simple Typewriter Function using the SampleApp from Lab 4 <br>
 
 
 --- 
-## Slide 48 @title[Lab 5 :Create a Simple Typewriter Function How]
+## Slide 49 @title[Lab 5 :Create a Simple Typewriter Function How]
 ### <b>Lab 5 : Typewriter Function</b> 
 <br>
 Create a Simple Typewriter Function using the SampleApp from Lab 4
@@ -1067,7 +1146,7 @@ Create a Simple Typewriter Function using the SampleApp from Lab 4
 
 ---
 
-## Slide 49 @title[Lab 5 : How Hints]
+## Slide 50 @title[Lab 5 : How Hints]
 ### <b>Lab 5 : How Process (Hints)</b> 
 
 - Use the same procedure as with Lab 4 to find "ReadKeyStroke" in the work space: 	<a href="https://github.com/tianocore/edk2/blob/master/MdePkg/Library/UefiLib/Console.c">  MdePkg/Library/UefiLib/Console.c</a> ~ ln 552
@@ -1090,13 +1169,13 @@ Create a Simple Typewriter Function using the SampleApp from Lab 4
 
 --- 
 
-## Slide 50 @title[Lab 5 :Typewriter Function Solution]
+## Slide 51 @title[Lab 5 :Typewriter Function Solution]
 ### <b>Lab 5 : Solution</b> 
 <br>
 
 Copy and paste from the following sub slide
 ---
-## Slide 51 @title[Lab 5 :Typewriter Function Solution]
+## Slide 52 @title[Lab 5 :Typewriter Function Solution]
 ### <b>Lab 5 :  Solution</b> 
 
 SampleApp.c Should have the following for Lab 5: 
@@ -1153,28 +1232,32 @@ UefiMain (
 ```
 ---
 
-## Slide 52 @title[Lab 5 :Build and Test SampleApp ]
+## Slide 53 @title[Lab 5 :Build and Test SampleApp ]
 ### <b>Lab 5 :Build and Test SampleApp</b> 
 
-At the VS Command Prompt
 
-```shell
-  C:/FW/edk2-ws/edk2> Build
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
+Build SampleApp – Cd to ~/src/edk2-ws/edk2 dir 
 ```
-
+bash$ cd to ~/src/edk2-ws/edk2
+bash$ build
+```
+Copy  SampleApp.efi  to hda-contents	  
+```
+ bash$ cd ~/run-ovmf/hda-contents
+ bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/SampleApp.efi .
+```
+Test by Invoking Qemu
+```
+ bash$ cd ~/run-ovmf
+ bash$ . RunQemu.sh
+```
 Run the application from the shell
-
 
 ```shell
  Shell> SampleApp
 ```
 
-Exit
-
-```Shell
- Shell> Reset
-```
+Exit QEMU
 
 
 Note:
@@ -1184,7 +1267,7 @@ End of Lab 5
 
  
 ---
-## Slide 53 @title[Bonus Lab :Open Protocol example]
+## Slide 54 @title[Bonus Lab :Open Protocol example]
 ### <b>Bonus Exercise: Open Protocol Example</b> 
 
 Write an Application using argv, argc parameters
@@ -1192,16 +1275,31 @@ Write an Application using argv, argc parameters
 - Need to open `SHELL_INTERFACE_PROTOCOL`
 - Note: Requires ShellPkg
 
-Build SampleApp 	
-```shell
-$> Build 
-$> RunEmulator.bat
+
+
+Build SampleApp – Cd to ~/src/edk2-ws/edk2 dir 
 ```
+bash$ cd to ~/src/edk2-ws/edk2
+bash$ build
+```
+Copy  SampleApp.efi  to hda-contents	  
+```
+ bash$ cd ~/run-ovmf/hda-contents
+ bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/SampleApp.efi .
+```
+Test by Invoking Qemu
+```
+ bash$ cd ~/run-ovmf
+ bash$ . RunQemu.sh
+```
+Run the application from the shell
+
 
 Run the application form the shell
 ```shell
 Shell> SampleApp  test1 test2
 ```
+exit QEMU
 
 (hint: ~FW/LabSampleCode/ShellAppSample has the solution)
 
@@ -1212,7 +1310,7 @@ Note:
 
 
 ---
-## Slide 54 @title[Write a EADK Application  Section]
+## Slide 55 @title[Write a EADK Application  Section]
 <br>
 
 
@@ -1222,7 +1320,7 @@ Using EADK with UEFI Application
 
 
 ---
-## Slide 55 @title[Lab 6: Writing UEFI Applications with EADK]
+## Slide 56 @title[Lab 6: Writing UEFI Applications with EADK]
 **Optional** 
 <br>
 
@@ -1235,7 +1333,7 @@ Note:
 
 --- 
 
-## Slide 56 @title[Lab 6: With EDK II EADK]
+## Slide 57 @title[Lab 6: With EDK II EADK]
 **Optional** 
 ### <b>Lab 6: With EDK II EADK</b> 
 <br>
@@ -1247,7 +1345,7 @@ Write the same application with the same functionality as SampleApp.c using the 
   - What differences are there using the LibC
 
 ---
-## Slide 57 @title[Lab 6: EDK II using EADK]
+## Slide 58 @title[Lab 6: EDK II using EADK]
 **Optional** 
 ### <b>Lab 6: EDK II using EADK</b> 
 <br>
@@ -1259,12 +1357,14 @@ Start with the packages for EADK
 
 Copy and paste directory 
 ```
-..\FW\LabSampleCode\SampleCApp to 
-       C:\FW\edk2-ws\edk2-libc\AppPkg\Applications\SampleCApp 
+	   
+Copy and paste directory ~../FW/LabSampleCode/SampleCApp to 
+        ~src/edk2-libc/AppPkg/Applications/SampleCApp 
+	   
 ```
 
 ---
-## Slide 58 @title[Lab 6: EDK II using EADK 02]
+## Slide 59 @title[Lab 6: EDK II using EADK 02]
 **Optional** 
 ### <b>Lab 6: EDK II using EADK</b> 
 <br>
@@ -1317,11 +1417,11 @@ main (
 
 ---
 
-## Slide 59 @title[Lab 6 : Update AppPkg.dsc ]
+## Slide 60 @title[Lab 6 : Update AppPkg.dsc ]
 **Optional** 
 ### <b>Lab 6 : Update AppPkg.dsc </b> 
 
-Edit the file C:/fw/edk2-ws/edk2-libc/AppPkg/AppPkg.dsc and add `SampleCApp.inf` at the end of the components section
+Edit the ~src/edk2-ws/edk-libc/AppPkg/AppPkg.dsc and add `SampleCApp.inf` at the end of the components section
 - (hint: search for "#### Sample Applications")
 - `AppPkg/Applications/SampleCApp/SampleCApp.inf` 
 <br>
@@ -1342,35 +1442,36 @@ Edit the file C:/fw/edk2-ws/edk2-libc/AppPkg/AppPkg.dsc and add `SampleCApp.inf`
 
 ---
 
-## Slide 60 @title[Lab 6 :Build and Test SampleCApp ]
+## Slide 61 @title[Lab 6 :Build and Test SampleCApp ]
 **Optional** 
 ### <b>Lab 6 :Build and Test SampleCApp</b> 
-Build AppPkg at the VS Command prompt
 
-```shell
-  C:/FW/edk2-ws/edk2> build -p AppPkg/AppPkg.dsc –m AppPkg/Applications/SampleCApp/SampleCApp.inf -a X64
+Build the AppPkg
+```
+bash$ cd ~src/edk2-ws/edk2
+bash$ build -p AppPkg/AppPkg.dsc –m AppPkg/Applications/SampleCApp/SampleCApp.inf
+```
+Copy the built application to the run OVMF hda-contents directory
+```
+bash$ cp Build/AppPkg/DEBUG_GCC5/X64/SampleCApp.efi ~/run-ovmf/hda-contents
+```
 
+Test by Invoking  Qemu
 ```
-Copy the built application to the Emulator runtime directory (note VS Tool)
-
-```shell
-  C:/FW/edk2-ws/edk2>copy  ..\Build\AppPkg\DEBUG_VS2015x86\X64\SampleCApp.efi  ..\Build\EmulatorX64\DEBUG_VS2015x86\X64
+bash$ cd ~/run-ovmf
+bash$ . RunQemu.sh
 ```
-<span style="font-size:0.8em" >Run the Emulation
-```shell
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
+Run the application from the New Shell
 ```
-Run the application SampleCapp from the shell
-```shell
- Shell> SampleCApp
- Shell>
+Shell> SampleCApp
+Shell>
 ```
 Notice that the program will immediately unload because the main function is empty
 
-
+EXit QEMU
 
 ---
-## Slide 61 @title[Lab 7: Adding Functionality to SampleCApp]
+## Slide 62 @title[Lab 7: Adding Functionality to SampleCApp]
 **Optional** 
 
 ### <b>Lab 7:  Adding Functionality to SampleCApp</b> 
@@ -1381,35 +1482,35 @@ In this lab, you’ll add functionality to SampleCApp the same as in Lab 5. This
 
  ---
 
-## Slide 62 @title[Lab 7: With EDK II EADK]
+## Slide 63 @title[Lab 7: With EDK II EADK]
 **Optional** 
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
 
-See slide 66 for solution
+See slide 67 for solution
 
 ---
 
-## Slide 63 @title[Lab 7: With EDK II EADK]
-### <b>Lab 7: Add the same functionally from Lab 5</b> 
-<br>
-
-See slide 66 for solution
-
----
 ## Slide 64 @title[Lab 7: With EDK II EADK]
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
-See slide 66 for solution
+
+See slide 67 for solution
 
 ---
 ## Slide 65 @title[Lab 7: With EDK II EADK]
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
-See slide 66 for solution
+See slide 67 for solution
 
 ---
-## Slide 66 @title[Lab 7: With EDK II EADK solution]
+## Slide 66 @title[Lab 7: With EDK II EADK]
+### <b>Lab 7: Add the same functionally from Lab 5</b> 
+<br>
+See slide 67 for solution
+
+---
+## Slide 67 @title[Lab 7: With EDK II EADK solution]
 **Optional** 
 ### <b>Lab 7: Solution</b> 
 
@@ -1478,38 +1579,44 @@ After compile notice the size of the final .EFI file is about 2K larger than the
 
 ---
 
-## Slide 67 @title[Lab 7 :Build and Test SampleCApp ]
+## Slide 68 @title[Lab 7 :Build and Test SampleCApp ]
 **Optional** 
 ### <b>Lab 7 :Build and Test SampleCApp</b> 
 
-Build AppPkg at the VS Command prompt
 
-```shell
-  C:/FW/edk2-ws/edk2> build -p AppPkg\AppPkg.dsc –m AppPkg\Applications\SampleCApp\SampleCApp.inf -a X64
+Build the AppPkg
 ```
-Copy the built application to the Emulator runtime directory (note VS Tool)
-
-```shell
-  C:/FW/edk2-ws/edk2>copy  ..\Build\AppPkg\DEBUG_VS2015x86\X64\SampleCApp.efi  ..\Build\EmulatorX64\DEBUG_VS2015x86\X64
-
+bash$ cd ~src/edk2-ws/edk2
+bash$ build -p AppPkg/AppPkg.dsc –m AppPkg/Applications/SampleCApp/SampleCApp.inf
 ```
-Run the  Emulation
-
-```shell
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
+Copy the built application to the run OVMF hda-contents directory
 ```
-Run the application SampleCapp from the shell
-```shell
+bash$ cp Build/AppPkg/DEBUG_GCC5/X64/SampleCApp.efi ~/run-ovmf/hda-contents
+```
+
+Test by Invoking  Qemu
+```
+bash$ cd ~/run-ovmf
+bash$ . RunQemu.sh
+```
+Run the application from the New Shell
+```
  Shell> SampleCApp
  Press any Key and then <Enter> to Continue :
 
  Enter text. Include a dot (‘.’) in a sentence then <Enter> to exit:
  Some text here, then a DOT. 
  Shell>
+
 ```
+Notice that the program will immediately unload because the main function is empty
+
+EXit QEMU
+
+
 
 ---  
-## Slide 68 @title[Summary]
+## Slide 69 @title[Summary]
 <BR>
 <p align="left"><span class="gold"   >Summary  <br>
 
@@ -1521,12 +1628,12 @@ Run the application SampleCapp from the shell
  
 
 ---
-## SLide 69 @title[Questions]
+## SLide 70 @title[Questions]
 <br>
 
 
 ---
-## Slide 70
+## Slide 71
 
 
 Return to Training Table of contents for next presentation link: https://github.com/tianocore-training/Tianocore_Training_Contents/wiki
@@ -1534,12 +1641,12 @@ Return to Training Table of contents for next presentation link: https://github.
 
 
 ---
-## Slide 71 @title[Logo Slide]
+## Slide 72 @title[Logo Slide]
 <br><br><br>
 
 
 ---
-## SLide 72 @title[Acknowledgements]
+## SLide 73 @title[Acknowledgements]
 <p align="left"><span class="gold"   >Acknowledgements 
 
 ```c++

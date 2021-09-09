@@ -14,7 +14,7 @@ Note:
 
   LabGuid.md for UEFI / EDK II Training  EDK II Debugging Pres-lab
 
-  Copyright (c) 2020, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) 2021, Intel Corporation. All rights reserved.<BR>
 
   Redistribution and use in source (original document form) and 'compiled'
   forms (converted to PDF, epub, HTML and other formats) with or without
@@ -73,20 +73,20 @@ This lab uses code from a previous exercise as a starting point (refer to  Writi
 
 ### <b>Lab 1: Catch up from previous lab</b>
 
-Skip if Lab <a href="https://gitpitch.com/tianocore-training/Writing_UEFI_App_Win_Lab/master#/">Writing UEFI App Lab</a> completed - <a href="https://github.com/tianocore-training/Writing_UEFI_App_Win_Lab/blob/master/LabGuide.md"> Labguide </a> <BR>
+Skip to next slide if Lab Writing UEFI App Lab</a> completed - <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_03_Writing_UEFI_App_WIN_LabGuide.md"> Labguide </a> <BR>
 
-- Perform <a href="https://gitpitch.com/tianocore-training/Platform_Build_Win_Emulator_Lab/master#/">Lab Setup</a> from previous Labs  <a href="https://github.com/tianocore-training/Platform_Build_Win_Emulator_Lab/blob/master/Lab_guide.md">LabGuide</a>  </span></li>
-- Create a Directory under the workspace <font face="Consolas">(C:/FW/edk2-ws/edk2 : "SampleApp")</font></span></li>
-- Copy contents of <font face="Consolas">(C:/../FW/LabSampleCode/SampleAppDebug to C:/FW/edk2-ws/edk2/SampleApp)</font></span></li>
-- Open <font face="Consolas">(C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc)</font></span></li>
-- Add the following to the <font face="Consolas">[Components]</font> section: </span></li><br>
+- Perform Lab Setup from previous Labs  <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md">LabGuide</a>  
+- Create a Directory under the workspace `C:/FW/edk2-ws/edk2 : "SampleApp"`
+- Copy contents of `C:/../FW/LabSampleCode/SampleAppDebug to C:/FW/edk2-ws/edk2/SampleApp`
+- Open `C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc`
+- Add the following to the `[Components]` section: 
 
 ```
  # Add new modules here
 SampleApp/SampleApp.inf
 ```
 <br>
-- Save and close the file <font face="Consolas">(C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc)</font>  </span></li>
+- Save and close the file `C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc`
 
 
 
@@ -101,7 +101,7 @@ Open a VS  Command Prompt and type: cd C:/FW/edk2-ws then
 ```
 Open C:/FW/edk2-ws/edk2/SampleApp/SampleApp.c
 
-Add the following to the include statements at the top of the file after below the last “include” statement:
+Add the following to the include statements at the top of the file after below the last "include" statement:
 ```
 	#include <Library/DebugLib.h>
 ```
@@ -281,7 +281,7 @@ Notice the Debug messages output to the console
 
 ### <b>Lab 4: Null Instance of `DebugLib`</b>
 <br>
-In this lab,  you'll change the <font face="Consolas">DebugLib</font> to the Null instance. 
+In this lab,  you'll change the `DebugLib` to the Null instance. 
 
 Note:
 
@@ -343,17 +343,24 @@ Notice NO Debug messages output to the console or cmd Prompt
 
 In this lab,  you'll learn how setup the VS to debug the EDK II  emulation
 
+First make sure you have "Just-in-Time" Debugging enabled in the Visual Studio Application <a href="https://docs.microsoft.com/en-us/visualstudio/debugger/debug-using-the-just-in-time-debugger?view=vs-2019#BKMK_Enabling">
+ Link</a>
+ 
 
 
 ## Slide 18 Lab 5: Emulator Debug with VS]
-### <b>Lab 5:  Debug with VS</b></span></p>
+### <b>Lab 5:  Debug with VS</b> 
 <br>
 - Edit the `SampleApp.c`and add the "`ASSERT_EFI_ERROR`" Statement : <br>
 
 ```c
     EFI_STATUS      Status;
  	 Status = EFI_NO_RESPONSE;  // or any other EFI Error 
-             . . .  
+```
+
+Then copy and paste the assert statement just after the first 2 DEBUG statements
+    
+```
     ASSERT_EFI_ERROR(Status);
 
 ```
@@ -361,8 +368,17 @@ In this lab,  you'll learn how setup the VS to debug the EDK II  emulation
 
 - Save `SampleApp.c` <br>
 
-
 ## Slide 19 Lab 5: Emulator Debug with VS - ASSERT ]
+### <b>Lab 5: Debug with VS - ASSERT  </b>
+
+1. First make sure you have "Just-in-Time" Debugging enabled in the Visual Studio Application <a href="https://docs.microsoft.com/en-us/visualstudio/debugger/debug-using-the-just-in-time-debugger?view=vs-2019#BKMK_Enabling">Link</a> (note: need to open as Admin)
+  -  Select Managed, Native and Script
+2. Use the Regedt32 to add the "Auto" key: See Slide 32
+3. Next Open the Visual Studio Application
+
+
+
+## Slide 20 Lab 5: Emulator Debug with VS - ASSERT ]
 ### <b>Lab 5: Debug with VS - ASSERT  </b>
 
 -At the VS Command Prompt
@@ -370,16 +386,20 @@ In this lab,  you'll learn how setup the VS to debug the EDK II  emulation
    C:/FW/edk2-ws/edk2> Build
    C:/FW/edk2-ws/edk2> RunEmulator 
 ```
+
+- Inside the Visual Studio app, Enable the Winhost.exe for Debugging
+  - Select "Debug" > "Attach to "Process" > find "Winhost.exe"
+  - Click "Attach"
+
+## Slide 21 Lab 5: Emulator Debug with VS - ASSERT ]
+### <b>Lab 5: Debug with VS - ASSERT  </b>
+
+
 - Run the application from the shell
 ```
 Shell> SampleApp
 ```
 - Assert in VS Command Prompt
-
-Exit 
-```
-  Shell> Reset
-```
 
 
 Note:
@@ -387,25 +407,29 @@ Note:
 Notice the Assert will have the line number and error code where the assert occured.
 
 
-## Slide 20 Lab 5: Debug with VS ASSERT 02
+## Slide 22 Lab 5: Debug with VS ASSERT 02
 ### <b>Lab 5: Debug with VS - ASSERT  </b>
 
 - Windows* VS Debugger
-Will Pop UP
+
+1. Select "Break"
+2.  press "F10" about 2-3 times
+3. SampleApp.c can be debugged at this point 
+
+- continue
+- "F5" to continue
+- "Shift F5" to Stop debugging
 
 Note:
-1. You will get a "WinHost.exe has stopped working" pop up, Select "Debug"
-2. The Visual Studio Debugger dialog window will pop up, Select "New instance..." and "Yes"
-3. Visual Studio pop up with "WinHost.exe triggered a breakpoint", Select "Break"
-4. Notice the debugger will break inside a function called "`CpuBreakpoint()`", press "F10" a few times to step over
-5. The Visual Studio Debugger will then step into your SampleApp File.
-6. At this point you can continue debugging or select F5 to go or Shift F5 to exit.
-7. Upon exiting you can choose to save the solution file or not save it.
+- Notice the debugger will break inside a function called "`CpuBreakpoint()`", press "F10" a few times to step over
+- The Visual Studio Debugger will then step into your SampleApp File.
+- At this point you can continue debugging or select F5 to go or Shift F5 to exit.
+- Upon exiting you can choose to save the solution file or not save it.
 
 
 
 
-## Slide 21 Lab 5: Debug with VS- CPU bp
+## Slide 23 Lab 5: Debug with VS- CPU bp
 ### <b>Lab 5: Debug with VS - `CpuBreakpoint`</b>
 
 <br>
@@ -420,7 +444,7 @@ Note:
 
 
 
-## Slide 22 Lab 5:  Debug with VS - CPU bp 02
+## Slide 24 Lab 5:  Debug with VS - CPU bp 02
 ### <b>Lab 5: Debug with VS - `CpuBreakpoint`</b>
 
 
@@ -429,34 +453,28 @@ Note:
    C:/FW/edk2-ws/edk2> Build
    C:/FW/edk2-ws/edk2> RunEmulator 
 ```
+
+- Inside the Visual Studio App, Enable the Winhost.exe for Debugging.
+  - "Cnt-Alt-p" then select "Winhost.exe" 
+
+
+
 - Run the application from the shell
 ```
 Shell> SampleApp
 ```
-- VS Debugger pops up
+- VS Debugger pops up, select "Break"
+-  press "F10" about 2-3 times until SampleApp.c shows
+
+- SampleApp.c can be debugged at this point 
 
 
 Note:
 
-Follow the same steps as in Slide 20
 
 
-## Slide 23 Invoke Windows Visual Studio Debugger 
-### <b>Invoke Windows Visual Studio Debugger</b>
 
-
-Note:
-
-1. You will get a "WinHost.exe has stopped working" pop up, Select "Debug"
-2. The Visual Studio Debugger dialog window will pop up, Select "New instance..." and "Yes"
-3. Visual Studio pop up with "WinHost.exe triggered a breakpoint", Select "Break"
-4. Notice the debugger will break inside a function called "`CpuBreakpoint()`", press "F10" a few times to step over
-5. The Visual Studio Debugger will then step into your SampleApp File.
-6. At this point you can continue debugging or select F5 to go or Shift F5 to exit.
-7. Upon exiting you can choose to save the solution file or not save it.
-
-
-## Slide 24 Invoke Windows Visual Studio Debugger 02]
+## Slide 25 Invoke Windows Visual Studio Debugger 02]
 ### <b>Invoke Windows Visual Studio Debugger</b>
 
 Note:
@@ -468,7 +486,7 @@ Now the visual studio debugger is debugging the sampleapp function and common de
 
 
 ---  
-## Slide  25 Summary
+## Slide  26 Summary
 
 ### Summary 
 
@@ -479,23 +497,23 @@ Now the visual studio debugger is debugging the sampleapp function and common de
 
 
 ---
-## Slide 26 Questions
+## Slide 27 Questions
 <br>
 
 ---
-## Slide 27 return to main
+## Slide 28 return to main
 ### <b>Return to Main Training Page</b>
 <br>
 <br>
 Return to Training Table of contents for next presentation <a href="https://github.com/tianocore-training/Tianocore_Training_Contents/wiki#schedule--outline">link</a>
 
 ---
-## Slide 28 Logo Slide]
+## Slide 29 Logo Slide]
 
 
 
 ---
-## Slide 29 Acknowledgements]
+## Slide 30 Acknowledgements
 #### Acknowledgements
 
 ```c++
@@ -523,24 +541,24 @@ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWIS
 ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY 
 OF SUCH DAMAGE.
 
-Copyright (c) 2020, Intel Corporation. All rights reserved.
+Copyright (c) 2021, Intel Corporation. All rights reserved.
 **/
 
 ```
 
 
 ---
-## Slide 30 Backup Section
+## Slide 31 Backup Section
 
 
 ---
-## Slide 31 Issue: Debugging in Emulation with Windows 7 and VS
+## Slide 32 Issue: Debugging in Emulation with Windows 7 and VS
 ### Issue:<br>
 
-Debugging in  Emulation with Windows 7 <br>and Visual Studio does not work?
+Debugging in  Emulator with Windows 7/10 64Bit <br>and Visual Studio does not work?
 
 
-- Symptom:  With Windows 7 a CpuBreakpoint() or ASSERT  just exits with an error from the “Build Run” command. 
+- Symptom:  With Windows 7/10 a CpuBreakpoint() or ASSERT  just exits . 
 
 
 - Link to fix this issue: 
@@ -548,6 +566,6 @@ https://github.com/tianocore/tianocore.github.io/wiki/NT32#Debugging_in_Nt32_Emu
 
 1. Run the RegEdt32
 2. Navigate to the HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\AeDebug
-3. Add a string value entry called "Auto" with a value of "1“
+3. Add a string value entry called "Auto" with a value of "1"
 
-- Windows 10  Visual Studio does not seem to have this issue 
+

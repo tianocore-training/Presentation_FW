@@ -1,16 +1,13 @@
 
-## slide 01 [UEFI_Driver_Wizard_Win_Lab]
+## slide 01 [UEFI_Driver_Wizard_Linux_Lab]
 <br><br><br><br><br>
 ### UEFI & EDK II Training
 
-#### UEFI Driver Wizard Lab - Windows
-<span style="font-size:0.75em" >See also
-<a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_E_01_UEFI_Driver_Wizard_WIN_LabGuide.md">LabGuide.md </a> for Copy & Paste examples in labs</span>
-
+#### UEFI Driver Wizard Lab - Linux
 <br>
 <span style="font-size:0.75em" ><a href='http://www.tianocore.org'>tianocore.org</a></span>
 <!---
-LabGuide.md for UEFI / EDK II Training  UEFI Driver Wizard Win Lab
+LabGuide.md for UEFI / EDK II Training  UEFI Driver Wizard Linux Lab
 
   Copyright (c) 2021, Intel Corporation. All rights reserved.<BR>
 
@@ -42,10 +39,19 @@ LabGuide.md for UEFI / EDK II Training  UEFI Driver Wizard Win Lab
 
 
 
----
+---  
 ## slide 02 [Lesson Objective]
 <BR>
 ### <p align="center"<span class="gold"   >Lesson Objective </span></p><br>
+
+- Linux Ubuntu 16.04 is only supported
+  -	Python Version 2.7 and 
+  -	python-wxgtk V3.0
+
+
+- Non-Ubuntu - Continue to <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_E_02_UEFI_Driver_Port_Linux_LabGuide.md">Porting UEFI Driver Lab</a>
+
+#### Ubuntu 16.04 
 
 - Setup the UEFI Driver Wizard
 - Create a UEFI Driver Template
@@ -54,7 +60,7 @@ LabGuide.md for UEFI / EDK II Training  UEFI Driver Wizard Win Lab
 ## slide 03 [UEFI Driver Wizard Section ]
 <br>
 ### UEFI Driver Wizard
-- Creating a Template UEFI Driver with the
+- Creating a Template UEFI Driver with the 
 - UEFI Driver Wizard
 
 
@@ -66,7 +72,8 @@ LabGuide.md for UEFI / EDK II Training  UEFI Driver Wizard Win Lab
 - Open source tool
 - Based on Driver Writer’s Guide for UEFI 2.3.1 content
 - Intel  engineers contributed
-- Located on www.TianoCore.org
+- Located on www.TianoCore.org 
+
 
 Note:
 
@@ -77,12 +84,12 @@ Note:
 
 - Workspace  must contain BaseTools, MdePkg & MdeModulePkg Packages from tianocore.org edk2 for Driver development on Tianocore.org 
 
-- Uses previous lab’s setup w/ Windows C:\FW\edk2-ws\
+- Uses previous lab’s setup w/ Windows $HOME/src/edk2-ws
 
-- Python* scripts from  Github Link then use instructions from README for Python and wxPython versions to install then run
+- Python* scripts from <a href="https://github.com/tianocore/edk2-share/tree/master/DriverDeveloper/UefiDriverWizard"> Github Link </a> then use instructions from README for Python and wxPython versions to install then run
 ```
 	 bash$ python launch.py
-
+		
 ```
 Note:
 
@@ -91,11 +98,11 @@ Same as slide
 
 ## slide 06 [Requirements for Your Driver ]
 
-### Requirements for Your Driver
+### Requirements for Your Driver 
 - Using UEFI Driver Wizard
 - UEFI Device Driver
-- UEFI Version 2.7 (0x00020046)
-   #define EFI_2_70_SYSTEM_TABLE_REVISION ((2<<16) | (70DEC))
+- UEFI Version 2.7 (0x00020046)  
+	#define EFI_2_70_SYSTEM_TABLE_REVISION ((2<<16) | (70DEC)) 
 - Unloadable driver
 - Support IA32 & x64 CPUs
 - Returns component name information
@@ -111,7 +118,7 @@ Note:
 ## slide 07 [Template File Contents]
 <p align="right"><span class="gold" ><b>Template File Contents </b></span></p>
 
-- Proper UEFI driver entry point
+- Proper UEFI driver entry point 
 - Basic driver libraries/headers
 - Skeletons for common driver functions
 
@@ -149,44 +156,51 @@ Note:
 
 ### Lab 1: Install UEFI Driver Wizard
 
-First setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md"> Lab Setup </a>
-Install UEFI Driver Wizard
-1. Open and Run  /FW/DriverWizard/UefiDriverWizard.msi
-   -  Click through "Next" until install finishes
-
-2. Open the UEFI Driver Wizard
-
+1. First setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md"> 
+Lab Setup </a>
+2. From the ~FW/DriverWizard folder, copy and paste folder "~FW/DriverWizard/UefiDriverWizard" to ~$Home 
+3. Check  if version 2.7.x is the default of Python from Terminal Prompt 
+```
+  bash$ python –V
+  Python 2.7.12
+```
+4. Install the wxPython  (Version 3.0 )
+```
+ bash$ sudo apt-get install python-wxgtk3.0 
+```
 
 ## slide 10 [Lab 1: UefiDriverWizard -Select Work Space]
 
 ### Lab 1: UefiDriverWizard -Select Work Space
 
-
-- Click on File and Select
-
+- Terminal Prompt (Cnt-Alt-T)
 ```
-  "Open WORKSPACE"
+bash$ cd ~UefiDriverWizard
+bash$ python launch.py
+```
+- Click on File and Select 
+```
+"Open WORKSPACE"
    Or 
-  Control+O
+Control+O  
 ```
-- Browse to C:/FW/edk2-ws/edk2
+- Browse to ~src/edk2-ws/edk2 
 - Select  "OK"
-- Should say
-
+- Should say 
 ```
-  "WORKSPACE C:\FW\edk2-ws\edk2 selected"
+"WORKSPACE /home/. . ./src/edk2-ws/edk2 selected"
 ```
+- Select Open
 
-- select Open
-
-Note: the environment for EDK II must be setup with edksetup.bat
+Note: the environment for EDK II must be setup with edksetup.bat 
 
 
 ## slide 11 [Lab 1: -Create a New UEFI Driver]
 
 ### Lab 1: -Create a New UEFI Driver
 
-- Control+N – to Open Menu
+- Control+N – to Open Menu 
+
 - select "New UEFI Driver"
 
 ---
@@ -216,9 +230,12 @@ Note: the environment for EDK II must be setup with edksetup.bat
 
 ### Lab 1: UEFI Driver Model Optional Features
 
+- UEFI Driver Path" – Type: "MyWizardDriver"
+      Note:  "UEFI Driver Name" is filled in.
+
 - UEFI Driver Model Optional Features  – Select:
   -	Componnt Name 2 Prorocol
-  -	Componnt Name  Prorocol
+  -	Componnt Name Prorocol
   -	HII Packages for Forms and HII based configuruation
 
 
@@ -307,3 +324,6 @@ Redistributions in compiled form (transformed to other DTDs, converted to PDF, e
 THIS DOCUMENTATION IS PROVIDED BY TIANOCORE PROJECT "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL TIANOCORE PROJECT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Copyright (c) 2021, Intel Corporation. All rights reserved.
 ```
+
+
+

@@ -2,14 +2,14 @@
 
 ## UEFI & EDK II Training
 
-Platform Build Lab Up Xtreme - Windows
+Platform Build Lab Up Xtreme - Linux
 
 <br>
 <a href='http://www.tianocore.org'>tianocore.org</a>
 
 
 <!---
- Lab_Guide.md for Platform Build Lab Up Xtreme - Windows
+ Lab_Guide.md for Platform Build Lab Up Xtreme - Linux
 
   Copyright (c) 2021, Intel Corporation. All rights reserved.<BR>
 
@@ -42,7 +42,7 @@ Platform Build Lab Up Xtreme - Windows
 ---
 ## Slide 2   [Platform Build Labs]
 ### Platform Build Labs
-- Download Minplatform Using Git Bash 
+- Download Minplatform Using Git from Tianocore.org 
 - Build a EDK II Platform using Up Xtreme Aaeon board
 
 ---
@@ -54,55 +54,65 @@ Platform Build Lab Up Xtreme - Windows
 ### EDK II Platform – Up Xtreme by Aaeon
 
 ---
-## Slide 5   [Git Bash]
-### Git Bash
+## Slide 5   [Linux setup for Up Xtreme Lab]
+### Linux setup for Up Xtreme Lab
 
-- Open "Git Bash" 
-- Linux like commands "/" for dirs.
-- Use "/c" to go to C: in Windows, etc.
-- Cd to the Work Space: 
 
+Lab Setup Requirements – Ubuntu 16.04
 ```
-$ cd /c/fw
-$ mkdir UpX
-$ cd UpX
+  bash$ sudo apt-get install build-essential uuid-dev iasl git gcc-5 nasm 
+  bash$ sudo apt-get install screen
+  bash$ sudo apt-get install gcab 
 ```
+Lab Setup Requirements – Clear Linux* Project
+```  
+  bash$ sudo swupd bundle-add devpkg-util-linux
+  bash$ sudo swupd bundle-add devpkg-gcab
+```
+Open Terminal Prompt.
 
+
+Cd to the Workspace and create the Up Xtreme build directory "UpX"
+```
+  bash$ cd ~/src
+  bash$ mkdir UpX
+  bash$ cd UpX
+```
 ---
 ## Slide 6   [Download the source for Edk II, MinPlatform and FSP]
 ### Download the source for Edk II, MinPlatform and FSP
 
-In the Git Bash command line window Do the following:<br>
+From a terminal prompt at ~/src/Upx , do the following <BR>
 
 May need to Set PROXYS FIRST  (below is an example for Intel OR)
 ```
-$ git config --global https.proxy=proxy.hf.intel.com:911
-$ git config --global http.proxy=proxy.hf.intel.com:911
+  bash$ git config --global https.proxy=proxy.hf.intel.com:911
+  bash$ git config --global http.proxy=proxy.hf.intel.com:911
 
 ```
 
 **Edk2** Download with tag
 ```
-$ git clone https://github.com/tianocore/edk2.git
-$ cd edk2
-$ git checkout 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5
-$ git submodule update --init
-$ cd ..
+  bash$ git clone https://github.com/tianocore/edk2.git
+  bash$ cd edk2
+  bash$ git checkout 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5
+  bash$ git submodule update --init
+  bash$ cd ..
 ```
 **Edk2-platforms** Download with tag
 ```
-$ git clone https://github.com/tianocore/edk2-platforms.git
-$ cd edk2-platforms
-$ git checkout  784f7739f5afd268042d4d9e8ef570131620c82c
-$ cd ..
+  bash$ git clone https://github.com/tianocore/edk2-platforms.git
+  bash$ cd edk2-platforms
+  bash$ git checkout  784f7739f5afd268042d4d9e8ef570131620c82c
+  bash$ cd ..
 ```
 **Edk2-non-osi**
 ```
-$ git clone https://github.com/tianocore/edk2-non-osi.git
+  bash$ git clone https://github.com/tianocore/edk2-non-osi.git
 ```
 **FSP**
 ```
-$ git clone https://github.com/Intel/FSP.git
+  bash$ git clone https://github.com/Intel/FSP.git
 ```
 ---
 ## Slide 7   [Download MinPlatform Lab Material]
@@ -118,12 +128,8 @@ $ git clone https://github.com/tianocore-training/PlatformBuildLab_MinPlatform_F
 Directory PlatformBuildLab_MinPlatform_FW will be created
 /FW 
  /MinPlatformBuild
-	- asl              - Asl Compiler               - Readme has download info
-	- FTDI-Driver	   - Serial / USB cable         - Readme has download info
-	- UpX_Lab          - Lab Material and Lab Guide
-	- TeraTerm         - Terminal app               - Readme has download info
-	- Nasm             - Nasm Assembler             - Readme has download info
-
+	- UpX_Lab          - Lab Material 
+     -  . . .	
 ```
 
 ---
@@ -136,31 +142,9 @@ Directory PlatformBuildLab_MinPlatform_FW will be created
 
 How to Download  & Build: Open Source MinPlatform [Readme.md](https://github.com/tianocore/edk2-platforms/blob/master/Platform/Intel/Readme.md)
 
----
-## Slide 10   [Preparing to Build]
-### Get the ASL compiler
-
-Directory C:\MinPlatformBuildLab_FW\FW\MinPlatformBuildLab from Download or zip 
-
-or Download Asl compiler described in the Readme.txt (Windows)
-
-Copy \asl Folder to C:\
-
 
 ---
-## Slide 11   [Preparing to Build]
-### Get the Nasm Assembler
-
-Directory C:\MinPlatformBuildLab_FW\FW\MinPlatformBuildLab from Download or zip 
-
-or Download Nasm Assembler described in the Readme.txt (Windows)
-
-Copy \Nasm Folder to C:\
-
-
-
----
-## Slide 12   [MinPlatform Open Board Tree Structure]
+## Slide 10   [MinPlatform Open Board Tree Structure]
 ### MinPlatform Open Board Tree Structure
 
 
@@ -193,72 +177,55 @@ FSP/  https://github.com/IntelFsp/FSP
 
 
 
+
 ---
-## Slide 13   [Open a VS Command Prompt]
+## Slide 11   [Open a VS Command Prompt]
 ### Open a VS Command Prompt
 
-Follow Steps from [here](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#slide-3--titlepin-vs-cmd-prompt-section) to Pin the Visual Studio Command Prompt to the Windows Task Bar
 
-
-
-
-**Open a Visual Studio Command prompt**<br>
-Cd to the Min Platform Build directory
+Open a Terminal Command Prompt
 ```
-$> cd \
-$> cd Fw\UpX\edk2-platforms\Platform\Intel
+  bash$ cd ~/src/UpX/edk2
+  bash$ source edksetup.sh
+  bash$ cd ..
+  bash$ cd edk2-platforms/Platform/Intel
 ```
-
-
----
-## Slide 14   [Build Environment]
-###  Build Environment
-Check the python version
+Check if Python okay  (may also need to set PYTHON_HOME)
 ```
-$> python --version
+  bash$  python --version
+  Python 3.8.2
 ```
-
-Make sure that the `PYTHON_HOME` is in the environment settings
-
-If it is not, use the following (Windows) (Note for Python v 3.8.n)
-```
-set PYTHON_HOME=%USERPROFILE%\AppData\Local\Programs\Python\Python38-32
-```
-
-
-Check for platforms that are MinPlatform capable
-```
-$> python build_bios.py -l
+Check for available MinPlatform Boards
+``` 
+ bash$ python build_bios.py -l
+   
 ```
 
 
 ---
-## Slide 15   [Invoke the Build]
+## Slide 12   [Invoke the Build]
 ### Invoke the Build
 
 **Build the Up Xtreme**
 
-Invoke the Python Build script for Up Xtreme (example with VS2017)
+Invoke the Python Build script for Up Xtreme
 ```
-$> python build_bios.py -p UpXtreme  -t VS2017
+$> python build_bios.py -p UpXtreme  -t GCC5
 ```
-- note use "`-t VS2017`" or "`-t VS2019`" at end of next command  if VS is not VS2015
 
-VS2015 is the default so the following will work
-```
-$> python build_bios.py -p UpXtreme
-```
+
 ---
-## Slide 16   [Platform Build Scripts]
+## Slide 13   [Platform Build Scripts]
 ### Platform Build Scripts
 #### **Platform Config**
 
 
 Many Platforms have a bash, bat  or Python script file to pre or post process the EDK II build process
 
-For MinPlatform platform specific config
-Build processing:
-Build_config.cfg – Lists directories required for the build and build settings
+For MinPlatform platform specific config<br>
+
+Build processing:<br>
+- Build_config.cfg – Lists directories required for the build and build settings
 
 
 
@@ -266,7 +233,7 @@ Link to Up Xtreme [Build_config.cfg](https://github.com/tianocore/edk2-platforms
 
 
 ---
-## Slide 17   [Examine Build Parameters]
+## Slide 14   [Examine Build Parameters]
 ### Examine Build Parameters
 
 The build command was the following Python script to preform the build
@@ -287,21 +254,22 @@ The build script will call the following executable to perform the build
 | ---------- | ------------------ | ----------- |
 | TARGET |      DEBUG|  Build Mode|
 | TARGET_ARCH|  IA32  X64 |  CPU Architecture|
-| TOOL_CHAIN_TAG |  VS2015| VS Tool Chain |
-| ACTIVE_PLATFORM | \WhiskylakeOpenBoardPkg\ UpXtreme\OpenBoardPkg.dsc  | Platform DSC file |
+| TOOL_CHAIN_TAG |  GCC5| VS Tool Chain |
+| ACTIVE_PLATFORM | /WhiskylakeOpenBoardPkg/ UpXtreme/OpenBoardPkg.dsc  | Platform DSC file |
 | Repor file created(via Python script| BuildReport.log | PCDs, Libs, etc.|
 | | | |
 
 
 
 ---
-## Slide 18   [Platform Build and PCD Parameters]
+## Slide 15  [Platform Build and PCD Parameters]
 ### Platform Build and PCD Parameters
 #### **Platform  Parameters**
 
 Many Platform Parameters are defined in a top .DSC file that controls PCD and build switches
 
-For Up Xtreme : `edk2-platforms\Platform\Intel\WhiskeylakeOpenBoardPkg\UpXtreme OpenBoardPkgPcd.dsc and OpenBoardPkgBuildOption.dsc`
+For Up Xtreme : `edk2-platforms/Platform/Intel/WhiskeylakeOpenBoardPkg/UpXtreme`<br>
+&nbsp;&nbsp;`OpenBoardPkgPcd.dsc and OpenBoardPkgBuildOption.dsc`
 
 Example:
 ``` 
@@ -323,7 +291,7 @@ Example:
 
 
 ---
-## Slide 19   [Build Process for RELEASE Target]
+## Slide 16   [Build Process for RELEASE Target]
 ### Build Process for RELEASE Target
 
 
@@ -334,16 +302,15 @@ Only the `-r` is added to the previous DEBUG build.
 DEBUG Build is the default
 
 ```
-$> python build_bios.py -p UpXtreme -r -t VS2017
+$> python build_bios.py -p UpXtreme -r -t GCC
 ```
 
-Note: `-t VS2017`, use the correct VS Version
 
 
 
 
 ---
-## Slide 20   [DEBUG & RELEASE Differences]
+## Slide 17   [DEBUG & RELEASE Differences]
 ### DEBUG & RELEASE Differences
 
 #### DEBUG build …
@@ -361,11 +328,11 @@ Note: `-t VS2017`, use the correct VS Version
 
 
 ---
-## Slide 21   [Make a Change]
+## Slide 18   [Make a Change]
 ### Make a Change
 #### Change the logo
 
-In the Directory `C:\MinPlatformBuildLab_FW\FW\MinPlatformBuildLab\UpX_Lab`
+In the Directory `..~/MinPlatformBuildLab_FW/FW/MinPlatformBuildLab/UpX_Lab`
 
 There is a file: `Logo.bmp`
 
@@ -373,26 +340,25 @@ There is a file: `Logo.bmp`
 
 Create a .BMP with Windows Paint and save to the name `Logo.bmp
 
-Copy `Logo.bmp` to `C:\FW\UpX\edk2\MdeModulePkg\Logo` and overwrite existing file
+Copy `Logo.bmp` to `~/src/UpX/edk2/MdeModulePkg/Logo` and overwrite existing file
 
-See . . .` WhiskeylakeOpenBoardPkg\UpXtreme\OpenBoardPkg.fdf` Approx. line 285  where the logo file is directly included into the IFWI image.
+See . . .` WhiskeylakeOpenBoardPkg/UpXtreme/OpenBoardPkg.fdf` Approx. line 285  where the logo file is directly included into the IFWI image.
 
 
 ---
-## Slide 22   [Build with new logo]
+## Slide 19   [Build with new logo]
 ### Build with new logo
 
 Invoke the Python Build script for Up Xtreme for building a new Logo.bmp
 
 
 ```
-$> python build_bios.py -p UpXtreme  -t VS2017
+$> python build_bios.py -p UpXtreme  -t GCC5
 ```
 
-Note: `-t VS2017`, use the correct VS Version
 
 ---
-## Slide 23   [Build Process Completed]
+## Slide 20   [Build Process Completed]
 ### Build Process Completed
 
 Locate the build .fd images
@@ -401,7 +367,8 @@ Note that the script displays the location of the final .fd files
 
 ```
 Done
-Fd file can be found at C:\FW\UpX\Build\WhiskeylakeOpenBoardPkg\UpXtreme\DEBUG_VS2017\FV\UPXTREME.fd
+Fd file can be found at ~/src/UpX/Build/WhiskeylakeOpenBoardPkg/UpXtreme/DEBUG_GCC5/FV/UPXTREME.fd
+
 ```
 
 This file is what will be used to flash into the Up Xtreme board.
@@ -421,7 +388,7 @@ IT IS IMPORTANT not to overwrite the lower sections of the flash device since it
 ## Slide 24   [Summary]
 ### Summary
 
-- Download Minplatform Using Git Bash 
+- Download Minplatform Using Git 
 - Build a EDK II Platform using Up Xtreme Aaeon board
 
 

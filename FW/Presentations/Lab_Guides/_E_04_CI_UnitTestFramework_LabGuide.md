@@ -77,7 +77,7 @@ This lab will show how to build and run a unit test sample code in the host-base
 
 1. How to build
 2. Build and Run for Stuart CI Locally
-3. Or Build and Run for Windows Non-Stuart CI
+3. Or Build and Run for Windows / Linux Non-Stuart CI
 4. Run the Host Unit test locally
 5. Create and Add a unit test case to test a function
 6. Add the Unit test case the UEFI Shell

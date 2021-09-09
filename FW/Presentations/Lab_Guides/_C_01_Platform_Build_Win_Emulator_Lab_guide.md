@@ -69,9 +69,9 @@ Windows 10
 <br>
 
 Steps to Pin Visual Studio Command Prompt to task bar for Windows 10
-1. Using the Start menu in Windows 10, Left Click on “Windows Key” Lower Left
-2. Scroll down from the scroll bar on the right until “Visual Studio 201n”
-3. Left Click “Visual Studio 201n”
+1. Using the Start menu in Windows 10, Left Click on "Windows Key" Lower Left
+2. Scroll down from the scroll bar on the right until "Visual Studio 201n"
+3. Left Click "Visual Studio 201n"
 
 
 ---
@@ -183,8 +183,8 @@ $ git config --global http.proxy proxy.jf.intel.com:911
 ```
 
 ```
-C:\FW\edk2-WS> git clone -b Edk2Lab_21Q1 https://github.com/tianocore-training/edk2.git
-C:\FW\edk2-WS> git clone -b LabBranch https://github.com/tianocore-training/edk2-libc.git
+C:\FW\edk2-WS> git clone -b Edk2Lab_21Q3 https://github.com/tianocore-training/edk2.git
+C:\FW\edk2-WS> git clone -b Edk2Lab_21Q3 https://github.com/tianocore-training/edk2-libc.git
 
 ```
 
@@ -198,7 +198,7 @@ C:\FW\edk2-wS> cd ..
 ---
 ## Slide 14  @title[Download Lab_Material_FW -getting the Source ]
 ### Download Lab Material<br>
-Download the Lab_Material_FW.zip from :  <a href="https://github.com/tianocore-training/Lab_Material_FW/archive/master.zip">github.com Lab_Matrial_FW.zip</a><br>
+Download the Lab_Material_FW.zip from :  <a href="https://github.com/tianocore-training/Lab_Material_FW/archive/refs/heads/main.zip">github.com Lab_Matrial_FW.zip</a><br>
 <br>
 OR<br>
 Use `git clone` to download the Lab_Material_FW<span>
@@ -226,7 +226,7 @@ Directory Lab_Material_FW will be created
 
 – Extract the Source  
 
-Extract the Downloaded `Lab_Material_FW-master.zip to C:\ `
+Extract the Downloaded `Lab_Material_FW-main.zip to C:\ `
 
 
 Note:
@@ -402,12 +402,11 @@ $> build -D ADD_SHELL_STRING -a X64
 <b>Possible Build Errors </b>
 
 1. If you get a BUILD Error:  Error "C:/Program " not found
-   - First check that you have opened Visual Studio and installed the “C++”  
+   - First check that you have opened Visual Studio and installed the "C++"
    - Open Visual Studio and create a "C++" project 
    - (This will take some time to install)
-2.  If you get a BUILD Error: Check if  RC.Exe compiler not found is the error -<a href="https://gitpitch.com/tianocore-training/Platform_Build_Win_Emulator_Lab/master#/31" > here</a>
-3.  If you get a BUILD Error: fatal error C1041: cannot open program database . . . Check <a href="https://gitpitch.com/tianocore-training/Platform_Build_Win_Emulator_Lab/master#/32"> here</a> 
-
+2.  If you get a BUILD Error: Check if  RC.Exe compiler not found is the error goto slide 36 https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#slide-36--titlebuild-error--rcexe-
+3.  If you get a BUILD Error: fatal error C1041: cannot open program database goto slide 38 https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#slide-38--titlebuild-error--c1041-38
 
 ---
 ## Slide 25  @title[Build Edk2 -build inside VS Prompt]

@@ -2,10 +2,10 @@
 ## Slide 1
 # UEFI & EDK II Training
 
-## How to Write a UEFI Driver Lab - Windows
+## How to Write a UEFI Driver Lab - Linux
 
 <!---
- LabGuide.md for UEFI Driver Porting Win Lab
+ LabGuide.md for UEFI Driver Porting Linux Lab
 
   Copyright (c) 2021, Intel Corporation. All rights reserved.<BR>
 
@@ -40,8 +40,8 @@
 ### Lesson Objective 
 
 - Compile a UEFI driver template created from UEFI Driver Wizard 
-- Test driver w/ Windows Emulation using UEFI Shell 2.0 
-- Port code into the template driver 
+- Test driver in QEMU using UEFI Shell 2.0 
+- Port code in  the template driver 
 
 ---
 ## Slide 3  [Lab 1: UEFI Driver Template]
@@ -61,7 +61,7 @@ Copy the directory `UefiDriverTemplate` from
 Rename Directory `UefiDriverTemplate` to `MyWizardDriver`
 
 Review UEFI Driver Wizard Lab:
-https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_E_01_UEFI_Driver_Wizard_WIN_LabGuide.md
+https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_E_01_UEFI_Driver_Wizard_Linux_LabGuide.md
  for protocols produced and which are being consumed 
 
 ---
@@ -71,7 +71,7 @@ https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations
 <br>
 
 In this lab, you’ll build a UEFI Driver created by the UEFI Driver Wizard.<br>
-You will include the driver in the EmulatorPkg project. <br>
+You will include the driver in the OvmfPkg project. <br>
 Build the UEFI Driver from the Driver Wizard 
 
 
@@ -95,8 +95,8 @@ Build the UEFI Driver from the Driver Wizard
 ### Lab 2: Build the UEFI Driver
 
 <ul>
-   <li>Perform <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md">Lab Setup</a> from previous EmulatorPkg Labs </li>
-   <li>Open `C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc`</li>
+   <li>Perform <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md">Lab Setup</a> from previous EmulatorPkg Labs </li>
+   <li>Open `~src/edk2-ws/edk2/OvmfPkg/OvmfPkgX64.dsc`</li>
    <li>Add the following to the `[Components]` section:  <br>
    
    
@@ -104,44 +104,60 @@ Build the UEFI Driver from the Driver Wizard
 
 ```
     # Add new modules here
-     MyWizardDriver/MyWizardDriver.inf
+     MyWizardDriver/MyWizardDriver.inf{
+      <LibraryClasses>    DebugLib|MdePkg/Library/UefiDebugLibConOut/UefiDebugLibConOut.inf
+}
+
 ```
 
-   <li>Save and close the file `C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc`  </li>
+   <li>Save and close the file `~src/edk2-ws/edk2/OvmfPkg/OvmfPkgX64.dsc`  </li>
 </ul>
 
 
 ---
 
 ## Slide 8  [Lab 2 Build and Test Driver]
-### Lab 2: Build and Test Driver
-Open a VS  Command Prompt and type: `cd C:/FW/edk2-ws` then  
+### Lab 2: Build and Test Driver 1
 
+Build MyWizardDriver – Cd to ~/src/edk2-ws/edk2 dir
 ```
-  C:/FW/edk2-ws/> setenv.bat
-  C:/FW/edk2-ws/> cd edk2 
-  C:/FW/edk2-ws/edk2> edksetup
-```
-
-Build `MyWizardDriver`  
-
-```
-  C:/FW/edk2-ws/edk2> Build
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
+  bash$ cd ~/src/edk2-ws/edk2
+  bash$ . edksetup.sh
+  bash$ build
 ```
 
-- Load the UEFI Driver from the shell
-  - At the Shell prompt, type &nbsp; `Shell> fs0:`
-  - Type:&nbsp; `FS0:\> load MyWizardDriver.efi`<br>
+- Build error Known issue from UEFI Driver Wizard: 
+  -  `ComponentName.c` Line 148 col 74 needs "//" in front of "## TO_START" 
+   
+```
+   bash$ build
+```
+Build ERRORS: Copy the solution files from 
+`~/. . ./FW/LabSampleCode/LabSolutions/LessonC.1` to `~/src/edk2-ws/edk2/MyWizardDriver`
 
+---
 
-<b>Build ERRORS:</b> Copy the solution files from `~/FW/LabSampleCode/LabSolutions/LessonC.1` to `C:/FW/edk2-ws/edk2/MyWizardDriver`	
+## Slide 9  [Lab 2 Build and Test Driver]
+### Lab 2: Build and Test Driver 2
 
+Copy MyWizardDriver.efi to hda-contents
+```
+ bash$ cd ~/run-ovmf/hda-contents
+ bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/MyWizardDriver.efi .
+```
+Test by Invoking Qemu
+```
+  bash$ cd ~/run-ovmf
+  bash$ . RunQemu.sh
+```
+- Load the UEFI Driver from the shell<br>
 
+- &nbsp;&nbsp;&nbsp; At the Shell prompt, type &nbsp; `Shell> fs0:`
+- &nbsp;&nbsp;&nbsp; Type:&nbsp;  `FS0:\> `&nbsp;`load MyWizardDriver.efi`  
 
 
 ---
-## Slide 9  [Lab 2 Test Driver Drivers]
+## Slide 10  [Lab 2 Test Driver Drivers]
 ### Lab 2: Test Driver 
 <br>
 At the shell prompt Type: `drivers`<br>
@@ -155,7 +171,7 @@ It will be the last driver listed and have the name "MyWizardDriver"
 
 
 ---
-## Slide 10  [Lab 2 Test Driver -Dh]
+## Slide 11  [Lab 2 Test Driver -Dh]
 ### <span class="gold" >Lab 2: Test Driver  
 <br>
 At the shell prompt using the handle from the `drivers` command, Type:&nbsp; `dh -d a9`
@@ -165,7 +181,7 @@ At the shell prompt using the handle from the `drivers` command, Type:&nbsp; `dh
 
 
 ---
-## Slide 11  [Lab 2 Test Driver -unload]
+## Slide 12  [Lab 2 Test Driver -unload]
 ### Lab 2: Test Driver 
 <br>
 At the shell prompt using the handle from the `drivers` command, Type:&nbsp; `unload a9`
@@ -175,7 +191,7 @@ See example screenshot - right<br>
 Type:&nbsp; `drivers` again<br><br>
 Notice results of `unload` command<br><br>
 
-Exit, type  `FS0:/ > Reset`<br>
+Exit QEMU
 
 Note:
 
@@ -184,20 +200,20 @@ END of Lab 2
 
 
 ---
-## Slide 12  [Lab 3: Component Name Section]
+## Slide 13  [Lab 3: Component Name Section]
 <br>
 
-### Lab 3: Component Name 
+### Lab 3: Component Name
 
 In this lab, you’ll change the information reported to the drivers command using the`ComponentName` and `ComponentName2` protocols.
 
 
 ---
-## Slide 13  [Lab 3: Component Name ]
-### Lab 3: Component Name 
+## Slide 14  [Lab 3: Component Name ]
+### Lab 3: Component Name
 <br>
 
-- <b>Open</b>&nbsp;&nbsp;`C:/FW/edk2-ws/edk2/MyWizardDriver/ComponentName.c`
+- <b>Open</b>&nbsp;&nbsp;`~/src/edk2-ws/edk2/MyWizardDriver/ComponentName.c`
 - <b>Change</b>&nbsp;&nbsp; the string returned by the driver from `MyWizardDriver` to: &nbsp;&nbsp;&nbsp; `UEFI Sample Driver`
 
    
@@ -211,7 +227,7 @@ In this lab, you’ll change the information reported to the drivers command usi
  };
 ```
 
-- <b>Save</b> and close the file: `C:/FW/edk2-ws/edk2/MyWizardDriver/ComponentName.c`  
+- <b>Save</b> and close the file: `~/src/edk2-ws/edk2/MyWizardDriver/ComponentName.c`  
 
 
 Note:
@@ -220,15 +236,29 @@ The localization is using both the RFC 4646 and the ISO 639-2 Lanuage codes
 as seen with the "`eng;en`"
 
 ---
-## Slide 14  [Lab 3 Build and Test Driver]
-### Lab 3: Build and Test Driver 
+## Slide 15 [Lab 3 Build and Test Driver]
+### Lab 3: Build and Test Driver 1
 <br>
 Build the MyWizardDriver 
+```
+bash$ cd ~/src/edk2-ws/edk2
+bash$ build
+```
+Copy MyWizardDriver.efi to hda-contents
+```
+ bash$ cd ~/run-ovmf/hda-contents
+ bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/MyWizardDriver.efi .
+```
+Test by Invoking Qemu
+```
+  bash$ cd ~/run-ovmf
+  bash$ . RunQemu.sh
+```
 
-```
-  C:/FW/edk2-ws/edk2> Build
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
-```
+---
+## Slide 16 [Lab 3 Build and Test Driver]
+### Lab 3: Build and Test Driver 2
+<br>
 
 - Load the UEFI Driver from the shell<br>
 
@@ -238,7 +268,7 @@ Build the MyWizardDriver
 Type:&nbsp; `drivers`<br>
 Observe the change in the string that the driver returned <br>
 <br>
-Exit, type  `FS0:/> Reset`
+Exit QEMU
 
 
 Note: 
@@ -246,7 +276,7 @@ Lab 3 finished
 
 
 ---
-## Slide 15  [Lab 4: Port Supported Section]
+## Slide 17  [Lab 4: Port Supported Section]
 <br>
 
 ### Lab 4: Porting the Supported & Start Functions 
@@ -257,7 +287,7 @@ In this lab, you’ll port the "Supported" and "Start" functions for the UEFI dr
 
 
 ---
-## Slide 16  [Lab 4: Port Supported-Start]
+## Slide 18  [Lab 4: Port Supported-Start]
 ### Lab 4: Porting Supported and Start
 <span style="font-size:01.1em" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Review the Driver Binding Protocol</b> 
 
@@ -267,7 +297,7 @@ In this lab, you’ll port the "Supported" and "Start" functions for the UEFI dr
 - Stop() Stops a driver from managing a controller
 
 ---
-## Slide 17  [Lab 4: Supported Port]
+## Slide 19  [Lab 4: Supported Port]
 ### Lab 4: The `Supported()` Port 
 The UEFI Driver Wizard produced a `Supported()` function but it only returns `EFI_UNSUPPORTED`   
 
@@ -280,7 +310,7 @@ The UEFI Driver Wizard produced a `Supported()` function but it only returns `EF
 
 ---
 
-## Slide 18  [Lab 4: Help from Robust Libraries]
+## Slide 20  [Lab 4: Help from Robust Libraries]
 ### Lab 4: Help from Robust Libraries 
 EDK II has libraries to help with porting UEFI Drivers <br>
 
@@ -295,11 +325,11 @@ Check the MdePkg with libraries help file (.chm format)
 
 
 ---
-## Slide 19  [Lab 4: Update Supported ]
-### Lab 4: Update Supported 
+## Slide 21  [Lab 4: Update Supported ]
+### Lab 4: Update Supported
 
 
-<b>Open</b>&nbsp;&nbsp;`C:/FW/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.c` <br>
+<b>Open</b>&nbsp;&nbsp;`~/src/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.c` <br>
 <b>Locate</b>&nbsp;&nbsp; ` MyWizardDriverDriverBindingSupported()`, 
        the supported function for this driver and comment out the "`//`" in the line: "`return EFI_UNSUPPORTED;` " 
 
@@ -323,7 +353,7 @@ Note:
 This code checks for a specific protocol before returning a status for the supported function (EFI_SUCCESS if the protocol GUID exists).
 
 ---
-## Slide 20  [Lab 4: Update Supported 02 ]
+## Slide 22  [Lab 4: Update Supported 02 ]
 ### Lab 4: Update Supported Add Code 
 <b>Copy & Paste</b>&nbsp;&nbsp; the following code for the supported function `MyWizardDriverDriverBindingSupported()`:
 
@@ -362,10 +392,10 @@ Note:
 
 ---
 
-## Slide 21  [Lab 4: Notice UEFI Driver Wizard Includes  ]
+## Slide 23  [Lab 4: Notice UEFI Driver Wizard Includes  ]
 ### Lab 4: Notice UEFI Driver Wizard Includes
 
-- <b>Open</b>&nbsp;&nbsp;`C:/FW/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.h`
+- <b>Open</b>&nbsp;&nbsp;`~/src/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.h`
 - <b>Notice</b>&nbsp;&nbsp; the following include statement is already added by the driver wizard: 
 
 ```c++
@@ -390,12 +420,13 @@ Note:
 #include <Library/DebugLib.h>
 ```
 
-
 Note that the UEFI Runtime Services Table is not listed but is also often used,  this will be added in a later lab
-- <b>Close</b>&nbsp;&nbsp;`C:/FW/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.h`
+
+- <b>Close</b>&nbsp;&nbsp;`~/src/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.h`
+
 ---
 
-## Slide 22  [Lab 4: Update the Start  ]
+## Slide 24  [Lab 4: Update the Start  ]
 ### Lab 4: Update the `Start()`  
 
 <b>Copy & Paste</b>&nbsp;&nbsp; the following in  `MyWizardDriver.c` after the <br>`#include "MyWizardDriver.h"` line
@@ -423,7 +454,7 @@ MyWizardDriverDriverBindingStart (
 
 ---
 
-## Slide 23  [Lab 4: Update Start 02 ]
+## Slide 25  [Lab 4: Update Start 02 ]
 ### Lab 4: Update Start Add Code 
 <b>Copy & Paste</b>&nbsp;&nbsp; the following code for the start function ` MyWizardDriverDriverBindingStart()`:
 
@@ -451,7 +482,7 @@ Note:
 
 ---
 
-## Slide 24  [Lab 4: Debugging before Testing the Driver ]
+## Slide 26  [Lab 4: Debugging before Testing the Driver ]
 ### Lab 4: Debugging before Testing the Driver 
 <br>
 UEFI drivers can use the EDK II debug library 
@@ -460,7 +491,7 @@ UEFI drivers can use the EDK II debug library
 - `DEBUG()` Macro statements can show status progress interest points throughout  the driver code
 
 
-## Slide 25  [Lab 4: Add Debug statements supported ]
+## Slide 27  [Lab 4: Add Debug statements supported ]
 ### Lab 4: Add Debug Statements `Supported()` 
 <b>Copy & Paste</b>&nbsp;&nbsp; the following  `DEBUG ()`  macros for the supported function:
 
@@ -495,7 +526,7 @@ UEFI drivers can use the EDK II debug library
 
 
 ---
-## Slide 26  [Lab 4: Add Debug statements start ]
+## Slide 28  [Lab 4: Add Debug statements start ]
 ### Lab 4: Add Debug Statements `Start()` 
 <br>
 <b>Copy & Paste</b>&nbsp;&nbsp; the following `DEBUG` macro for the Start function just before the `return EFI_SUCCESS;` statement
@@ -508,39 +539,54 @@ UEFI drivers can use the EDK II debug library
 <i>Note: </i>This debug macro displays the memory address of the allocated buffer on the debug console<br>
 <br>
 
-<b>Save</b>&nbsp;&nbsp; `C:/FW/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.c`
+<b>Save</b>&nbsp;&nbsp; `~/src/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.c`
 
 
 ---
 
-## Slide 27  [Lab 4 Build and Test Driver]
-### Lab 4: Build and Test Driver 
+## Slide 29  [Lab 4 Build and Test Driver]
+### Lab 4: Build and Test Driver 1
 <br>
 Build the MyWizardDriver 
 
-```
-  C:/FW/edk2-ws/edk2> Build
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
+
 
 ```
-Load the UEFI Driver from the shell<br>
+bash$ cd ~/src/edk2-ws/edk2
+bash$ build
+```
+Copy MyWizardDriver.efi to hda-contents
+```
+ bash$ cd ~/run-ovmf/hda-contents
+ bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/MyWizardDriver.efi .
+```
+Test by Invoking Qemu
+```
+  bash$ cd ~/run-ovmf
+  bash$ . RunQemu.sh
+```
 
-&nbsp;&nbsp;&nbsp; `Shell> fs0:`<br>
-&nbsp;&nbsp;&nbsp; `FS0:\> load MyWizardDriver.efi`
+---
+## Slide 30 [Lab 4 Build and Test Driver 02]
+### Lab 4: Build and Test Driver 2
+<br>
 
+- Load the UEFI Driver from the shell<br>
+
+- &nbsp;&nbsp;&nbsp; At the Shell prompt, type &nbsp; `Shell> fs0:`
+- &nbsp;&nbsp;&nbsp; Type:&nbsp;  `FS0:\> `&nbsp;`load MyWizardDriver.efi`  
 
 
 ---
-## Slide 28  [Lab 4 Build and Test Driver 02]
-### Lab 4: Build and Test Driver 
+## Slide 31  [Lab 4 Build and Test Driver 03]
+### Lab 4: Build and Test Driver 3
 
-- Check the VS console output.
+- Check the QEMU console output.
 - Notice Debug messages indicate the driver did not return EFI_SUCCESS from the "`Supported()`" function <b>most</b> of the time.
 - See that the "`Start()`" function did get called and a Buffer was allocated.
 <br>
 <br>
-Exit, type  `FS0:/ > Reset` <br>
-<br>
+Exit QEMU
 
 Note:
 
@@ -550,7 +596,7 @@ use the right-side scroll bar with mouse to scroll back to see the "Supported SU
 Finished Lab 4
 
 ---
-## Slide 29  [Lab 5: Create NV Var Section]
+## Slide 32  [Lab 5: Create NV Var Section]
 <br>
 
 ### Lab 5: Create a NVRAM Variable 
@@ -571,7 +617,7 @@ With QEMU and the EmulatorPkg there is a serial device so the driver’s start f
 
 ---
 
-## Slide 30  [Lab 5: Create NV Var steps]
+## Slide 33  [Lab 5: Create NV Var steps]
 
 ### Lab 5: Adding a NVRAM Variable Steps  
 <br>
@@ -585,11 +631,11 @@ With QEMU and the EmulatorPkg there is a serial device so the driver’s start f
 
 ---
 
-## Slide 31  [Lab 5: Create a new .h file ]
+## Slide 34  [Lab 5: Create a new .h file ]
 ### Lab 5: Create a new .h file 
 <b>Create</b>&nbsp;&nbsp; a new file in your editor called: "`MyWizardDriverNVDataStruc.h`"<br>
 
-<b>Copy, Paste</b> and then <b>Save</b> this file in the `C:/FW/edk2-ws/edk2/MyWizardDriver` directory&nbsp;&nbsp;  
+<b>Copy, Paste</b> and then <b>Save</b> this file in the `~src/edk2-ws/edk2/MyWizardDriver` directory&nbsp;&nbsp;  
 
 <hr>
 
@@ -629,10 +675,10 @@ Note:
 
 ---
 
-## Slide 32  [Lab 5: Add New Vars to .c ]
+## Slide 35  [Lab 5: Add New Vars to .c ]
 ### Lab 5: Update MyWizardDriver.c  
 <br>
-<b>Open</b>&nbsp;&nbsp; "`C:/FW/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.c`"<br>
+<b>Open</b>&nbsp;&nbsp; "`~/src/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.c`"<br>
 
 <b>Copy & Paste</b>&nbsp;&nbsp; the following  4 lines after the `#include "MyWizardDriver.h"` statement: 
 
@@ -649,7 +695,7 @@ MYWIZARDDRIVER_CONFIGURATION   *mMyWizDrv_Conf = &mMyWizDrv_Conf_buffer;  //use 
 
 ---
 
-## Slide 33  [Lab 5: Update Suppport for new function ]
+## Slide 36  [Lab 5: Update Suppport for new function ]
 ### Lab 5: Update MyWizardDriver.c 
 <br>
 <b>Locate</b>&nbsp;&nbsp; "`MyWizardDriverDriverBindingStart ()`" function<br>
@@ -675,7 +721,7 @@ MYWIZARDDRIVER_CONFIGURATION   *mMyWizDrv_Conf = &mMyWizDrv_Conf_buffer;  //use 
 
 ---
 
-## Slide 34  [Lab 5: Add new function ]
+## Slide 37  [Lab 5: Add new function ]
 ### Lab 5: Update MyWizardDriver.c 
 <b>Copy & Paste</b>&nbsp;&nbsp; the new function `CreateNVVariable()` before the call to function  `MyWizardDriverDriverEntryPoint()`
 <br>
@@ -723,9 +769,9 @@ MYWIZARDDRIVER_CONFIGURATION   *mMyWizDrv_Conf = &mMyWizDrv_Conf_buffer;  //use 
 
 ---
 
-## Slide 35  [Lab 5: Update .h]
+## Slide 38  [Lab 5: Update .h]
 ### Lab 5: Update MyWizardDriver.h
-<b>Open</b>&nbsp;&nbsp; "`C:/FW/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.h`"<br>
+<b>Open</b>&nbsp;&nbsp; "`~/src/edk2/MyWizardDriver/MyWizardDriver.h`"<br>
 <b>Copy & Paste</b>&nbsp;&nbsp; the following "#include" after the list of library include statements:
 
 ```C++
@@ -743,37 +789,49 @@ MYWIZARDDRIVER_CONFIGURATION   *mMyWizDrv_Conf = &mMyWizDrv_Conf_buffer;  //use 
  #include "MyWizardDriverNVDataStruc.h"	
 
  ```
-<b>Save</b>&nbsp;&nbsp; "`C:/FW/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.h`"<br>
+<b>Save</b>&nbsp;&nbsp; "`~/src/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.h`"<br>
 
-<b>Save</b>&nbsp;&nbsp; "`C:/FW/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.c`"	  
-
+<b>Save</b>&nbsp;&nbsp;`"`~/src/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.c`"
 
 ---
 
-## Slide 36  [Lab 5 Build and Test Driver]
-### Lab 5: Build and Test Driver
+## Slide 39  [Lab 5 Build and Test Driver]
+### Lab 5: Build and Test Driver 1
 
 Build the MyWizardDriver 
 
-
 ```
-  C:/FW/edk2-ws/edk2> Build
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
-
+bash$ cd ~/src/edk2-ws/edk2
+bash$ build
+```
+Copy MyWizardDriver.efi to hda-contents
+```
+ bash$ cd ~/run-ovmf/hda-contents
+ bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/MyWizardDriver.efi .
+```
+Test by Invoking Qemu
+```
+  bash$ cd ~/run-ovmf
+  bash$ . RunQemu.sh
 ```
 
-<b>Load</b> the UEFI Driver <br>
+---
+## Slide 40 [Lab 5 Build and Test Driver]
+### Lab 5: Build and Test Driver 2
+<br>
 
-&nbsp;&nbsp;&nbsp; `Shell> fs0:`<br>
-&nbsp;&nbsp;&nbsp; `FS0:\> `&nbsp;`load MyWizardDriver.efi`<br>
+- Load the UEFI Driver from the shell<br>
 
+- &nbsp;&nbsp;&nbsp; At the Shell prompt, type &nbsp; `Shell> fs0:`
+- &nbsp;&nbsp;&nbsp; Type:&nbsp;  `FS0:\> `&nbsp;`load MyWizardDriver.efi`  
 
-Observe the Buffer address returned by the debug statement in the VS Command window and the new NV Variable was created
+Observe the Buffer address returned by the debug statement
+
 
 
 ---
 
-## Slide 37  [Lab 5 Verify Driver]
+## Slide 41  [Lab 5 Verify Driver]
 ### Lab 5: Verify Driver 
 <br>
 
@@ -786,7 +844,7 @@ Observe the Buffer is filled with the letter "B" or 0x0042 <br>
 
 ---
 
-## Slide 38  [Lab 5 Verify NVRAM Driver]
+## Slide 42  [Lab 5 Verify NVRAM Driver]
 ### Lab 5: Verify NVRAM Created by Driver 
 <br>
 
@@ -796,7 +854,7 @@ Observe new the NVRAM variable "`MWD_NVData`" was created and filled with 0x00s<
 
 <br>
 
-Exit, type  `FS0:/> Reset`
+Exit QEMU
 
 Note:
 
@@ -805,7 +863,7 @@ End of Lab 5
 
 
 ---
-## Slide 39  [Lab 6: Port Stop and Unload]
+## Slide 43  [Lab 6: Port Stop and Unload]
 <br>
 
 ### Lab 6: Port Stop and Unload 
@@ -815,10 +873,10 @@ In this lab, you’ll port the driver’s "Unload" and "Stop" functions to free 
 
  
 ---
-## Slide 40  [Lab 6: Port the Unload]
+## Slide 44  [Lab 6: Port the Unload]
 ### Lab 6: Port the Unload function
 
-<b>Open</b>&nbsp;&nbsp; "`C:/FW/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.c`"<br>
+<b>Open</b>&nbsp;&nbsp; "`~src/edk2-ws/edk2/MyWizardDriver/MyWizardDriver.c`"<br>
 <b>Locate</b>&nbsp;&nbsp;"`MyWizardDriverUnload ()`" function<br>
 <b>Copy & Paste</b>&nbsp;&nbsp;the following "`if`"  and "`DEBUG`" statements before the "`return EFI_SUCCESS;`" statement.
 
@@ -846,7 +904,7 @@ Note:
   
 
 ---
-## Slide 41  [Lab 6: Port the Stop]
+## Slide 45  [Lab 6: Port the Stop]
 ### Lab 6: Port the Stop function 
 <b>Locate</b>&nbsp;&nbsp;"`MyWizardDriverDriverBindingStop()`" function<br>
 <b>Comment out</b>&nbsp;&nbsp; with "`//`" before the "`return EFI_UNSUPPORTED;`" statement.<br>
@@ -864,7 +922,7 @@ Note:
 }
 ```
 
-<b>Save & Close</b>&nbsp;&nbsp;"`MyWizardDriverDriver.c`"
+<b>Save & Close</b>&nbsp;&nbsp;"`~src/edk2-ws/edk2/MyWizardDriver/MyWizardDriverDriver.c`"
 
 Note:
 
@@ -878,24 +936,41 @@ Note:
     
 ---
 
-## Slide 42  [Lab 6 Build and Test Driver]
-### Lab 6: Build and Test Driver  
+## Slide 46  [Lab 6 Build and Test Driver 01]
+### Lab 6: Build and Test Driver 1 
 
 Build the MyWizardDriver 
 
+
 ```
-  C:/FW/edk2-ws/edk2> Build
-  C:/FW/edk2-ws/edk2> RunEmulator.bat
+bash$ cd ~/src/edk2-ws/edk2
+bash$ build
+```
+Copy MyWizardDriver.efi to hda-contents
+```
+ bash$ cd ~/run-ovmf/hda-contents
+ bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/MyWizardDriver.efi .
+```
+Test by Invoking Qemu
+```
+  bash$ cd ~/run-ovmf
+  bash$ . RunQemu.sh
 ```
 
-<b>Load</b> the UEFI Driver <br>
+---
+## Slide 47 [Lab 6 Build and Test Driver 02]
+### Lab 6: Build and Test Driver 2
+<br>
 
-&nbsp;&nbsp;&nbsp; `Shell> fs0:`<br>
-&nbsp;&nbsp;&nbsp; `FS0:\> `&nbsp;`load MyWizardDriver.efi`<br>
-Observe the Buffer address is at `0x25DE4F5C018` as this slide example<br>
+- Load the UEFI Driver from the shell<br>
+
+- &nbsp;&nbsp;&nbsp; At the Shell prompt, type &nbsp; `Shell> fs0:`
+- &nbsp;&nbsp;&nbsp; Type:&nbsp;  `FS0:\> `&nbsp;`load MyWizardDriver.efi`  
+
+Observe the Buffer address returned by the debug statement
 
 
-## Slide 43  [Lab 6 Verify Driver]
+## Slide 48  [Lab 6 Verify Driver]
 ### Lab 6: Verify Driver 
 <br>
 
@@ -906,9 +981,10 @@ Observe the handle is "`A9`" as this slide example <br>
 Type: &nbsp;` mem  0x25DE4F5C018`<br>
 Observe the buffer was filled with the "0x0042" <br>
 
+NOTE: the MyWizardDriver handle maybe different in your lab
 
 
-## Slide 44  [Lab 6 Verify Unload]
+## Slide 49  [Lab 6 Verify Unload]
 ### Lab 6: Verify Unload 
 
 
@@ -918,8 +994,10 @@ At the Shell prompt, type &nbsp; `FS0:\> `&nbsp;`unload a9`<br>
 Observe the DEBUG messages from the Unload<br><br>
 Type `Drivers` again to verify<br>
 
+
+NOTE: the MyWizardDriver handle maybe different in your lab
 ---
-## Slide 45  [Lab 6 Verify Unload]
+## Slide 50  [Lab 6 Verify Unload]
 ### Lab 6: Verify Unload 
 <br>
 
@@ -929,14 +1007,14 @@ At the Shell prompt, type &nbsp; `FS0:\> `&nbsp;`mem 0x25DE4F5C018 -b`<br>
 Observe the buffer is now NOT filled <br>
 <br>
 
-Exit, type  `FS0:/> Reset`<br>
+Exit QEMU
 
 Note:
 End of Lab 6
 
 ---
 
-## Slide 46  [Additional Porting]
+## Slide 51  [Additional Porting]
 ### Additional Porting    
 <br>
 
@@ -957,7 +1035,7 @@ Use the UEFI Driver Wizard to create a starting point for new drivers on EDK II
 ### Summary <br>
 
 - Compile a UEFI driver template created fromUEFI Driver Wizard 
-- Test driver w/ Windows emulation using UEFI Shell 2.0
+- Test driver QEMU using UEFI Shell 2.0
 - Port code into the template driver 
 
 
