@@ -162,7 +162,7 @@ Download edk2 source tree using Git
 
 ```
 bash$ git clone -b Edk2Lab_21Q3 https://github.com/tianocore-training/edk2.git
-bash$ git clone -b LabBranch https://github.com/tianocore-training/edk2-libc.git
+bash$ git clone https://github.com/tianocore/edk2-libc.git
 
 ```
 
