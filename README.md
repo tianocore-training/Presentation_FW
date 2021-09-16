@@ -55,6 +55,6 @@ Note: please also download the corresponding Lab Material
   - **Presentations** (this repo)
   - Documentation
   - DriverWizard
-  - edk2-ws -  overwrite for https://github.com/tianocore/edk2-libc and Setup script for environment
+  - edk2-ws -  Setup script for environment
   - LabSampleCode - all the solutions to the lab exercises
 
