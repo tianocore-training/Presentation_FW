@@ -17,7 +17,8 @@
 ## slide 02 [Lesson Objective]
 <BR>
 
-### <p align="center"<span class="gold"   >Lesson Objective </span></p><br>
+### Lesson Objective 
+
 
 - Setup the UEFI Driver Wizard
 - Create a UEFI Driver Template
