@@ -25,7 +25,7 @@
 
 
 ## slide 03 [UEFI Driver Wizard Section ]
-<br>
+
 ### UEFI Driver Wizard
 - Creating a Template UEFI Driver with the
 - UEFI Driver Wizard
@@ -34,8 +34,10 @@
 
 ## slide 04 [UEFI Driver Wizard  Overview]
 <br>
+
 ### UEFI Driver Wizard  Overview
 <br>
+
 - Open source tool
 - Based on Driver Writer’s Guide for UEFI 2.3.1 content
 - Intel  engineers contributed
@@ -82,7 +84,8 @@ Note:
 
 ---
 ## slide 07 [Template File Contents]
-<p align="right"><span class="gold" ><b>Template File Contents </b></span></p>
+
+<b>Template File Contents </b>
 
 - Proper UEFI driver entry point
 - Basic driver libraries/headers
@@ -90,7 +93,7 @@ Note:
 
 
 
-- Error values until ported EFI_UNSUPPORTED, EFI_DEVICE_ERROR<br>&nbsp;</span></p>)
+- Error values until ported EFI_UNSUPPORTED, EFI_DEVICE_ERROR<br>&nbsp;
 
 
 
