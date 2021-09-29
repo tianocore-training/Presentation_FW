@@ -74,10 +74,10 @@ $ cd UpX
 
 In the Git Bash command line window Do the following:<br>
 
-May need to Set PROXYS FIRST  (below is an example for Intel OR)
+May need to Set PROXYS FIRST  (below is an example for Intel Corporation)
 ```
-$ git config --global https.proxy=proxy.hf.intel.com:911
-$ git config --global http.proxy=proxy.hf.intel.com:911
+$ git config --global https.proxy proxy-dmz.intel.com:912
+$ git config --global http.proxy proxy-dmz.intel.com:911
 
 ```
 

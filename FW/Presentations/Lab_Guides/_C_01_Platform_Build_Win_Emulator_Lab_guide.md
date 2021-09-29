@@ -178,8 +178,8 @@ $ cd edk2-ws
 ### Download the EDK II Source Code
 Note:  if behind a firewall, set PROXYS FIRST
 ```
-$ git config --global https.proxy proxy.jf.intel.com:911
-$ git config --global http.proxy proxy.jf.intel.com:911
+$ git config --global https.proxy proxy-dmz.intel.com:912
+$ git config --global http.proxy proxy-dmz.intel.com:911
 ```
 
 ```
