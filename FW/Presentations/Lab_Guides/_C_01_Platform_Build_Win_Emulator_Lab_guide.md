@@ -11,7 +11,7 @@
 <!---
  Lab_Guide.md for Platform Build Win Emulator Lab
 
-  Copyright (c) 2020-2021, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) 2020-2022, Intel Corporation. All rights reserved.<BR>
 
   Redistribution and use in source (original document form) and 'compiled'
   forms (converted to PDF, epub, HTML and other formats) with or without
@@ -257,12 +257,19 @@ Copy `Nasm` directory to `C:\`
 ---
 ## Slide 18  @title[CI Stuart Build  sub Section]
 <br>
-OPTIONAL
+
+**OPTIONAL**
+
 ### CI Stuart Build EmulatorPkg
+
+
 <b>SKIP</b> if doing Non-Stuart CI Build
 
 ---
 ## Slide 19  @title[Stuart CI Build Edk II]
+
+<b>SKIP</b> if doing Non-Stuart CI Build
+
 ### <b>Stuart CI Build EDK II  </b><br>
 1. CD C:\FW\Edk2-ws and run setup script to setup `WORKSPACE` and Packages path
 ```
@@ -299,6 +306,10 @@ Where "`<Your TAG>`" is either `VS2017` or `VS2019`
 
 ---
 ## Slide 20  @title[Output from CI Stuart Build]
+
+<b>SKIP</b> if doing Non-Stuart CI Build
+
+
 <b>Output from CI Stuart Build </b><br>
 
 ```
@@ -324,10 +335,10 @@ PROGRESS - Success
 ### Finshed Build
 
 ---
-## Slide 21  @title[Non CI Stuart Build  sub Section]
+## Slide 21  **Non CI Stuart Build  sub Section**
 <br>
 
-### Non Stuart CI Build EmulatorPkg
+### **Non Stuart CI Build EmulatorPkg**
 
 <b>SKIP</b> if doing Stuart CI Build
 
@@ -479,9 +490,9 @@ FS0: > Dmpstore BootOrder
 
 Use BCFG to Move the 5th boot item too 1st location.
 
-Then verify using the “dmpstore”
+Then verify using the ï¿½dmpstoreï¿½
 
-(Hint: use BCFG -? –b for help menu)
+(Hint: use BCFG -? ï¿½b for help menu)
 
 The dmpstore output should look like:
 
@@ -498,7 +509,7 @@ From Windows File explorer, Copy the file from the
 
 Use BCFG to Add  a 06 entry for a new boot option with  `Shell_FullX64.efi`
 
-Then verify using the “BCFG Boot Dump”
+Then verify using the ï¿½BCFG Boot Dumpï¿½
 
 Hint: make sure Shell_FullX64.efi is in the FS0: directory by doing: 
 ```
@@ -614,7 +625,7 @@ c:\edkii.svn\Build\NT32IA32\DEBUG_VS2013x86\IA32\MdeModulePkg\Application\HelloW
 lloWorldhii.rc
 'c:\Program' is not recognized as an internal or external command,
 operable program or batch file.
- 
+ï¿½
 NMAKE : fatal error U1077: '"c:\Program Files (x86)\Windows Kits\8.0\bin\x64\rc.exe' : return code '0x1'
 Stop.
 
