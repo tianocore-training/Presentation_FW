@@ -183,7 +183,7 @@ $ git config --global http.proxy proxy-dmz.intel.com:911
 ```
 
 ```
-C:\FW\edk2-WS> git clone -b Edk2Lab_21Q3 https://github.com/tianocore-training/edk2.git
+C:\FW\edk2-WS> git clone -b Edk2Lab_22Q1 https://github.com/tianocore-training/edk2.git
 C:\FW\edk2-WS> git clone https://github.com/tianocore/edk2-libc.git
 
 ```
@@ -224,7 +224,7 @@ Directory Lab_Material_FW will be created
 ## Slide 15  @title[Build  Edk2 -getting the Source ]
 <b>Build EDK II  </b><br>
 
-â€“ Extract the Source  
+- Extract the Source  
 
 Extract the Downloaded `Lab_Material_FW-main.zip to C:\ `
 
@@ -257,7 +257,7 @@ Copy `Nasm` directory to `C:\`
 ---
 ## Slide 18  @title[CI Stuart Build  sub Section]
 <br>
-
+OPTIONAL
 ### CI Stuart Build EmulatorPkg
 <b>SKIP</b> if doing Non-Stuart CI Build
 
@@ -335,7 +335,7 @@ PROGRESS - Success
 ---
 ## Slide 22  @title[Build  Edk2 -build BaseTools]
 <b>Non Stuart CI Build EDK II  </b><br>
- â€“ build `BaseTools`
+-  build `BaseTools`
  
 Open VS Command prompt & Cd to work space directory 
 ```
@@ -454,11 +454,74 @@ Notice 2 "GOP Window n" opened
 ## Slide 28  @title[Build Edk2 -exit emulator]
 <b>Emulator at Shell Prompt  </b>
 
+The Emulator will be running on top of Windows with the UEFI Shell prompt available.
+
+---
+## Slide 29  @title[Show the UEFI Boot Variables]
+
+At the Shell Prompt:
+```
+Shell> FS0:
+Shell> BCFG Boot Dump
+```
+Note see the list of Boot000X options printed to the console
+
+---
+## Slide 30  @title[Use the Dmpstore to Show the Boot Order]
+
+At the Shell Prompt:
+
+```
+FS0: > Dmpstore BootOrder
+```
+---
+## Slide 31  @title[Use the BCFG to Move a boot item ]
+
+Use BCFG to Move the 5th boot item too 1st location.
+
+Then verify using the “dmpstore”
+
+(Hint: use BCFG -? –b for help menu)
+
+The dmpstore output should look like:
+
+```
+Variable NV+RT+BS 'EFIGlobalVariable:BootOrder' DataSize = 0x0C
+  00000000: 00 00 05 00 01 00 02 00-03 00 04 00              *............*
+```
+---
+## Slide 32  @title[Use the BCFG to Add a boot item  ]
+
+From Windows File explorer, Copy the file from the 
+
+%WORKSPACE%\edk2\ShellPkg\OldShell\Shell_FullX64.efi to the directory %WORKSPACE%\Build\ . . .\X64
+
+Use BCFG to Add  a 06 entry for a new boot option with  `Shell_FullX64.efi`
+
+Then verify using the “BCFG Boot Dump”
+
+Hint: make sure Shell_FullX64.efi is in the FS0: directory by doing: 
+```
+FS0:> Dir 
+```
+After the bcfg add, The output should look like
+```
+. . .
+Option: 06. Variable: Boot0006   
+  Desc    - Old EFI Shell 1.0
+  DevPath - VenHw(5CF32E0B-8EDF-2E44-9CDA-93205E99EC1C,00000000)/VenHw(964E5B22-6459-11D2-8E39-00A0C969723B,00000000)/\Shell_FullX64.efi
+  Optional- N
+```
+
+
+---
+## Slide 33  @title[Build Edk2 -exit emulator]
+<b>Emulator at Shell Prompt  </b>
+
 Type: "Reset" to exit
 
-
 ---  
-## Slide 29  @title[Summary]
+## Slide 34  @title[Summary]
 ### Summary <br>
 
 - Pin Visual Studio Command Prompt to Windows Task Bar 
@@ -466,12 +529,12 @@ Type: "Reset" to exit
 - Run the Emulator in Windows
 
 ---
-## Slide 30  @title[Questions]
+## Slide 35  @title[Questions]
 <br>
 Questions
 
 ---
-## Slide 31  @title[return to main]
+## Slide 36  @title[return to main]
 <b>Return to Main Training Page</b>
 <br>
 <br>
@@ -483,13 +546,13 @@ Return to Training Table of contents for next presentation <a href="https://gith
 
 
 ---
-## Slide 32  @title[Logo Slide]
+## Slide 37  @title[Logo Slide]
 <br><br><br>
 
 
 
 ---
-## Slide 33  @title[Acknowledgements]
+## Slide 38  @title[Acknowledgements]
 #### Acknowledgements
 
 ```c++
@@ -517,20 +580,20 @@ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWIS
 ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY 
 OF SUCH DAMAGE.
 
-Copyright (c) 2020, Intel Corporation. All rights reserved.
+Copyright (c) 2020-2022, Intel Corporation. All rights reserved.
 **/
 
 ```
 
 
 ---
-## Slide 34  @title[Backup Section]
+## Slide 39  @title[Backup Section]
 <br><br><br><br><br>
 ## Back up
 
 
 ---  
-## Slide 35  @title[Build Errors]
+## Slide 40  @title[Build Errors]
 <br>
 <br>
 <br>
@@ -539,7 +602,7 @@ Copyright (c) 2020, Intel Corporation. All rights reserved.
 
 
 ---
-## Slide 36  @title[Build Error- RC.exe ]
+## Slide 41  @title[Build Error- RC.exe ]
 <b>Build Error- RC.exe </b>
 Because RC.Exe is not found, Error Message:
 
@@ -551,7 +614,7 @@ c:\edkii.svn\Build\NT32IA32\DEBUG_VS2013x86\IA32\MdeModulePkg\Application\HelloW
 lloWorldhii.rc
 'c:\Program' is not recognized as an internal or external command,
 operable program or batch file.
-Â 
+ 
 NMAKE : fatal error U1077: '"c:\Program Files (x86)\Windows Kits\8.0\bin\x64\rc.exe' : return code '0x1'
 Stop.
 
