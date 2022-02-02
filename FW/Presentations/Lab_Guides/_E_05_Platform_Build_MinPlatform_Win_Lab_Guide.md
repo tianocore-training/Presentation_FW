@@ -11,7 +11,7 @@ Platform Build Lab Up Xtreme - Windows
 <!---
  Lab_Guide.md for Platform Build Lab Up Xtreme - Windows
 
-  Copyright (c) 2021, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) 2021-2022, Intel Corporation. All rights reserved.<BR>
 
   Redistribution and use in source (original document form) and 'compiled'
   forms (converted to PDF, epub, HTML and other formats) with or without
@@ -85,7 +85,7 @@ $ git config --global http.proxy proxy-dmz.intel.com:911
 ```
 $ git clone https://github.com/tianocore/edk2.git
 $ cd edk2
-$ git checkout 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5
+$ git checkout 5b3c682d91bd699a3144d36258565ccaa2036db7
 $ git submodule update --init
 $ cd ..
 ```
@@ -93,7 +93,7 @@ $ cd ..
 ```
 $ git clone https://github.com/tianocore/edk2-platforms.git
 $ cd edk2-platforms
-$ git checkout  784f7739f5afd268042d4d9e8ef570131620c82c
+$ git checkout  ce768c6535cdc18113d88cb4a50dbdfa70bf0d85
 $ cd ..
 ```
 **Edk2-non-osi**
@@ -477,7 +477,7 @@ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWIS
 ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY 
 OF SUCH DAMAGE.
 
-Copyright (c) 2021, Intel Corporation. All rights reserved.
+Copyright (c) 2021-2022, Intel Corporation. All rights reserved.
 **/
 
 ```

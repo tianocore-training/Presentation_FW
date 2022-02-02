@@ -183,7 +183,7 @@ $ git config --global http.proxy proxy-dmz.intel.com:911
 ```
 
 ```
-C:\FW\edk2-WS> git clone -b Edk2Lab_21Q3 https://github.com/tianocore-training/edk2.git
+C:\FW\edk2-WS> git clone -b Edk2Lab_22Q1 https://github.com/tianocore-training/edk2.git
 C:\FW\edk2-WS> git clone https://github.com/tianocore/edk2-libc.git
 
 ```

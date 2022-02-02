@@ -95,7 +95,7 @@ May need to Set PROXYS FIRST  (below is an example for Intel OR)
 ```
   bash$ git clone https://github.com/tianocore/edk2.git
   bash$ cd edk2
-  bash$ git checkout 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5
+  bash$ git checkout 5b3c682d91bd699a3144d36258565ccaa2036db7
   bash$ git submodule update --init
   bash$ cd ..
 ```
@@ -103,7 +103,7 @@ May need to Set PROXYS FIRST  (below is an example for Intel OR)
 ```
   bash$ git clone https://github.com/tianocore/edk2-platforms.git
   bash$ cd edk2-platforms
-  bash$ git checkout  784f7739f5afd268042d4d9e8ef570131620c82c
+  bash$ git checkout  ce768c6535cdc18113d88cb4a50dbdfa70bf0d85
   bash$ cd ..
 ```
 **Edk2-non-osi**
