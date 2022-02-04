@@ -91,11 +91,11 @@ May need to Set PROXYS FIRST  (below is an example for Intel OR)
 
 ```
 
-**Edk2** Download with tag
+**Edk2** Download with tag  edk2-stable202111
 ```
   bash$ git clone https://github.com/tianocore/edk2.git
   bash$ cd edk2
-  bash$ git checkout 5b3c682d91bd699a3144d36258565ccaa2036db7
+  bash$ git checkout bb1bba3d776733c41dbfa2d1dc0fe234819a79f2
   bash$ git submodule update --init
   bash$ cd ..
 ```
