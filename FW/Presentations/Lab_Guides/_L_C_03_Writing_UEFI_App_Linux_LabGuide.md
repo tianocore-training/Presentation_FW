@@ -47,6 +47,9 @@
 - Using EADK with UEFI Application
 
 
+First Setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md">Lab Setup for Emulator </a>
+
+
 ---
 
 ## Slide 3 @title[Lab 2: Write a Simple UEFI Application]

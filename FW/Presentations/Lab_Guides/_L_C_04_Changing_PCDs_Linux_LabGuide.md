@@ -46,12 +46,7 @@
 
 
 ---
-## Slide 3 @title[UEFI Application w/ PCDs Section]
-
-### UEFI Application w/ PCDs 
-
----
-## Slide 4 @title[EDK II PCD’s Purpose and Goals]
+## Slide 3 @title[EDK II PCD’s Purpose and Goals]
 <br>
 <p align="center"><b>EDK II PCD’s Purpose and Goals</b> - REVIEW</p>
 Documentaton :  <a href="https://github.com/tianocore/edk2/blob/master/MdeModulePkg/Universal/PCD/Dxe/Pcd.inf"> MdeModulePkg/Universal/PCD/Dxe/Pcd.inf  </a> 
@@ -73,7 +68,7 @@ Note:
 
 
 
-## Slide 5 @title[PCD Syntax review]
+## Slide 4 @title[PCD Syntax review]
 ### <p align="center">PCD Syntax  - REVIEW 
 PCDs can be located anywhere within the Workspace even though a different package will use those PCDs for a given project</span>
 
@@ -94,7 +89,7 @@ Note:
 
 - Not on this slide but also there is the FDF build description File – and this file would have flash layout related values 
 ---
-## Slide 6 @title[Lab 1: Writing UEFI Applications with PCDs]
+## Slide 5 @title[Lab 1: Writing UEFI Applications with PCDs]
 
 ### Lab 1: Writing UEFI Applications with PCDs
 
@@ -102,29 +97,17 @@ In this lab, you’ll  learn how to write UEFI applications with PCDs.
 
 Note:
 
+Solution: Lab_Material_FW/FW/LabSampleCode/LabSolutions/LessonB.1
 
 
 
 ---
-## Slide 7 @title[EDK II HelloWorld  App  Lab ]
+## Slide 6 @title[EDK II HelloWorld  App  Lab ]
 <b>EDK II HelloWorld  App  Lab  </b></p>
 
-First Setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md">Lab Setup for Emulator </a>
-
-Locate and Open <br>
-`edk2/MdeModulePkg/Application/HelloWorld/HelloWorld.c`
-
-Notice the PCD values
-<br>
-<br>
-<br>
-Build Emulation <br>
-Then Run HelloWorld at the Shell command interface 
-
+First Setup for Building EDK II for OvmfPkg, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md">Lab Setup for OvmfPkg </a>
 
 Edit and add the following line (at the end of the file)
-
-
 Edit OvmfPkg/OvmfPkgX64.dsc  add HelloWorld.inf - Save
 
 ```
@@ -133,51 +116,48 @@ Edit OvmfPkg/OvmfPkgX64.dsc  add HelloWorld.inf - Save
 # Add new modules here
  MdeModulePkg/Application/HelloWorld/HelloWorld.inf
 ```
+
 Build the OvmfPkgX64 from Terminal Prompt (Cnt-Alt-T)
-```
+```shell
  bash$ cd ~/src/edk2-ws/edk2
- bash$ build  –D ADD_SHELL_STRING 
-```
+ bash$ build
+``` 
 
 
-Note:
 
 ---
+## Slide 7 @title[EDK II HelloWorld  App  Lab ]
+<b>EDK II HelloWorld  App  Lab  </b></p>
 
-
-
- 
-
-## Slide 8 @title[EDK II HelloWorld  App  Lab steps]
-<p align="left"><b>EDK II HelloWorld  App  Lab  </b></p>
-
-
-
-Copy the HelloWorld.efi to the ~run-ovmf/hda-contents directory
-```
+1. Copy the HelloWorld.efi to the ~run-ovmf/hda-contents directory
+```shell
   bash$ cd ~/run-ovmf/hda-contents
-  bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/HelloWorld.efi
+  bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/X64/HelloWorld.efi .
 ```
-CD to the run-ovmf directory and run Qemu with the RunQemu.sh shell
- ```
+2. CD to the run-ovmf directory and run Qemu with the RunQemu.sh shell
+```shell 
   bash$ cd ~/run-ovmf
   bash$ . RunQemu.sh
 ```
-At the UEFI Shell prompt
-```
+3. At the UEFI Shell prompt
+```shell
 Shell> Helloworld
 UEFI Hello World!
 Shell> 
 ```
+**How can we force the HelloWorld application to print out 3 times ?**
 
 
-<font color="green">How can we force the HelloWorld application to print out 3 times ?</font>
 
 
-Note:
+
+
+
+
 
 ---
-## Slide 9 @title[EDK II HelloWorld  App  Lab location]
+
+## Slide 8 @title[EDK II HelloWorld  App  Lab location]
 ### <b>EDK II HelloWorld  App  Lab  </b>
 
 <a href="https://github.com/tianocore/edk2/tree/master/MdeModulePkg/Application/HelloWorld"> MdeModulePkg/Application/HelloWorld </a>
@@ -188,9 +168,10 @@ Note:
 First let's look at the source code for the HellowWorld Application
 
 ---
-## Slide 10 @title[EDK II HelloWorld  App  Lab code]
+## Slide 9 @title[EDK II HelloWorld  App  Lab code]
 ### <b>EDK II HelloWorld  App  Lab  </b> 
-<span style="font-size:01.0em" >Source: <font color="green">Helloworld.c</font></span>
+
+**Helloworld.c**
 
 ```C++
 EFI_STATUS
@@ -225,7 +206,7 @@ Source from Helloworld.c
 
 ---
 
-## Slide 11 @title[EDK II HelloWorld  App  Lab solution]
+## Slide 10 @title[EDK II HelloWorld  App  Lab solution]
 ### <b>EDK II HelloWorld  App  Solution </b> 
 
 
@@ -241,12 +222,15 @@ Solution:
 1. Edit the file ~src/edk2-ws/edk2/OvmfPkg/OvmfPkgX64.dsc
   - After the section [PcdsFixedAtBuild], add the new line :  
   - `[PcdsFixedAtBuild]`
-  - `gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintTimes|3`
 
+Add
+```
+  gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintTimes|3
+```
 
 2. Re-Build – Cd to ~/src/edk2-ws/edk2~ dir 
 ```
-bash$ build –D ADD_SHELL_STRING
+bash$ build 
 ```
 3. Copy  Helloworld.efi 	 
 ```
@@ -255,7 +239,7 @@ bash$ cp ~/src/Build/OvmfX64/DEBUG_GCC5/X64/HelloWorld.efi .
 ```
 
 ---
-## SLide 12 @title[EDK II HelloWorld  App  Lab solution 02]
+## SLide 11 @title[EDK II HelloWorld  App  Lab solution 02]
 ### <b>EDK II HelloWorld  App  Solution </b> 
 
 
@@ -280,6 +264,164 @@ Note:
 - How can we change the string of the HelloWorld application?
 - Also see  ~src/edk2-ws/edk2/MdeModulePkg/MdeModulePkg.Dec
 
+
+---
+## Slide 12 @title[Lab 1_2: Writing UEFI Applications with PCDs]
+
+### Lab 1_2: Writing UEFI Applications with PCDs
+
+In this lab, you'll learn how to change a PCD String in the HelloWorld UEFI applications.
+
+
+Note:
+
+Solution: Lab_Material_FW/FW/LabSampleCode/LabSolutions/LessonB.1_2
+
+
+---
+
+## Slide 13 @title[EDK II HelloWorld App Change String]
+### <b>EDK II HelloWorld App Change String </b> 
+
+
+Note:
+
+- look in file: `C:\fw\edk2\MdeModulePkg\MdeModulePkg.Dec`
+
+- This PCD defines the print string.
+-  This PCD is a sample to explain String typed PCD usage.
+-  `gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintString|L"UEFI Hello World!\n"|VOID*|0x40000004`
+
+Solution:
+1. Edit the file ~src/edk2-ws/edk2/OvmfPkg/OvmfPkgX64.dsc
+  - After the section [PcdsFixedAtBuild], add the new line :  
+  - `[PcdsFixedAtBuild]`
+  - `gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintTimes|3`
+
+ Add
+``` 
+  gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintString|L"My New String!\n"
+```
+2. Re-Build – Cd to ~/src/edk2-ws/edk2~ dir 
+``` 
+ bash$ build 
+``` 
+3. Copy  Helloworld.efi 	 
+```
+bash$ cd ~/run-ovmf/hda-contents
+bash$ cp ~/src/Build/OvmfX64/DEBUG_GCC5/X64/HelloWorld.efi .
+```
+Hint:  see  ~src/edk2-ws/edk2/MdeModulePkg/MdeModulePkg.Dec
+
+
+---
+## SLide 14 @title[EDK II HelloWorld  App  Lab solution 02]
+### <b>EDK II HelloWorld  App  Solution </b> 
+
+
+4. Run Qemu
+``` 
+ bash$ cd ~/run-ovmf
+ bash$ . RunQemu.sh
+```
+5. At the Shell prompt
+```shell
+Shell> Helloworld
+My New String!
+My New String!
+My New String!
+Shell> 
+```
+
+Exit QEMU
+    
+
+---
+## Slide 15 @title[Lab 1_3: Adding PCD String]
+
+### Lab 1_3: Adding PCD String
+
+
+In this lab, you'll add a PCD String to the previous lab's SampleApp UEFI Shell application
+
+
+Note:
+
+Solution: Lab_Material_FW/FW/LabSampleCode/LabSolutions/LessonB.1_3
+
+
+---
+## Slide 16 Lab 1_3: Catch Up SampleApp
+
+### <b>Lab 1_3: Catch up from previous lab</b>
+
+
+Skip to next slide if Lab Writing UEFI App Lab</a> completed - <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_03_Writing_UEFI_App_Linux_LabGuide.md"> Labguide </a> <BR>
+
+- Perform Lab Setup from previous Labs  <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md">LabGuide</a>  
+- Create a Directory under the workspace `~/src/edk2-ws/edk2 : "SampleApp"`
+- Copy contents of `~/FW/LabSampleCode/SampleAppPCD to ~src/edk2-ws/edk2/SampleApp`
+- Open `~src/edk2-ws/edk2/OvmfPkg/OvmfPkgX64.dsc`
+- Add the following to the `[Components]` section: 
+
+```
+ # Add new modules here
+SampleApp/SampleApp.inf
+```
+<br>
+- Save and close the file `~src/edk2-ws/edk2/OvmfPkg/OvmfPkgX64.dsc`
+
+
+
+---
+## Slide 17 Sample App Add PCD String
+
+### <b>Sample App Add PCD String</b>
+
+How can we add a string to the SampleApp application?
+
+1. Edit the file ~/src/edk2-ws/edk2/OvmfPkg/OvmfPkg.dec.  After the section `[PcdsFixedAtBuild]` add the PCD for the SampleApp called: `PcdSampleAppString`
+2. Edit the file ~/src/edk2-ws/edk2/SampleApp.inf and add the new PCD in the PCD section. Also add the package OvmfPkg.dec in the Package section
+3. Edit the file ~/src/edk2-ws/edk2/SampleApp.c and add the correct Library include and also add:
+```
+// PCD LAB after #include <Uefi.h> add the following Include
+#include <Library/PcdLib.h>
+//
+// . . .
+//
+// Add after start of UefiMain  add the print statement
+	Print((CHAR16 *)PcdGetPtr(PcdSampleAppString));
+```
+4. Re-Build - cd ~/src/edk2-ws/edk2 dir 
+```
+$> Build
+```
+
+---
+## Slide 18 EDK II SampleApp Test
+
+### <b>EDK II SampleApp Test</b>
+
+
+5. Copy  SampleApp.efi 	 
+```
+bash$ cd ~/run-ovmf/hda-contents
+bash$ cp ~/src/Build/OvmfX64/DEBUG_GCC5/X64/SampleApp.efi .
+```
+6.  Run Qemu
+``` 
+bash$ cd ~/run-ovmf
+bash$ . RunQemu.sh
+```
+7. At the Shell prompt
+```shell
+Shell> SampleApp
+SampleApp String
+. . .
+Shell> 
+```
+Exit QEMU
+    
 
 
 

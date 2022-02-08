@@ -69,15 +69,41 @@ EDK II tools use INI-style text-based files to describe components, platforms an
  * FDF
 
 
- 
+
  
  
  [https://github.com/tianocore/tianocore.github.io/wiki/Build-Description-Files](https://github.com/tianocore/tianocore.github.io/wiki/Build-Description-Files)
  
  [https://github.com/tianocore/tianocore.github.io/wiki/EDK-II-Specifications](https://github.com/tianocore/tianocore.github.io/wiki/EDK-II-Specifications)
 
+---
+## Slide 5 General Format for All Build Text Files
+
+1. The EDK II Build Text Files use meta-data files using the INI format style
+2. All Build text files consists of sections delineated by section tags enclosed within Square “[“  “]” brackets
+3. Section tag entries are case-insensitive
+4. Text of a given section can be used for multiple section names by separating the section names with a comma
+5. Sections are terminated by the start of another section or the end of the file.
+6. The hash-tag “#” indicates text following to EOL is a comment (exception is within a quoted string)
+7. The “!include” statements are permitted in .DSC and .FDF but NOT .DEC
+8. Condition Statements Supported in .DSC and .FDF but NOT .DEC
+```
+  !ifdef, !ifndef, !if, !elseif, !else and !endif
+```
+
+
+---
+## Slide 6    Lab 1: Examine the DEC, DSC and FDF files
+
+
+In this lab, you’ll learn about the layout of the DEC, DSC and FDF files
+
+
+
+
+
 --- 
-## Slide 5 Package Declaration File (DEC)
+## Slide 7 Package Declaration File (DEC)
 
 
 
@@ -96,6 +122,7 @@ Syntax:
 
 ```
 
+Review the Wiki Explanation: https://github.com/tianocore/tianocore.github.io/wiki/Build-Description-Files#the-dec-file 
 
 
 * One DEC file per package
@@ -118,7 +145,7 @@ Syntax:
 * Finally, user extensions are rarely used but are optionally present. 
 
 --- 
-## Slide 6 Example DEC File
+## Slide 8 Example DEC File
 ### Declare
 ```
 Defines]
@@ -153,7 +180,7 @@ NOTE: Tokens need to beunique to the DEC file (1 per PCD)
 
 
 --- 
-## Slide 7 Examine the Dec File Details
+## Slide 9 Examine the Dec File Details
 ### Declare
 
 Follow the following Links and examine the examples of the EmulatorPkg.dec file
@@ -171,7 +198,7 @@ Next open the same EmulatorPkg.dec in the %WORKSPACE% and become familiar with t
 * [Link:](https://github.com/tianocore-training/Lab_Material_FW/blob/main/FW/Documentation/Application_examples/AppExamplesMd/EmulatorPkg.dec.md#patchable-pcds-section) Patchable PCDs Section 
 
 --- 
-## Slide 8 Platform Description File (DSC)
+## Slide 10 Platform Description File (DSC)
 
 ### **Description**
 
@@ -188,6 +215,10 @@ DSCfile ::= [<Header>]
 			[<UserExtensions>] 
 ```
 
+Review the Wiki Explanation: https://github.com/tianocore/tianocore.github.io/wiki/Build-Description-Files#the-dsc-file 
+
+
+
 Notes:
 
 To build a platform the build requires a .DSC file
@@ -201,7 +232,7 @@ List the components for the build to compile and link
 Build options for the platform
 
 --- 
-## Slide 9 Platform Description File (DSC)
+## Slide 11 Platform Description File (DSC)
 
 ### **Description**
 
@@ -215,7 +246,7 @@ Note:
 DSC file must define all libraries, components and/or modules that will be used by one package
 
 --- 
-## Slide 10  Example: DSC File
+## Slide 12  Example: DSC File
 
 ### **Description**
 ```
@@ -260,7 +291,7 @@ DSC must contain a [Components] Section
 
 ---
 
-## Slide  11  Examine : DSC File Details
+## Slide  13  Examine : DSC File Details
 ### Examine : DSC File Details
 
 Follow the following Links and examine the examples of the EmulatorPkg.dsc file
@@ -281,7 +312,7 @@ Next open the same EmulatorPkg.dsc in the %WORKSPACE% and become familiar with t
 
 ---
 
-## Slide  12  Flash Description File(FDF)
+## Slide  14  Flash Description File(FDF)
 ### **Flash Layout**
 
 Syntax:
@@ -314,7 +345,7 @@ A firmware volume is part of the UEFI Spec in the Platform Initialization (PI) V
 
 ---
 
-## Slide  13  Flash Description File(FDF)
+## Slide  15  Flash Description File(FDF)
 ### **Flash Layout**
 
 * Describes information about flash parts
@@ -329,7 +360,7 @@ It is possible to have the PCD information used in the definition, and also in s
 
 ---
 
-## Slide  14  FLASH DEVICE CONFIGURATION COMMON LAYOUT FILE (.FDF)
+## Slide  16  FLASH DEVICE CONFIGURATION COMMON LAYOUT FILE (.FDF)
 
 
 
@@ -348,7 +379,7 @@ Note:  some of these areas are Firmware Volumes and other areas will be data
 
 ---
 
-## Slide  15   Example: FDF File
+## Slide  17   Example: FDF File
 
 ```
 [Defines]
@@ -367,10 +398,35 @@ NumBlocks     = $(FW_BLOCKS)
 
 
 $(VARS_SIZE)|$(FVMAIN_SIZE)
-FV = FVMAIN_COMPACT
+FV = FVMAIN_COMPACT		# Ovmf
 
 $(SECFV_OFFSET)|$(SECFV_SIZE)
 FV = SECFV
+
+```
+
+Included Mapping File:
+
+```
+DEFINE BLOCK_SIZE        = 0x1000
+DEFINE VARS_OFFSET       = 0
+
+!if ($(FD_SIZE_IN_KB) == 1024) || ($(FD_SIZE_IN_KB) == 2048)
+DEFINE VARS_SIZE         = 0x20000
+DEFINE VARS_BLOCKS       = 0x20
+DEFINE VARS_LIVE_SIZE    = 0xE000
+DEFINE VARS_SPARE_SIZE   = 0x10000
+!endif
+# . . .
+
+SET gUefiOvmfPkgTokenSpaceGuid.PcdOvmfFdBaseAddress     =     $(FW_BASE_ADDRESS)
+SET gUefiOvmfPkgTokenSpaceGuid.PcdOvmfFirmwareFdSize    =     $(FW_SIZE)
+SET gUefiOvmfPkgTokenSpaceGuid.PcdOvmfFirmwareBlockSize =     $(BLOCK_SIZE)
+
+SET gUefiOvmfPkgTokenSpaceGuid.PcdOvmfFlashNvStorageVariableBase =    $(FW_BASE_ADDRESS)
+SET gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize =    $(VARS_LIVE_SIZE)
+
+# . . .
 
 ```
 
@@ -380,7 +436,7 @@ Offset | Size are used to descript where in the flash items will be placed
 
 ---
 
-## Slide  16 Examine : FDF File Details
+## Slide  18 Examine : FDF File Details
 
 Follow the following Links and examine the examples of the EmulatorPkg.fdf file
 
@@ -403,11 +459,29 @@ Following are for the Whiskey Lake UPX (these examples will be used in later pro
 
 
 ---
-## Slide 17 Add a Simple Driver to the Build
+## Slide 19 Add a Simple Driver to the Build
+
+In this lab, you’ll learn how to add a UEFI Driver to the Build and final image .FD file.
+
+
+---
+## Slide 20 Add a UEFI Driver to a Platform
+
+
+Requirements:
+Add a simple UEFI driver to a platform based on a Macro switch passed to the build using "-D ADD_BLANKDRV" 
+
+
+
+
+
 Note: this requires Building of the Platform Lab First
 
 * Windows Build Emulator Platform Lab [Link](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md)
 * Linux Build Ovmf Platform Lab [Link](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md)
+
+---
+## Slide 21 Add a UEFI Driver to a Platform
 
 #### Steps
 1. Copy the LabSampleCode/LabSolutions/BlankDrv directory to WORKSPACE edk2
@@ -415,27 +489,27 @@ Note: this requires Building of the Platform Lab First
 3. Edit the Platform .FDF file and add the BlankDrv Driver to the DXE section of Firmware Volumes
 
 **Windows Build**
-* Copy the LabSampleCode/LabSolutions/BlankDrv directory to C:/FW/edk2-ws/edk2
-* Edit EmulatorPkg.dsc and EmlatorPkg.fdf
+* Copy the LabSampleCode/LabSolutions/BlankDrv directory to C:/FW/edk2-ws/edk2 and use a "if" statement based on macro ADD_BLANKDRV
+* Edit EmulatorPkg.dsc and EmlatorPkg.fdf and use a "if" statement based on macro ADD_BLANKDRV
 
 ```shell
-  C:/FW/edk2-ws/edk2> Build –D ADD_SHELL_STRING 
+  C:/FW/edk2-ws/edk2> Build -D ADD_BLANKDRV
   C:/FW/edk2-ws/edk2> RunEmulator.bat
 ```
 
 
 **Linux Build**
-* Copy the LabSampleCode/SampleApp directory to ~/src/edk2-ws/edk2
-* Edit OvmfPkg/OvmfPkgX64.dsc and OvmfPkg/OvmfPkgX64.fdf 
+* Copy the LabSampleCode/SampleApp directory to ~/src/edk2-ws/edk2 and use a "if" statement based on macro ADD_BLANKDRV
+* Edit OvmfPkg/OvmfPkgX64.dsc and OvmfPkg/OvmfPkgX64.fdf and use a "if" statement based on macro ADD_BLANKDRV
 ```shell
 bash$> cd ~/src/edk-ws/edk2
-bash$> build -D ADD_SHELL_STRING -a X64
+bash$> build -D ADD_BLANKDRV -a X64 -p OvmfPkg/OvmfPkgX64.dsc
 bash$ cd $HOME/run-ovmf
 bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/FV/OVMF.fd bios.bin
 bash$ . RunQemu.sh
 ```
 ---
-## Slide 18 Verify the Driver was Added
+## Slide 22 Verify the Driver was Added
 At the Shell prompt
 ```shell
  Shell> Exit
@@ -453,7 +527,7 @@ On Linux Exit QEMU
 
 ---
 
-## Slide  19  Summary
+## Slide  23  Summary
 ### Summary  <br>
 
 - Examine the Build components and  build text files DSC, DEC, & FDF 
@@ -462,18 +536,21 @@ On Linux Exit QEMU
  
 
 ---
-## Slide  20  Questions
+## Slide  24  Questions
 ### Questions
 
+---
+## Slide  25  Questions
+### Questions
+---
+## Slide  26  Return to Main Training Page
+
+
+Return to Training Table of contents for next presentation  
+https://github.com/tianocore-training/Tianocore_Training_Contents/wiki
 
 ---
-## Slide  22  Logo Slide
-
-### logo
-
-
----
-## Slide  23  Acknowledgements
+## Slide  27  Acknowledgements
 #### Acknowledgements 
 
 ```

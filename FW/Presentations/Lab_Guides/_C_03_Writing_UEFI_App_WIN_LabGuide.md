@@ -18,6 +18,8 @@
 - Add functionality to UEFI Application
 - Using EADK with UEFI Application
 
+First Setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#slide-10--titlelab-1--build-emulator-section">Lab Setup for Emulator </a>
+
 
 ---
 ## Slide 3 Lab 2: Write a Simple UEFI Application

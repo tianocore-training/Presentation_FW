@@ -18,12 +18,7 @@
 
 
 ---
-## Slide 3 @title[UEFI Application w/ PCDs Section]
-
-### UEFI Application w/ PCDs 
-
----
-## Slide 4 @title[EDK II PCD’s Purpose and Goals]
+## Slide 3 @title[EDK II PCD’s Purpose and Goals]
 <br>
 <p align="center"><b>EDK II PCD’s Purpose and Goals</b> - REVIEW</p>
 Documentaton :  <a href="https://github.com/tianocore/edk2/blob/master/MdeModulePkg/Universal/PCD/Dxe/Pcd.inf"> MdeModulePkg/Universal/PCD/Dxe/Pcd.inf  </a> 
@@ -45,7 +40,7 @@ Note:
 
 
 
-## Slide 5 @title[PCD Syntax review]
+## Slide 4 @title[PCD Syntax review]
 ### <p align="center">PCD Syntax  - REVIEW 
 PCDs can be located anywhere within the Workspace even though a different package will use those PCDs for a given project</span>
 
@@ -66,7 +61,7 @@ Note:
 
 - Not on this slide but also there is the FDF build description File – and this file would have flash layout related values 
 ---
-## Slide 6 @title[Lab 1: Writing UEFI Applications with PCDs]
+## Slide 5 @title[Lab 1: Writing UEFI Applications with PCDs]
 
 ### Lab 1: Writing UEFI Applications with PCDs
 
@@ -74,11 +69,12 @@ In this lab, you’ll  learn how to write UEFI applications with PCDs.
 
 Note:
 
+Solution: Lab_Material_FW/FW/LabSampleCode/LabSolutions/LessonB.1
 
 
 
 ---
-## Slide 7 @title[EDK II HelloWorld  App  Lab ]
+## Slide 6 @title[EDK II HelloWorld  App  Lab ]
 <b>EDK II HelloWorld  App  Lab  </b></p>
 
 First Setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#slide-10--titlelab-1--build-emulator-section">Lab Setup for Emulator </a>
@@ -108,7 +104,7 @@ Note:
 
  
 
-## Slide 8 @title[EDK II HelloWorld  App  Lab steps]
+## Slide 7 @title[EDK II HelloWorld  App  Lab steps]
 <p align="left"><b>EDK II HelloWorld  App  Lab  </b></p>
 
 Open a VS  Command Prompt and type: `cd C:\FW\edk2-ws` then 
@@ -123,7 +119,7 @@ Build the EmulatorPkg for Windows X64 (run WinHost.exe from Build/EmulatorX64/ .
 
 
 ```shell
-  C:/FW/edk2-ws/edk2> Build –D ADD_SHELL_STRING
+  C:/FW/edk2-ws/edk2> Build 
   C:/FW/edk2-ws/edk2> RunEmulator.bat
 ```
 At the UEFI Shell prompt
@@ -133,14 +129,14 @@ UEFI Hello World!
 Shell> 
 ```
 
-<font color="green">How can we force the HelloWorld application to print out 3 times ?</font>
+<font color="green">**How can we force the HelloWorld application to print out 3 times ?**</font>
 
 
 Note:
 RunEmulator.bat will run WinHost.exe from Build/EmulatorX64/DEBUG_TAG/X64 
 
 ---
-## Slide 9 @title[EDK II HelloWorld  App  Lab location]
+## Slide 8 @title[EDK II HelloWorld  App  Lab location]
 ### <b>EDK II HelloWorld  App  Lab  </b>
 
 <a href="https://github.com/tianocore/edk2/tree/master/MdeModulePkg/Application/HelloWorld"> MdeModulePkg/Application/HelloWorld </a>
@@ -151,8 +147,9 @@ Note:
 First let's look at the source code for the HellowWorld Application
 
 ---
-## Slide 10 @title[EDK II HelloWorld  App  Lab code]
+## Slide 9 @title[EDK II HelloWorld  App  Lab code]
 ### <b>EDK II HelloWorld  App  Lab  </b> 
+
 <span style="font-size:01.0em" >Source: <font color="green">Helloworld.c</font></span>
 
 ```C++
@@ -188,7 +185,7 @@ Source from Helloworld.c
 
 ---
 
-## Slide 11 @title[EDK II HelloWorld  App  Lab solution]
+## Slide 10 @title[EDK II HelloWorld  App  Lab solution]
 ### <b>EDK II HelloWorld  App  Solution </b> 
 
 
@@ -204,15 +201,20 @@ Solution:
 1. Edit the file C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc
   - After the section [PcdsFixedAtBuild], add the new line :  
   - `[PcdsFixedAtBuild]`
-  - `gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintTimes|3`
 
-2. Re-Build – Cd to FW/edk2 dir 
-  - `bash$ build -D ADD_SHELL_STRING`
-  - 
+  Add
+```
+ gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintTimes|3
+```
+2. Re-Build Cd to FW/edk2 dir 
+
+```
+bash$ build 
+``` 
 
 
 ---
-## SLide 12 @title[EDK II HelloWorld  App  Lab solution 02]
+## SLide 11 @title[EDK II HelloWorld  App  Lab solution 02]
 ### <b>EDK II HelloWorld  App  Solution </b> 
 
 
@@ -233,10 +235,156 @@ Note:
 - How can we change the string of the HelloWorld application?
 - Also see  ~src/edk2/MdeModulePkg/MdeModulePkg.Dec
 
+---
+## Slide 12 @title[Lab 1_2: Writing UEFI Applications with PCDs]
+
+### Lab 1_2: Writing UEFI Applications with PCDs
+
+In this lab, you’ll learn how to change a PCD String in the HelloWorld UEFI applications.
+
+
+Note:
+
+Solution: Lab_Material_FW/FW/LabSampleCode/LabSolutions/LessonB.1_2
+
+
+---
+
+## Slide 13 @title[EDK II HelloWorld App Change String]
+### <b>EDK II HelloWorld App Change String </b> 
+
+
+Note:
+
+- look in file: `C:\fw\edk2\MdeModulePkg\MdeModulePkg.Dec`
+
+- This PCD defines the print string.
+-  This PCD is a sample to explain String typed PCD usage.
+-  `gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintString|L"UEFI Hello World!\n"|VOID*|0x40000004`
+
+Solution:
+1. Edit the file C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc
+  - After the section [PcdsFixedAtBuild], add the new line :  
+  - `[PcdsFixedAtBuild]`
+  - `gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintTimes|3`
+
+Add
+```
+  gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintString|L"My New String!\n"
+```
+2. Re-Build – Cd to FW/edk2 dir 
+
+```
+bash$ build 
+```
+
+---
+## SLide 14 @title[EDK II HelloWorld  App  Lab solution 02]
+### <b>EDK II HelloWorld  App  Solution </b> 
+
+
+Note:
+
+3. RunEmulator.bat
+
+4. At the Shell prompt
+```shell
+ Shell> Helloworld
+ My New String!
+ My New String!
+ My New String!
+ Shell> 
+```
+5. Exit with Reset at the shell
+
+
+---
+## Slide 15 @title[Lab 1_3: Adding PCD String]
+
+### Lab 1_3: Adding PCD String
+
+
+In this lab, you’ll add a PCD String to the previous lab's SampleApp UEFI Shell application
+
+
+Note:
+
+Solution: Lab_Material_FW/FW/LabSampleCode/LabSolutions/LessonB.1_3
+
+
+---
+## Slide 16 Lab 1_3: Catch Up SampleApp
+
+### <b>Lab 1_3: Catch up from previous lab</b>
+
+Skip to next slide if Lab Writing UEFI App Lab</a> completed - <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_03_Writing_UEFI_App_WIN_LabGuide.md"> Labguide </a> <BR>
+
+- Perform Lab Setup from previous Labs  <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md">LabGuide</a>  
+- Create a Directory under the workspace `C:/FW/edk2-ws/edk2 : "SampleApp"`
+- Copy contents of `C:/../FW/LabSampleCode/SampleAppPCD to C:/FW/edk2-ws/edk2/SampleApp`
+- Open `C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc`
+- Add the following to the `[Components]` section: 
+
+```
+ # Add new modules here
+SampleApp/SampleApp.inf
+```
+<br>
+- Save and close the file `C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc`
+
+
+---
+## Slide 17 Sample App Add PCD String
+
+### <b>Sample App Add PCD String</b>
+
+How can we add a string to the SampleApp application?
+
+1. Edit the file C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dec. After the section [PcdsFixedAtBuild] add the PCD for the SampleApp called: `PcdSampleAppString`
+2. Edit the file C:/FW/edk2-ws/edk2/SampleApp.inf and add the new PCD in the PCD section. Also add the package EmulatorPkg.dec in the Package section
+3. Edit the file C:/FW/edk2-ws/edk2/SampleApp.c and add the correct Library include and also add:
+```
+// PCD LAB after #include <Uefi.h> add the following Include
+#include <Library/PcdLib.h>
+//
+// . . .
+//
+// Add after start of UefiMain 
+	Print((CHAR16 *)PcdGetPtr(PcdSampleAppString));
+```
+4. Re-Build – Cd to C:/FW/edk2-ws/edk2
+```
+$> Build
+```
+
+---
+## Slide 18 EDK II SampleApp Test
+
+### <b>EDK II SampleApp Test</b>
+
+5. Run Emulation (run WinHost.exe from Build/EmulatorX64/ . . ./X64 )
+```
+  C:/FW/edk2-ws/edk2> RunEmulator.bat
+```
+6. At the Shell prompt
+```shell
+Shell> SampleApp
+SampleApp String
+
+. . .
+Shell> 
+```
+7. Exit Emulation
+```shell
+Shell> Reset
+```
+
+
+
 
 
 ---  
-## Slide 13 @title[Summary]
+## Slide 19 @title[Summary]
 <BR>
 <p align="left"><span class="gold"   >Summary  <br>
 
@@ -245,12 +393,12 @@ Note:
  
 
 ---
-## SLide 14 @title[Questions]
+## SLide 20 @title[Questions]
 <br>
 
 
 ---
-## Slide 15
+## Slide 21
 
 
 Return to Training Table of contents for next presentation link: https://github.com/tianocore-training/Tianocore_Training_Contents/wiki
@@ -258,12 +406,12 @@ Return to Training Table of contents for next presentation link: https://github.
 
 
 ---
-## Slide 16 @title[Logo Slide]
+## Slide 22 @title[Logo Slide]
 <br><br><br>
 
 
 ---
-## SLide 17 @title[Acknowledgements]
+## SLide 23 @title[Acknowledgements]
 <p align="left"><span class="gold"   >Acknowledgements 
 
 ```c++
