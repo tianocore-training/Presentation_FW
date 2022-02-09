@@ -1,7 +1,7 @@
 <!--- @file
   Readme.md for UEFI / EDK II Training Presenation PDFs
 
-  Copyright (c) 2021, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) 2021-2022, Intel Corporation. All rights reserved.<BR>
 
   Redistribution and use in source (original document form) and 'compiled'
   forms (converted to PDF, epub, HTML and other formats) with or without
@@ -41,10 +41,12 @@ To see schedule  : https://github.com/tianocore-training/Tianocore_Training_Cont
 ### Key to presentation:
 |First char of file name | description | 
 | ----------------- | ------------------ | 
-| "A" - "E" _numbers_   | Normal sequence to the 5 Module training  |
-| "L" | 3 Day training corresponding  with Linux Labs   |
-| "U4" | For presentations in Unit 4 |
-| "O" | Outdated but still maybe useful |
+| "\_*nn*\_" - where *nn* is a number  | Suggested schedule sequence for training  |
+| "\_P\_" | This PDF is a Presentation    |
+| "\_L\_" | This PDF is a Lab |
+| "\_LL\_" | This PDF is a Lab  with Linux   |
+| "\_U4\_" | For presentations in Unit 4  (deeper details on topics)|
+| "\_O\_" | Outdated but still maybe useful |
 
    
 Note: please also download the corresponding Lab Material    
