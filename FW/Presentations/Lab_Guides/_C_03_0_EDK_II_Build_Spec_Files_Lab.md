@@ -480,8 +480,8 @@ This simple UEFI driver should also be added to the FV for the DXE code.
 
 Note: this requires Building of the Platform Lab First
 
-* Windows Build Emulator Platform Lab [Link](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md)
-* Linux Build Ovmf Platform Lab [Link](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md)
+* Windows Build Emulator Platform Lab [Link](https://github.com/tianocore-training/Presentation_FW/blob/PUT22/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md)
+* Linux Build Ovmf Platform Lab [Link](https://github.com/tianocore-training/Presentation_FW/blob/PUT22/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md)
 
 * The simple UEFI driver to add is found on the [Lab_Material_FW](https://github.com/tianocore-training/Lab_Material_FW) in the directory
 `FW/LabSampleCode/LabSolutions/BlankDrv`
