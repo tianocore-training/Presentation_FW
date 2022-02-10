@@ -1,5 +1,6 @@
----
-## ## Slide  1   Platform Build Lab
+
+##  Slide  1   Platform Build Lab
+
 <br><br><br><br><br>
 ##  UEFI & EDK II Training 
 
@@ -471,6 +472,8 @@ In this lab, you’ll learn how to add a UEFI Driver to the Build and final imag
 Requirements:
 Add a simple UEFI driver to a platform based on a Macro switch passed to the build using "-D ADD_BLANKDRV" 
 
+This simple UEFI driver should also be added to the FV for the DXE code.
+
 
 
 
@@ -479,6 +482,10 @@ Note: this requires Building of the Platform Lab First
 
 * Windows Build Emulator Platform Lab [Link](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md)
 * Linux Build Ovmf Platform Lab [Link](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Platform_Build_OVMF-QEMU_Lab_guide.md)
+
+* The simple UEFI driver to add is found on the [Lab_Material_FW](https://github.com/tianocore-training/Lab_Material_FW) in the directory
+`FW/LabSampleCode/LabSolutions/BlankDrv`
+
 
 ---
 ## Slide 21 Add a UEFI Driver to a Platform
@@ -499,7 +506,7 @@ Note: this requires Building of the Platform Lab First
 
 
 **Linux Build**
-* Copy the LabSampleCode/SampleApp directory to ~/src/edk2-ws/edk2 and use a "if" statement based on macro ADD_BLANKDRV
+* Copy the LabSampleCode/LabSolutions/BlankDrv directory to ~/src/edk2-ws/edk2 and use a "if" statement based on macro ADD_BLANKDRV
 * Edit OvmfPkg/OvmfPkgX64.dsc and OvmfPkg/OvmfPkgX64.fdf and use a "if" statement based on macro ADD_BLANKDRV
 ```shell
 bash$> cd ~/src/edk-ws/edk2
@@ -508,6 +515,7 @@ bash$ cd $HOME/run-ovmf
 bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/FV/OVMF.fd bios.bin
 bash$ . RunQemu.sh
 ```
+
 ---
 ## Slide 22 Verify the Driver was Added
 At the Shell prompt
@@ -524,6 +532,12 @@ Exit by pressing ESC key twice
 Then use the "Reset"
 
 On Linux Exit QEMU
+
+### Solution: 
+
+[Lab_Material_FW](https://github.com/tianocore-training/Lab_Material_FW)
+in the directory `FW/LabSampleCode/LabSolutions/BlankDrv_Solution`
+
 
 ---
 

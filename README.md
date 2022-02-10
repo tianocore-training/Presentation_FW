@@ -42,11 +42,12 @@ To see schedule  : https://github.com/tianocore-training/Tianocore_Training_Cont
 |First char of file name | description | 
 | ----------------- | ------------------ | 
 | "\_*nn*\_" - where *nn* is a number  | Suggested schedule sequence for training  |
-| "\_P\_" | This PDF is a Presentation    |
+| "\_P\_" | This PDF is a Presentation / lecture   |
 | "\_L\_" | This PDF is a Lab |
 | "\_LL\_" | This PDF is a Lab  with Linux   |
 | "\_U4\_" | For presentations in Unit 4  (deeper details on topics)|
 | "\_O\_" | Outdated but still maybe useful |
+| "\_full" | Where *full* is the suffix, this PDF is the full version up to 2.5 hours lecture. Otherwise, the lecture is 1.5 hours or less |
 
    
 Note: please also download the corresponding Lab Material    
