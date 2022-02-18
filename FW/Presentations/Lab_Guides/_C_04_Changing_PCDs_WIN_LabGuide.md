@@ -10,7 +10,7 @@
 
 ---  
 
-## Slide 2 @title[Lesson Objective]
+## Slide 2 Lesson Objective
 
 ### Lesson Objective 
 
@@ -18,7 +18,7 @@
 
 
 ---
-## Slide 3 @title[EDK II PCD’s Purpose and Goals]
+## Slide 3  EDK II PCD’s Purpose and Goals
 <br>
 <p align="center"><b>EDK II PCD’s Purpose and Goals</b> - REVIEW</p>
 Documentaton :  <a href="https://github.com/tianocore/edk2/blob/master/MdeModulePkg/Universal/PCD/Dxe/Pcd.inf"> MdeModulePkg/Universal/PCD/Dxe/Pcd.inf  </a> 
@@ -40,7 +40,7 @@ Note:
 
 
 
-## Slide 4 @title[PCD Syntax review]
+## Slide 4 PCD Syntax review
 ### <p align="center">PCD Syntax  - REVIEW 
 PCDs can be located anywhere within the Workspace even though a different package will use those PCDs for a given project</span>
 
@@ -61,7 +61,7 @@ Note:
 
 - Not on this slide but also there is the FDF build description File – and this file would have flash layout related values 
 ---
-## Slide 5 @title[Lab 1: Writing UEFI Applications with PCDs]
+## Slide 5  Writing UEFI Applications with PCDs
 
 ### Lab 1: Writing UEFI Applications with PCDs
 
@@ -74,7 +74,7 @@ Solution: Lab_Material_FW/FW/LabSampleCode/LabSolutions/LessonB.1
 
 
 ---
-## Slide 6 @title[EDK II HelloWorld  App  Lab ]
+## Slide 6  EDK II HelloWorld  App  Lab 
 <b>EDK II HelloWorld  App  Lab  </b></p>
 
 First Setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#slide-10--titlelab-1--build-emulator-section">Lab Setup for Emulator </a>
@@ -104,7 +104,7 @@ Note:
 
  
 
-## Slide 7 @title[EDK II HelloWorld  App  Lab steps]
+## Slide 7   EDK II HelloWorld  App  Lab steps
 <p align="left"><b>EDK II HelloWorld  App  Lab  </b></p>
 
 Open a VS  Command Prompt and type: `cd C:\FW\edk2-ws` then 
@@ -136,7 +136,7 @@ Note:
 RunEmulator.bat will run WinHost.exe from Build/EmulatorX64/DEBUG_TAG/X64 
 
 ---
-## Slide 8 @title[EDK II HelloWorld  App  Lab location]
+## Slide 8  EDK II HelloWorld  App  Lab location
 ### <b>EDK II HelloWorld  App  Lab  </b>
 
 <a href="https://github.com/tianocore/edk2/tree/master/MdeModulePkg/Application/HelloWorld"> MdeModulePkg/Application/HelloWorld </a>
@@ -147,7 +147,7 @@ Note:
 First let's look at the source code for the HellowWorld Application
 
 ---
-## Slide 9 @title[EDK II HelloWorld  App  Lab code]
+## Slide 9  EDK II HelloWorld  App  Lab code
 ### <b>EDK II HelloWorld  App  Lab  </b> 
 
 <span style="font-size:01.0em" >Source: <font color="green">Helloworld.c</font></span>
@@ -185,7 +185,7 @@ Source from Helloworld.c
 
 ---
 
-## Slide 10 @title[EDK II HelloWorld  App  Lab solution]
+## Slide 10    EDK II HelloWorld  App  Lab solution
 ### <b>EDK II HelloWorld  App  Solution </b> 
 
 
@@ -214,7 +214,7 @@ bash$ build
 
 
 ---
-## SLide 11 @title[EDK II HelloWorld  App  Lab solution 02]
+## SLide 11  EDK II HelloWorld  App  Lab solution 02
 ### <b>EDK II HelloWorld  App  Solution </b> 
 
 
@@ -236,7 +236,7 @@ Note:
 - Also see  ~src/edk2/MdeModulePkg/MdeModulePkg.Dec
 
 ---
-## Slide 12 @title[Lab 1_2: Writing UEFI Applications with PCDs]
+## Slide 12 2: Writing UEFI Applications with PCDs
 
 ### Lab 1_2: Writing UEFI Applications with PCDs
 
@@ -250,7 +250,7 @@ Solution: Lab_Material_FW/FW/LabSampleCode/LabSolutions/LessonB.1_2
 
 ---
 
-## Slide 13 @title[EDK II HelloWorld App Change String]
+## Slide 13  EDK II HelloWorld App Change String
 ### <b>EDK II HelloWorld App Change String </b> 
 
 
@@ -279,7 +279,7 @@ bash$ build
 ```
 
 ---
-## SLide 14 @title[EDK II HelloWorld  App  Lab solution 02]
+## SLide 14  EDK II HelloWorld  App  Lab solution 02
 ### <b>EDK II HelloWorld  App  Solution </b> 
 
 
@@ -299,7 +299,7 @@ Note:
 
 
 ---
-## Slide 15 @title[Lab 1_3: Adding PCD String]
+## Slide 15 3: Adding PCD String
 
 ### Lab 1_3: Adding PCD String
 
@@ -384,7 +384,7 @@ Shell> Reset
 
 
 ---  
-## Slide 19 @title[Summary]
+## Slide 19 Summaryy
 <BR>
 <p align="left"><span class="gold"   >Summary  <br>
 
@@ -393,12 +393,12 @@ Shell> Reset
  
 
 ---
-## SLide 20 @title[Questions]
+## SLide 20 Questions
 <br>
 
 
 ---
-## Slide 21
+## Slide 21 Return to Training
 
 
 Return to Training Table of contents for next presentation link: https://github.com/tianocore-training/Tianocore_Training_Contents/wiki
@@ -406,12 +406,12 @@ Return to Training Table of contents for next presentation link: https://github.
 
 
 ---
-## Slide 22 @title[Logo Slide]
+## Slide 22  Logo Slide
 <br><br><br>
 
 
 ---
-## SLide 23 @title[Acknowledgements]
+## SLide 23 Acknowledgements
 <p align="left"><span class="gold"   >Acknowledgements 
 
 ```c++

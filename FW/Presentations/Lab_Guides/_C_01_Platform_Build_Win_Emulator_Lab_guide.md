@@ -1,4 +1,4 @@
-## Slide 1  @title[Platform Build Win Emulator Lab]
+## Slide 1  Platform Build Win Emulator Lab
 
 ## UEFI & EDK II Training
 
@@ -41,7 +41,7 @@
 
 
 ---  
-## Slide 2  @title[Lesson Objective]
+## Slide 2   Lesson Objective
 
 ### Platform Build Labs 
 <br>
@@ -53,7 +53,7 @@
 
 
 ---
-## Slide 3  @title[Pin VS CMD Prompt Section]
+## Slide 3   Pin VS CMD Prompt Section
 <br>
 
 ### Pin VS Command Prompt 
@@ -62,7 +62,7 @@ Pin the Visual Studio Command prompt to Windows <br>Task Bar
 
 
 ---
-## Slide 4  @title[Pin VS CMD Prompt]
+## Slide 4  Pin VS CMD Prompt
 ### Pin  VS Command Prompt
 
 Windows 10 
@@ -75,7 +75,7 @@ Steps to Pin Visual Studio Command Prompt to task bar for Windows 10
 
 
 ---
-## Slide 5  @title[Pin VS CMD Prompt 02]
+## Slide 5  Pin VS CMD Prompt 02
 ### Pin  VS Command Prompt
 
 
@@ -88,7 +88,7 @@ Note: <i>VS 2013 example, other version of VS maybe different</i>
 <br>
 
 ---
-## Slide 6  @title[Pin VS CMD Prompt 03]
+## Slide 6  Pin VS CMD Prompt 03
 ### Pin  VS Command Prompt
 
 
@@ -103,7 +103,7 @@ Note: <i>VS 2013 example, other version of VS maybe different</i>
 
 
 ---
-## Slide 7  @title[Pin VS CMD Prompt 04]
+## Slide 7  Pin VS CMD Prompt 04
 ### Pin  VS Command Prompt
 
 7. Left Click  on <br>"Pin to to taskbar" 
@@ -112,7 +112,7 @@ Note: <i>VS 2013 example, other version of VS maybe different</i>
 
 
 ---
-## Slide 8  @title[Pin VS CMD Prompt 05]
+## Slide 8  Pin VS CMD Prompt 05
 ### Pin  VS Command Prompt
 
 8. Open the VS Command Prompt 
@@ -125,7 +125,7 @@ All Windows Labs use this short-cut to Build Edk II platforms and projects using
 
 
 ---
-## Slide 9  @title[End of Pin VS Section]
+## Slide 9  End of Pin VS Section
 <br>
 ## End Pin  VS Prompt
 
@@ -133,7 +133,7 @@ All Windows Labs use this short-cut to Build Edk II platforms and projects using
 
 
 ---
-## Slide 10  @title[Lab 1 -Build Emulator Section]
+## Slide 10  Lab 1 -Build Emulator Section
 
 
 ## Build Emulator
@@ -143,7 +143,7 @@ All Windows Labs use this short-cut to Build Edk II platforms and projects using
 
 
 ---
-## Slide 11  @title[Prerequisites - Done Before Class]
+## Slide 11  Prerequisites - Done Before Class
 <b>Prerequisites<br><i>- Done Before Class</i></b>
 - Windows 10:
    - Continuous Integration (CI) - Stuart CI Build with  Visual Studio VS2017 or VS2019
@@ -157,7 +157,7 @@ All Windows Labs use this short-cut to Build Edk II platforms and projects using
 
 
 
-## Slide 12  @title[Create Work Space Directory]
+## Slide 12  Create Work Space Directory
 <b>Create Work Space Directory</b>
 
 
@@ -173,7 +173,7 @@ $ cd edk2-ws
 ```
 
 ---
-## Slide 13  @title[Download the EDK II Source Code ]
+## Slide 13  Download the EDK II Source Code 
 
 ### Download the EDK II Source Code
 Note:  if behind a firewall, set PROXYS FIRST
@@ -196,7 +196,7 @@ C:\FW\edk2-wS> cd ..
 ```
 
 ---
-## Slide 14  @title[Download Lab_Material_FW -getting the Source ]
+## Slide 14  Download Lab_Material_FW -getting the Source 
 ### Download Lab Material<br>
 Download the Lab_Material_FW.zip from :  <a href="https://github.com/tianocore-training/Lab_Material_FW/archive/refs/heads/main.zip">github.com Lab_Matrial_FW.zip</a><br>
 <br>
@@ -221,7 +221,7 @@ Directory Lab_Material_FW will be created
 
 
 ---
-## Slide 15  @title[Build  Edk2 -getting the Source ]
+## Slide 15  Build  Edk2 -getting the Source 
 <b>Build EDK II  </b><br>
 
 - Extract the Source  
@@ -233,7 +233,7 @@ Note:
 Extract the Downloaded Lab_Material_FW.zip to C:\ (this will create a directory FW )
 
 ---
-## Slide 16  @title[Build  Edk2 -getting the Source 02]
+## Slide 16  Build  Edk2 -getting the Source 02
 <b>Build EDK II  </b><br>
  - Copy edk2-ws 
 
@@ -244,7 +244,7 @@ From the downloaded Lab_Material_FW folder,<br> <b>copy</b> and <b>paste</b> fol
 <i>Note:</i> Overwrite existing files and directories
 
 ---
-## Slide 17  @title[Build  Edk2 -get Nasm]
+## Slide 17  Build  Edk2 -get Nasm
 <b>Build EDK II  </b><br>
  - Get Nasm 
 
@@ -255,7 +255,7 @@ Copy `Nasm` directory to `C:\`
 
 
 ---
-## Slide 18  @title[CI Stuart Build  sub Section]
+## Slide 18  CI Stuart Build  sub Section
 <br>
 
 **OPTIONAL**
@@ -266,10 +266,7 @@ Copy `Nasm` directory to `C:\`
 <b>SKIP</b> if doing Non-Stuart CI Build
 
 ---
-## Slide 19  @title[Stuart CI Build Edk II]
-
-<b>SKIP</b> if doing Non-Stuart CI Build
-
+## Slide 19  Stuart CI Build Edk II
 ### <b>Stuart CI Build EDK II  </b><br>
 1. CD C:\FW\Edk2-ws and run setup script to setup `WORKSPACE` and Packages path
 ```
@@ -305,11 +302,7 @@ Where "`<Your TAG>`" is either `VS2017` or `VS2019`
 
 
 ---
-## Slide 20  @title[Output from CI Stuart Build]
-
-<b>SKIP</b> if doing Non-Stuart CI Build
-
-
+## Slide 20  Output from CI Stuart Build
 <b>Output from CI Stuart Build </b><br>
 
 ```
@@ -335,7 +328,7 @@ PROGRESS - Success
 ### Finshed Build
 
 ---
-## Slide 21  **Non CI Stuart Build  sub Section**
+## Slide 21  Non CI Stuart Build  sub Section
 <br>
 
 ### **Non Stuart CI Build EmulatorPkg**
@@ -344,7 +337,7 @@ PROGRESS - Success
 
 
 ---
-## Slide 22  @title[Build  Edk2 -build BaseTools]
+## Slide 22  Build  Edk2 -build BaseTools
 <b>Non Stuart CI Build EDK II  </b><br>
 -  build `BaseTools`
  
@@ -369,7 +362,7 @@ Building BaseTools only needs to be done once but setting up local environment a
 
 
 ---
-## Slide 23  @title[Non Stuart CI Build Edk2 -update target.txt]
+## Slide 23  Non Stuart CI Build Edk2 -update target.txt
 <b>Non Stuart CI Build EDK II  </b><br>
  - Update `Target.txt`
 
@@ -409,7 +402,7 @@ $> build -D ADD_SHELL_STRING -a X64
 
 
 ---
-## Slide 24  @title[Possible Build Errors]
+## Slide 24  Possible Build Errors
 <b>Possible Build Errors </b>
 
 1. If you get a BUILD Error:  Error "C:/Program " not found
@@ -420,7 +413,7 @@ $> build -D ADD_SHELL_STRING -a X64
 3.  If you get a BUILD Error: fatal error C1041: cannot open program database goto slide 38 https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#slide-38--titlebuild-error--c1041-38
 
 ---
-## Slide 25  @title[Build Edk2 -build inside VS Prompt]
+## Slide 25  Build Edk2 -build inside VS Prompt
 <b>Build EDK II  </b><br>
 - Inside VS Prompt
 
@@ -429,13 +422,13 @@ $> build -D ADD_SHELL_STRING -a X64
 Finished build
 
 ---
-## Slide 26  @title[Run the Emulator sub Section]
+## Slide 26  Run the Emulator sub Section
 <br>
 
 ### Run the  EmulatorPkg
 
 ---
-## Slide 27  @title[Build Edk2 -invoke emulator]
+## Slide 27  Build Edk2 -invoke emulator
 <b>Invoke Emulation  </b>
 
 <br>
@@ -462,13 +455,13 @@ Notice 2 "GOP Window n" opened
 
 
 ---
-## Slide 28  @title[Build Edk2 -exit emulator]
+## Slide 28  Build Edk2 emulator
 <b>Emulator at Shell Prompt  </b>
 
 The Emulator will be running on top of Windows with the UEFI Shell prompt available.
 
 ---
-## Slide 29  @title[Show the UEFI Boot Variables]
+## Slide 29  he UEFI Boot Variables
 
 At the Shell Prompt:
 ```
@@ -478,7 +471,7 @@ Shell> BCFG Boot Dump
 Note see the list of Boot000X options printed to the console
 
 ---
-## Slide 30  @title[Use the Dmpstore to Show the Boot Order]
+## Slide 30  e Dmpstore to Show the Boot Order
 
 At the Shell Prompt:
 
@@ -486,13 +479,13 @@ At the Shell Prompt:
 FS0: > Dmpstore BootOrder
 ```
 ---
-## Slide 31  @title[Use the BCFG to Move a boot item ]
+## Slide 31  e BCFG to Move a boot item 
 
 Use BCFG to Move the 5th boot item too 1st location.
 
-Then verify using the �dmpstore�
+Then verify using the `dmpstore`
 
-(Hint: use BCFG -? �b for help menu)
+(Hint: use `BCFG -? -b` for help menu)
 
 The dmpstore output should look like:
 
@@ -500,8 +493,14 @@ The dmpstore output should look like:
 Variable NV+RT+BS 'EFIGlobalVariable:BootOrder' DataSize = 0x0C
   00000000: 00 00 05 00 01 00 02 00-03 00 04 00              *............*
 ```
+
+Solution:
+```
+bcfg boot mv 05 00
+```
+
 ---
-## Slide 32  @title[Use the BCFG to Add a boot item  ]
+## Slide 32  e BCFG to Add a boot item  
 
 From Windows File explorer, Copy the file from the 
 
@@ -509,7 +508,7 @@ From Windows File explorer, Copy the file from the
 
 Use BCFG to Add  a 06 entry for a new boot option with  `Shell_FullX64.efi`
 
-Then verify using the �BCFG Boot Dump�
+Then verify using the `BCFG Boot Dump`
 
 Hint: make sure Shell_FullX64.efi is in the FS0: directory by doing: 
 ```
@@ -524,15 +523,19 @@ Option: 06. Variable: Boot0006
   Optional- N
 ```
 
+Solution:
+```
+bcfg boot add 06 Shell_fullX64.efi "Old EFI Shell 1.0"
+```
 
 ---
-## Slide 33  @title[Build Edk2 -exit emulator]
+## Slide 33  Edk2 -exit emulator
 <b>Emulator at Shell Prompt  </b>
 
 Type: "Reset" to exit
 
 ---  
-## Slide 34  @title[Summary]
+## Slide 34 Summary
 ### Summary <br>
 
 - Pin Visual Studio Command Prompt to Windows Task Bar 
@@ -540,12 +543,12 @@ Type: "Reset" to exit
 - Run the Emulator in Windows
 
 ---
-## Slide 35  @title[Questions]
+## Slide 35  Questions
 <br>
 Questions
 
 ---
-## Slide 36  @title[return to main]
+## Slide 36   Return to main
 <b>Return to Main Training Page</b>
 <br>
 <br>
@@ -557,13 +560,13 @@ Return to Training Table of contents for next presentation <a href="https://gith
 
 
 ---
-## Slide 37  @title[Logo Slide]
+## Slide 37  Logo Slide
 <br><br><br>
 
 
 
 ---
-## Slide 38  @title[Acknowledgements]
+## Slide 38  Acknowledgements
 #### Acknowledgements
 
 ```c++
@@ -598,13 +601,13 @@ Copyright (c) 2020-2022, Intel Corporation. All rights reserved.
 
 
 ---
-## Slide 39  @title[Backup Section]
+## Slide 39   Backup Section
 <br><br><br><br><br>
 ## Back up
 
 
 ---  
-## Slide 40  @title[Build Errors]
+## Slide 40  Build Errors
 <br>
 <br>
 <br>
@@ -613,7 +616,7 @@ Copyright (c) 2020-2022, Intel Corporation. All rights reserved.
 
 
 ---
-## Slide 41  @title[Build Error- RC.exe ]
+## Slide 41 Build  Error- RC.exe 
 <b>Build Error- RC.exe </b>
 Because RC.Exe is not found, Error Message:
 
@@ -644,7 +647,7 @@ Edit `Conf/tools_def.txt`
 
 
 ---
-## Slide 37  @title[Build Error- RC.exe 02]
+## Slide 37  Build Error- RC.exe 02
 <b>Build Error- RC.exe Cont...</b>
 
 Edit `Conf/tools_def.txt` 
@@ -680,7 +683,7 @@ see below for the define:
 ```
 
 ---
-## Slide 38  @title[Build Error- C1041 ]
+## Slide 38  Build Error- C1041 
 <b>Build Error: fatal error C1041: </b>
 Build Error from fatal error C1041: cannot open program database
 

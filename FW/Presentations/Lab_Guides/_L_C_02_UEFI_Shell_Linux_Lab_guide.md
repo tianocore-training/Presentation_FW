@@ -1,5 +1,5 @@
 
-## ## Slide  1   @title[Platform Build Lab]
+## ## Slide  1   @titlePlatform Build Lab
 <br><br><br><br><br>
 ##  UEFI & EDK II Training 
 
@@ -40,7 +40,7 @@
 -->
 
 ---  
-## Slide  2  @title[Lesson Objective]
+## Slide  2  Lesson Objective
 
 ###  Lesson Objective  <br>
 
@@ -51,7 +51,7 @@
   
 
 ---
-## Slide  3  @title[UEFI Shell Lab with Emulator Section]
+## Slide  3  UEFI Shell Lab with Emulator Section
 
 ###  UEFI Shell Lab with Emulator 
 
@@ -59,7 +59,7 @@
 
 
 
-## Slide  4  @title[QEMU Running OVMF]
+## Slide  4  QEMU Running OVMF
  <b>QEMU Running OVMF</b> 
 
 <br>
@@ -81,19 +81,19 @@ See Platform Build lab for setup OVMF
 
 ---
 
-## Slide  5  @title[QEMU Running OVMF]
+## Slide  5  QEMU Running OVMF
 
 ###  QEMU Running OVMF
 
 Type "F2" to get into the emulation setup or "Exit" from the Shell prompt 
 
 ---
-## Slide  6  @title[QEMU boot to UEFI Shell]
+## Slide  6  QEMU boot to UEFI Shell
 
 ###  QQEMU boot to UEFI Shell
 
 ---
-## Slide  7  @title[UEFI Shell Commands]
+## Slide  7  UEFI Shell Commands
 
 ### UEFI Shell Commands]
 
@@ -101,7 +101,7 @@ Commands from the Command Line Interface
 
 
 ---
-## Slide  8  @title[Common Shell Commands ]
+## Slide  8  Common Shell Commands 
 ###  Common Shell Commands For Debugging 
 
 ```shell
@@ -131,7 +131,7 @@ We are not going to go all were these in detail but just to make you aware of th
 
 ---
 
-## Slide  9  @title[Shell Help Command ]
+## Slide  9  Shell Help Command 
 ###  Shell Help 
 
 
@@ -176,7 +176,7 @@ To exit, this emulation simply type: "reset"
 
 
 ---
-## Slide  10  @title[Shell memmap Command ]
+## Slide  10  Shell memmap Command 
 ###  Shell "memmap" 
 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
@@ -215,7 +215,7 @@ Shell>
 
 ---
 
-## Slide  11  @title[Shell mm Command help ]
+## Slide  11  Shell mm Command help 
 ###  Shell "mm" 
 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
@@ -344,7 +344,7 @@ Shell>
 
 
 ---
-## Slide  12  @title[Shell mm   Command ]
+## Slide  12  Shell mm   Command 
 ###  Shell "mm" 
 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
@@ -391,7 +391,7 @@ This command allows changing the contents of each memory location.
 
 
 ---
-## Slide  13  @title[Shell mem Command ]
+## Slide  13  Shell mem Command 
 ###  Shell "mem" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 mem
@@ -433,7 +433,7 @@ Note:
 ---
 
 
-## Slide  14  @title[Shell drivers Command ]
+## Slide  14  Shell drivers Command 
 ###  Shell "drivers" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 drivers -b
@@ -490,7 +490,7 @@ drivers -?
 
 
 ---
-## Slide  15  @title[Shell devices Command ]
+## Slide  15  Shell devices Command 
 ###  Shell "devices" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 devices
@@ -522,7 +522,7 @@ Shell>
 
 
 ---
-## Slide  16  @title[Shell devtree Command ]
+## Slide  16  Shell devtree Command 
 ###  Shell "devtree" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 devtree
@@ -557,7 +557,7 @@ Shell>
 
 
 ---
-## Slide  17  @title[Shell handle Database Command ]
+## Slide  17  Shell handle Database Command 
 ###  Shell handle database - "dh" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 dh -b
@@ -595,7 +595,7 @@ Press ENTER to continue or 'Q' break:
 
 ---
 
-## Slide  18  @title[Shell Load Command ]
+## Slide  18  Shell Load Command 
 ###  Shell "load" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 load -?
@@ -637,7 +637,7 @@ Shell>
 ```
 
 ---
-## Slide  19  @title[Shell Load Command ]
+## Slide  19  Shell Load Command 
 ###  Shell "Dmpstore" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 dmpstore -all -b
@@ -672,7 +672,7 @@ Variable NV+RT+BS 'EFIGlobalVariable:Boot0004' DataSize = 0x9C
   Press ENTER to continue or 'Q' break:
 ```
 ---
-## Slide  20  @title[Shell Stall Command ]
+## Slide  20  Shell Stall Command 
 ###  Shell "PCI" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 pci -? -b
@@ -717,7 +717,7 @@ EXAMPLES:
 
 ```
 ---
-## Slide  21  @title[Shell Stall Command ]
+## Slide  21  Shell Stall Command 
 ###  Shell "stall" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 stall 10000000
@@ -735,7 +735,7 @@ Shell>
 
 
 
-## Slide  22  @title[UEFI Shell Lab Scripts Section]
+## Slide  22  UEFI Shell Lab Scripts Section
 
 
 ### UEFI Shell Scripts
@@ -744,7 +744,7 @@ Shell>
 Use Scripting with UEFI Shell 
 
 ---
-## Slide  23  @title[UEFI Shell Scripts ]
+## Slide  23  UEFI Shell Scripts 
 ###  UEFI Shell Scripts 
 <br>
 The UEFI Shell can execute commands from a file, which is called a batch script file (<font face="consolas" color="cyan"><b>.nsh</b></font> files).  
@@ -758,7 +758,7 @@ The UEFI Shell can execute commands from a file, which is called a batch script 
 
 ---
 
-## Slide  24  @title[Writing UEFI Shell Scripts]
+## Slide  24  Writing UEFI Shell Scripts
 ###  Writing UEFI Shell Scripts  
 
 
@@ -781,7 +781,7 @@ FS0:\> edit HelloScript.nsh
 - Press "F3" or "Control-Q" to exit
 
 ---
-## Slide  25  @title[Hello World Script]
+## Slide  25  Hello World Script
 ###  Hello World Script 
 
 
@@ -800,7 +800,7 @@ Close the QEMU
 
 
 
-## Slide  26  @title[UEFI Shell Nested Scripts ]
+## Slide  26  UEFI Shell Nested Scripts 
 ###  UEFI Shell Nested Scripts  
 
 QEMU: Copy the Scripts from the `~/FW/LabSampleCode/ShellScripts` to the run-ovmf directory  `~/run-ovmf/hda-contents`
@@ -809,7 +809,7 @@ QEMU: Copy the Scripts from the `~/FW/LabSampleCode/ShellScripts` to the run-ovm
 
 
 ---
-## Slide  27  @title[UEFI Shell Script Example]
+## Slide  27  UEFI Shell Script Example
 <br>
 ### UEFI Shell Script Example 
 
@@ -839,7 +839,7 @@ walk through the script calling the second script
   - %a counting down...
   
 ---
-## Slide  28  @title[Run UEFI Shell Scripts ]
+## Slide  28  Run UEFI Shell Scripts 
 ###  Run UEFI Shell Scripts 
 
 Run the RunQemu.sh from the terminal (Cnt-Alt-T)
@@ -860,7 +860,7 @@ FS0:\> Edit Script1.nsh
 
 --- 
 
-## Slide  29  @title[Run UEFI Shell Scripts cont ]
+## Slide  29  Run UEFI Shell Scripts cont 
 ###  Run UEFI Shell Scripts 
 
 - Remove the "`#`" on the first line
@@ -874,7 +874,7 @@ FS0:\> Edit Script1.nsh
 
 
 ---  
-## Slide  30  @title[Summary]
+## Slide  30  Summary
 
 ### Summary  <br>
 
@@ -885,24 +885,24 @@ FS0:\> Edit Script1.nsh
  
 
 ---
-## Slide  31  @title[Questions]
+## Slide  31  Questions
 ### Questions
 
 ---
-## Slide  32  @title[Return to Main Training Page]
+## Slide  32  Return to Main Training Page
 ### Return to Main Training Page
 
 
 
 ---
-## Slide  33  @title[Logo Slide]
+## Slide  33  Logo Slide
 
 ### logo
 
 Return to Training Table of contents for next presentation <a href="https://github.com/tianocore-training/Tianocore_Training_Contents/wiki">link</a>
 
 ---
-## Slide  34  @title[Acknowledgements]
+## Slide  34  Acknowledgements
 #### Acknowledgements 
 
 ```

@@ -37,7 +37,7 @@
 -->
 
 ---  
-## Slide 2 @title[Lesson Objective]
+## Slide 2 Lesson Objective
 
 ### Lesson Objective 
 
@@ -52,7 +52,7 @@ First Setup for Building EDK II for Emulator, See <a href="https://github.com/ti
 
 ---
 
-## Slide 3 @title[Lab 2: Write a Simple UEFI Application]
+## Slide 3 Lab 2: Write a Simple UEFI Application
 <br>
 
 ### Lab 2: Write a Simple UEFI Application 
@@ -62,7 +62,7 @@ In this lab, you’ll learn how to write simple UEFI applications.
 
 
 ---
-## Slide 4 @title[Lab 2 - Write A Simple App]
+## Slide 4 Lab 2 - Write A Simple App
 ### <b>LAB 2 - Writing a Simple UEFI Application</b> 
 
 In this lab, you’ll learn how to write simple UEFI applications. 
@@ -107,7 +107,7 @@ Note:
 - What goes into a Simplest "C"
 
 ---
-## Slide 5 @title[Lab 2: Application Lab –start with .c and .inf template]
+## Slide 5 Lab 2: Application Lab –start with .c and .inf template
 ### <b>Application Lab –start with .c and .inf template</b> 
 
 
@@ -118,7 +118,7 @@ Note:
   - Create Name & GUID, and then fill in the MODULE_TYPE 
 
 
-## Slide 6 @title[Lab 2: Sample Application INF file]
+## Slide 6 Lab 2: Sample Application INF file
 ### <b>Lab 2: Sample Application INF file</b> 
 <br>
 
@@ -182,7 +182,7 @@ https://www.guidgen.com/
 
 ---
 
-## Slide 7 @title[Lab 2: Sample Application C file]
+## Slide 7 Lab 2: Sample Application C file
 ### <b>Lab 2: Sample Application ‘C’ file</b> 
 
 
@@ -203,7 +203,7 @@ https://www.guidgen.com/
 
 ---
 
-## Slide 8 @title[Lab 2: Will it compile now?]
+## Slide 8 Lab 2: Will it compile now?
 ### <b>Lab 2: Will it compile now?</b> 
 <br>
 Not yet . . .
@@ -223,7 +223,7 @@ Note:
 - Then the next thing we need to add is a few package dependencies and libraries to the INF file because, for instance, features like the UEFI Application entry point will need to be added, because it doesn’t know how to do an entry point until you’ve added that. 
 
 ---
-## SLide 9 @title[Lab 2: Application Lab – Update Files]
+## SLide 9 Lab 2: Application Lab – Update Files
 ### <b>Lab 2: Application Lab – Update Files</b> 
 <ul style="list-style-type:none">
  <li><span style="font-size:01.em" >1.&nbsp;&nbsp; <font color="Green">`.DSC` </font> (OvmfPkg/OvmfPkgX64.dsc)</span>  </li>
@@ -268,7 +268,7 @@ Note:
 
 ---
 
-## SLide 10 @title[Lab 2: Lab cont. Solution ]
+## SLide 10 Lab 2: Lab cont. Solution 
 ### <b>Lab 2: Lab cont. Solution </b> 
 
 
@@ -298,7 +298,7 @@ SampleApp/SampleApp.c - near the top of the file
 
 
 ---
-## Slide 11 @title[Lab 2: Will it compile now? ]
+## Slide 11 Lab 2: Will it compile now? 
 ### <b>Lab 2 : Will it compile now?</b> 
 <p style="line-height:90%"><span style="font-size:01.em" >Yes, SampleApp – Cd to ~/src/edk2-ws/edk2 directory 
 
@@ -341,7 +341,7 @@ Note:
 
 ---
 
-## Slide 12 @title[Possible Build Errors ]
+## Slide 12 Possible Build Errors 
 ### <b>Possible Build Errors</b> 
 
 Note:
@@ -352,7 +352,7 @@ The `FILE_GUID` was invalid or not updated from "`XXX…`" to a proper formatted
 ---
 
 
-## Slide 13 @title[Possible Build Errors 02 ]
+## Slide 13 Possible Build Errors 02 
 ### <b>Possible Build Errors</b> 
 
 Note:
@@ -363,7 +363,7 @@ Error on SampleApp.inf
 The `[Packages]` was invalid  or did not specify MdePkg/MdePkg.dec properly
 
 ---
-## Slide 14 @title[Possible Build Errors 03]
+## Slide 14 Possible Build Errors 03
 ### <b>Possible Build Errors</b> 
 
 Note:
@@ -371,7 +371,7 @@ Note:
 
 ---
 
-## Slide 15 @title[Possible Build Errors 04 ]
+## Slide 15 Possible Build Errors 04 
 ### <b>Possible Build Errors</b> 
 
 Note:
@@ -379,13 +379,13 @@ The SampleApp.inf section `[LibraryClasses]` did not reference `UefiApplicationE
 
 ---
 
-## Slide 16 @title[Possible Build Errors 05]
+## Slide 16 Possible Build Errors 05
 ### <b>Possible Build Errors</b> 
 
 Note:
 Ensure the SampleApp.inf BaseName is SampleApp 
 ---
-## SLide 17 @title[Lab 2.1: Build Switches]
+## SLide 17 Lab 2.1: Build Switches
 <br>
 
 ### Lab 2.1: Build Switches 
@@ -393,7 +393,7 @@ Ensure the SampleApp.inf BaseName is SampleApp
 In this lab, you’ll change the build switch  to be always `TRUE`
 
 Note:
-## Slide 18 @title[Lab 2.1: Build MACRO Switches  ]
+## Slide 18 Lab 2.1: Build MACRO Switches  
 ### <b>Build MACRO Switches </b> 
 The build for EmulatorPkg is using build MACRO Switch:<br>
 <font color="green">-D ADD_SHELL_STRING</font>  – used to change a string in the UEFI Shell application, only used for EDK II Training (requires ShellPkg be re-built on a change of this switch)
@@ -414,7 +414,7 @@ The build for EmulatorPkg is using build MACRO Switch:<br>
 
 
 
-## Slide 19 @title[Lab 2.1: Compiling w/ Build Switch ]
+## Slide 19 Lab 2.1: Compiling w/ Build Switch 
 ### <b>Lab 2.1: Compiling w/out Build Switch</b> 
 
 
@@ -443,7 +443,7 @@ Check the Shell Version with the "Ver" command
 
 
 ---
-## Slide 20 @title[Lab 2.1: Compiling w/ Build Switch 02]
+## Slide 20 Lab 2.1: Compiling w/ Build Switch 02
 ### <b>Lab 2.1: Compiling w/ Build Switch</b> 
 
 
@@ -471,7 +471,7 @@ Check the Shell Version with the "Ver" command
 Exit QEMU
 
 ---
-## Slide 21 @title[Lab 2.1: Compiling w/out Build Switch 02]
+## Slide 21 Lab 2.1: Compiling w/out Build Switch 02
 ### <b>Lab 2.1: Compiling w/out Build Switch</b> 
 
 
@@ -509,7 +509,7 @@ Will need to Delete dir:   %WORKSPACE%/Build/EmulatorX64/DEBUG_tag/X64/ShellPkg
 Between each build
 
 ---
-## Slide 22 @title[Lab 2: What we learned from LAB 2]
+## Slide 22 Lab 2: What we learned from LAB 2
 ### <b>What we learned from LAB 2</b> 
 <br>
 
@@ -522,7 +522,7 @@ Between each build
 
 
 ---
-## Slide 23 @title[Lab 2: If there are Build Errors ]
+## Slide 23 Lab 2: If there are Build Errors 
 ### <b>Lab 2: If there are build errors …</b> 
 <br>
 See class files for the solution 
@@ -540,7 +540,7 @@ Note:
 
 
 ---
-## Slide 24 @title[Add more Functionality Section]
+## Slide 24 Add more Functionality Section
 
 ### Add Functionality 
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Functionality to the Simple UEFI Application : </span>
@@ -557,7 +557,7 @@ Next 3 Labs</span>
 <font color="green">Solutions in .../FW/LabSampleCode/LabSolutions/LessonB.<i>n</i></font>
 
 ---
-## Slide 25 @title[Lab 3: Print the UEFI System Table]
+## Slide 25 Lab 3: Print the UEFI System Table
 <br>
 
 ### Lab 3: Print the UEFI System Table 
@@ -567,7 +567,7 @@ Add code to print the hex address of the EFI System Table pointer to the console
 
 ---
 
-## Slide 26 @title[Lab 3 : Add System Table Code]
+## Slide 26 Lab 3 : Add System Table Code
 ### <b>Lab 3 : Add System Table Code</b> 
 
 Add code to print to the console the hex address of the system table pointer
@@ -585,7 +585,7 @@ Note:
 - So also as an exercise you can look at the file in the sample lab code Min.dsc, this is a platform description file without a platform or any packages that go with it,  and this demonstrates the minimal contents for a DSC file that can build this application. So it will build a single application orientated toward the one we just created except nothing else. So unlike the Emulator platform description file, if you were to look at it, There are huge amounts of other components, library classes, and all of that, this Min.dsc only does the minimum requirements.
 
 ---
-## Slide 27 @title[Locating the "Print" Function ]
+## Slide 27 Locating the "Print" Function 
 ### <b>Lab 3 : Locating the `Print()` Function </b> 
 
 1. Search the `MdePkg Document With Libraries.chm` and find that the Print function by clicking on the "Index" tab
@@ -605,7 +605,7 @@ Note:
 - bash$ sudo aptitude install kchmviewer
 
 ---
-## Slide 28 @title[Modifying .C & .INF Files ]
+## Slide 28 Modifying .C & .INF Files 
 ### <b>Lab 3 : Modifying .C & .INF Files</b> 
 
 
@@ -644,7 +644,7 @@ Note:
 
 ---
 
-## Slide 29 @title[Build and Test SampleApp]
+## Slide 29 Build and Test SampleApp
 ### <b>Lab 3 : Build and Test SampleApp</b> 
 
 Build SampleApp – Cd to ~/src/edk2-ws/edk2 directory 
@@ -677,7 +677,7 @@ Note:
 End of LAB 3
 
 ---
-## Slide 30 @title[Lab 4: Waiting for an Event]
+## Slide 30 Lab 4: Waiting for an Event
 <br>
 
 ### Lab 4: Waiting for an Event 
@@ -689,7 +689,7 @@ In this lab, you’ll learn how to locate code and .chm files to help write EFI 
 Note:
 ---
 
-## Slide 31 @title[Lab 4 : Add Wait for Event ]
+## Slide 31 Lab 4 : Add Wait for Event 
 ### <b>Lab 4 : Add Wait for Event</b> 
 <br>
 
@@ -710,7 +710,7 @@ Note:
 - Test by running your application in the Shell
 
 ---
-## Slide 32 @title[Lab 4 : How to locate functions? ]
+## Slide 32 Lab 4 : How to locate functions? 
 ### <b>Lab 4 : HOW?</b> 
 
 Locate Functions:  
@@ -739,7 +739,7 @@ Note:
 
 
 ---
-## Slide 33 @title[Lab 4 :Update the C File for WaitForKey ]
+## Slide 33 Lab 4 :Update the C File for WaitForKey 
 ### <b>Lab 4 : Update the C File for `WaitForKey`</b> 
 
 
@@ -769,7 +769,7 @@ UefiMain (
 
 ---
  
-## Slide 34 @title[Lab 4 :Test Compile ]
+## Slide 34 Lab 4 :Test Compile 
 ### <b>Lab 4 :Test Compile</b> 
 <br>
 However, this won’t compile … gBS and gST are not defined.
@@ -791,7 +791,7 @@ Note:
 ---
 
  
-## Slide 35 @title[Lab 4 : Update SampleApp.c for gBS & gST ]
+## Slide 35 Lab 4 : Update SampleApp.c for gBS & gST 
 ### <b>Lab 4 : Update for `gBS` & `gST`</b> 
 <br>
 
@@ -871,7 +871,7 @@ End of Lab 4
 
 
 ---
-## Slide 37 @title[Lab 5: Creating a Simple Typewriter Function]
+## Slide 37 Lab 5: Creating a Simple Typewriter Function
 <br>
 
 ### Lab 5: Creating a Simple Typewriter Function 
@@ -883,7 +883,7 @@ Note:
 
 --- 
 
-## Slide 38 @title[Lab 5 :Create a Simple Typewriter Function]
+## Slide 38 Lab 5 :Create a Simple Typewriter Function
 ### <b>Lab 5 : Typewriter Function</b> 
 <br>
 
@@ -897,7 +897,7 @@ Create a Simple Typewriter Function using the SampleApp from Lab 4 <br>
 
 
 --- 
-## Slide 39 @title[Lab 5 :Create a Simple Typewriter Function How]
+## Slide 39 Lab 5 :Create a Simple Typewriter Function How
 ### <b>Lab 5 : Typewriter Function</b> 
 <br>
 Create a Simple Typewriter Function using the SampleApp from Lab 4
@@ -913,7 +913,7 @@ Create a Simple Typewriter Function using the SampleApp from Lab 4
 
 ---
 
-## Slide 40 @title[Lab 5 : How Hints]
+## Slide 40 Lab 5 : How Hints
 ### <b>Lab 5 : How Process (Hints)</b> 
 
 - Use the same procedure as with Lab 4 to find "ReadKeyStroke" in the work space: 	<a href="https://github.com/tianocore/edk2/blob/master/MdePkg/Library/UefiLib/Console.c">  MdePkg/Library/UefiLib/Console.c</a> ~ ln 552
@@ -936,13 +936,13 @@ Create a Simple Typewriter Function using the SampleApp from Lab 4
 
 --- 
 
-## Slide 41 @title[Lab 5 :Typewriter Function Solution]
+## Slide 41 Lab 5 :Typewriter Function Solution
 ### <b>Lab 5 : Solution</b> 
 <br>
 
 Copy and paste from the following sub slide
 ---
-## Slide 42 @title[Lab 5 :Typewriter Function Solution]
+## Slide 42 Lab 5 :Typewriter Function Solution
 ### <b>Lab 5 :  Solution</b> 
 
 SampleApp.c Should have the following for Lab 5: 
@@ -999,7 +999,7 @@ UefiMain (
 ```
 ---
 
-## Slide 43 @title[Lab 5 :Build and Test SampleApp ]
+## Slide 43 Lab 5 :Build and Test SampleApp 
 ### <b>Lab 5 :Build and Test SampleApp</b> 
 
 
@@ -1034,7 +1034,7 @@ End of Lab 5
 
  
 ---
-## Slide 44 @title[Bonus Lab :Open Protocol example]
+## Slide 44 Bonus Lab :Open Protocol example
 ### <b>Bonus Exercise: Open Protocol Example</b> 
 
 Write an Application using argv, argc parameters
@@ -1077,7 +1077,7 @@ Note:
 
 
 ---
-## Slide 45 @title[Write a EADK Application  Section]
+## Slide 45 Write a EADK Application  Section
 <br>
 
 
@@ -1087,7 +1087,7 @@ Using EADK with UEFI Application
 
 
 ---
-## Slide 46 @title[Lab 6: Writing UEFI Applications with EADK]
+## Slide 46 Lab 6: Writing UEFI Applications with EADK
 **Optional** 
 <br>
 
@@ -1100,7 +1100,7 @@ Note:
 
 --- 
 
-## Slide 47 @title[Lab 6: With EDK II EADK]
+## Slide 47 Lab 6: With EDK II EADK
 **Optional** 
 ### <b>Lab 6: With EDK II EADK</b> 
 <br>
@@ -1112,7 +1112,7 @@ Write the same application with the same functionality as SampleApp.c using the 
   - What differences are there using the LibC
 
 ---
-## Slide 48 @title[Lab 6: EDK II using EADK]
+## Slide 48 Lab 6: EDK II using EADK
 **Optional** 
 ### <b>Lab 6: EDK II using EADK</b> 
 <br>
@@ -1131,7 +1131,7 @@ Copy and paste directory ~../FW/LabSampleCode/SampleCApp to
 ```
 
 ---
-## Slide 49 @title[Lab 6: EDK II using EADK 02]
+## Slide 49 Lab 6: EDK II using EADK 02
 **Optional** 
 ### <b>Lab 6: EDK II using EADK</b> 
 <br>
@@ -1184,7 +1184,7 @@ main (
 
 ---
 
-## Slide 50 @title[Lab 6 : Update AppPkg.dsc ]
+## Slide 50 Lab 6 : Update AppPkg.dsc 
 **Optional** 
 ### <b>Lab 6 : Update AppPkg.dsc </b> 
 
@@ -1209,7 +1209,7 @@ Edit the ~src/edk2-ws/edk-libc/AppPkg/AppPkg.dsc and add `SampleCApp.inf` at the
 
 ---
 
-## Slide 51 @title[Lab 6 :Build and Test SampleCApp ]
+## Slide 51 Lab 6 :Build and Test SampleCApp 
 **Optional** 
 ### <b>Lab 6 :Build and Test SampleCApp</b> 
 
@@ -1238,7 +1238,7 @@ Notice that the program will immediately unload because the main function is emp
 EXit QEMU
 
 ---
-## Slide 52 @title[Lab 7: Adding Functionality to SampleCApp]
+## Slide 52 Lab 7: Adding Functionality to SampleCApp
 **Optional** 
 
 ### <b>Lab 7:  Adding Functionality to SampleCApp</b> 
@@ -1249,7 +1249,7 @@ In this lab, you’ll add functionality to SampleCApp the same as in Lab 5. This
 
  ---
 
-## Slide 53 @title[Lab 7: With EDK II EADK]
+## Slide 53 Lab 7: With EDK II EADK
 **Optional** 
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
@@ -1258,26 +1258,26 @@ See slide 57 for solution
 
 ---
 
-## Slide 54 @title[Lab 7: With EDK II EADK]
+## Slide 54 Lab 7: With EDK II EADK
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
 
 See slide 57 for solution
 
 ---
-## Slide 55 @title[Lab 7: With EDK II EADK]
+## Slide 55 Lab 7: With EDK II EADK
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
 See slide 57 for solution
 
 ---
-## Slide 56 @title[Lab 7: With EDK II EADK]
+## Slide 56 Lab 7: With EDK II EADK
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
 See slide 57 for solution
 
 ---
-## Slide 57 @title[Lab 7: With EDK II EADK solution]
+## Slide 57 Lab 7: With EDK II EADK solution
 **Optional** 
 ### <b>Lab 7: Solution</b> 
 
@@ -1346,7 +1346,7 @@ After compile notice the size of the final .EFI file is about 2K larger than the
 
 ---
 
-## Slide 58 @title[Lab 7 :Build and Test SampleCApp ]
+## Slide 58 Lab 7 :Build and Test SampleCApp 
 **Optional** 
 ### <b>Lab 7 :Build and Test SampleCApp</b> 
 
@@ -1383,7 +1383,7 @@ EXit QEMU
 
 
 ---  
-## Slide 59 @title[Summary]
+## Slide 59 Summary
 <BR>
 <p align="left"><span class="gold"   >Summary  <br>
 
@@ -1395,7 +1395,7 @@ EXit QEMU
  
 
 ---
-## SLide 60 @title[Questions]
+## SLide 60 Questions
 <br>
 
 
@@ -1408,12 +1408,12 @@ Return to Training Table of contents for next presentation link: https://github.
 
 
 ---
-## Slide 62 @title[Logo Slide]
+## Slide 62 Logo Slide
 <br><br><br>
 
 
 ---
-## SLide 63 @title[Acknowledgements]
+## SLide 63 Acknowledgements
 <p align="left"><span class="gold"   >Acknowledgements 
 
 ```c++
