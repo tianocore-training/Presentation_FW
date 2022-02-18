@@ -1,4 +1,4 @@
-## Slide 1  @title[Platform Build Lab  - OVMF Lab]
+## Slide 1  Platform Build Lab  - OVMF Lab
 
 ## UEFI & EDK II Training
 
@@ -41,7 +41,7 @@
 
 
 ---  
-## Slide 2  @title[Platform Build Labs]
+## Slide 2  Platform Build Labs
 
 ### Platform Build Labs 
 <br>
@@ -53,7 +53,7 @@
 
 
 ---
-## Slide 3  @title[Lab 1 -BUILD OVMFPKG Section]
+## Slide 3  Lab 1 -BUILD OVMFPKG Section
 
 
 ### Build  OVMFPKG
@@ -61,7 +61,7 @@
  Setup OvmfPkg to build and run w/ QEMU
 
 ---
-## Slide 4  @title[Pre-requisites Ubuntu 16.04  ]
+## Slide 4  Pre-requisites Ubuntu 16.04  
 
 
 ### Pre-requisites Ubuntu 16.04 
@@ -90,7 +90,7 @@ Qemu – Emulation with Intel architecture with UEFI Shell
 
 
 ---
-## Slide 5  @title[Pre-requisites Clear Linux* Project ]
+## Slide 5  Pre-requisites Clear Linux* Project 
 
 
 ### Pre-requisites Clear Linux* Project
@@ -113,7 +113,7 @@ Qemu – Emulation with Intel architecture with UEFI Shell
 
 
 ---
-## Slide 6  @title[ Create QEMU Run Script]
+## Slide 6   Create QEMU Run Script
 
 
 ### Create QEMU Run Script
@@ -141,7 +141,7 @@ Save and Exit
 
 
 ---
-## Slide 7  @title[Download the EDK II Source Code ]
+## Slide 7  Download the EDK II Source Code 
 
 ### Download the EDK II Source Code
 
@@ -173,11 +173,11 @@ bash$ submodule update --init
 bash$  cd ..
 ```
 ---
-## Slide 8  @title[Setup Lab Material ]
+## Slide 8  Setup Lab Material 
 ### Setup Lab Material
 
 ---
-## Slide 9  @title[Download Lab_Material_FW  ]
+## Slide 9  Download Lab_Material_FW  
 ### Download Lab Material<br>
 Download the Lab_Material_FW.zip from :  <a href="https://github.com/tianocore-training/Lab_Material_FW/archive/refs/heads/main.zip">github.com Lab_Matrial_FW.zip</a><br>
 <br>
@@ -203,7 +203,7 @@ Directory Lab_Material_FW will be created
 
 
 ---
-## Slide 10  @title[Build  Edk2 -getting the Source ]
+## Slide 10  Build  Edk2 -getting the Source 
 <b>Build EDK II OVMF </b><br>
 
 – Extract the Source  
@@ -215,7 +215,7 @@ Note:
 Extract the Downloaded Lab_Material_FW.zip to $HOME (this will create a directory `~/FW` )
 
 ---
-## Slide 11  @title[Build  Edk2 -getting the Source 02]
+## Slide 11  Build  Edk2 -getting the Source 02
 <b>Build EDK II  </b><br>
  - Copy edk2-ws 
 
@@ -226,7 +226,7 @@ From the downloaded Lab_Material_FW folder,<br> <b>copy</b> and <b>paste</b> fol
 <i>Note:</i> Overwrite existing files and directories
 
 ---
-## Slide 12  @title[BUILD EDK II OVMF - Building BaseTools
+## Slide 12  BUILD EDK II OVMF - Building BaseTool
 ]
 <b>BUILD EDK II OVMF - Building BaseTools</b><br>
  
@@ -251,7 +251,7 @@ Make sure the tests pass OK
 
 
 ---
-## Slide 13  @title[Build Ovmf Platform]
+## Slide 13  Build Ovmf Platform
 <b>Build Ovmf Platform </b><br>
  
 
@@ -259,7 +259,7 @@ Make sure the tests pass OK
 
 ---
 
-## Slide 14  @title[BUILD EDK II OVMF -Update Target.txt]
+## Slide 14  BUILD EDK II OVMF -Update Target.txt
 <br>
 
 
@@ -299,7 +299,7 @@ $> build -D ADD_SHELL_STRING -a X64
 
 
 ---
-## Slide 15  @title[Build Edk2 -build inside Prompt]
+## Slide 15  Build Edk2 -build inside Prompt
 <b>Build EDK II  OVMF</b><br>
 - Inside Terminal
 
@@ -308,7 +308,7 @@ $> build -D ADD_SHELL_STRING -a X64
 Finished build
 ---
 
-## Slide 16  @title[BUILD EDK II OVMF -Verify Build Succeeded]
+## Slide 16  BUILD EDK II OVMF -Verify Build Succeeded
 
 ### BUILD EDK II OVMF -Verify Build Succeeded
 
@@ -320,7 +320,7 @@ For GCC5 with X64, it should be located at
 ```
 
 ---
-## Slide 17  @title[Invoke QEMU]
+## Slide 17  Invoke QEMU
 <br>
 
 ### Invoke QEMU
@@ -342,7 +342,7 @@ QEMU will open to the UEFI SHell prompt
 To exit, Close QEMU
 
 ---  
-## Slide 18  @title[Summary]
+## Slide 18  Summary
 ### Summary <br>
 
 - 
@@ -350,12 +350,12 @@ To exit, Close QEMU
 - Run Ovmf using Qemu
 
 ---
-## Slide 19  @title[Questions]
+## Slide 19  Questions
 <br>
 Questions
 
 ---
-## Slide 20  @title[return to main]
+## Slide 20  return to main
 <b>Return to Main Training Page</b>
 <br>
 <br>
@@ -367,13 +367,13 @@ Return to Training Table of contents for next presentation <a href="https://gith
 
 
 ---
-## Slide 21  @title[Logo Slide]
+## Slide 21  Logo Slide
 <br><br><br>
 
 
 
 ---
-## Slide 22  @title[Acknowledgements]
+## Slide 22  Acknowledgements
 #### Acknowledgements
 
 ```c++

@@ -1,5 +1,5 @@
 
-## ## Slide  1   @title[Platform Build Lab]
+##  Slide  1   Platform Build Lab
 <br><br><br><br><br>
 ##  UEFI & EDK II Training 
 
@@ -11,7 +11,7 @@
 <!---
  Lab_Guide.md for UEFI / EDK II Training  UEFI Shell Windows Lab
 
-  Copyright (c) 2020-2021, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) 2020-2022, Intel Corporation. All rights reserved.<BR>
 
   Redistribution and use in source (original document form) and 'compiled'
   forms (converted to PDF, epub, HTML and other formats) with or without
@@ -40,7 +40,7 @@
 -->
 
 ---  
-## Slide  2  @title[Lesson Objective]
+## Slide  2  Lesson Objective
 
 ###  Lesson Objective  <br>
 
@@ -54,7 +54,7 @@
   
 
 ---
-## Slide  3  @title[UEFI Shell Lab with Emulator Section]
+## Slide  3  UEFI Shell Lab with Emulator Section
 
 ###  UEFI Shell Lab with Emulator 
 
@@ -62,7 +62,7 @@
 
 
 
-## Slide  4  @title[Running Emulator]
+## Slide  4  Running Emulator
  <b>Invoke Win Emulation</b> 
 
 <br>
@@ -84,7 +84,7 @@ C:\FW\edk2>\edk2-ws\edk2> RunEmulator.bat
 ---
 
 
-## Slide  5  @title[UEFI Shell Lab Commands Section]
+## Slide  5  UEFI Shell Lab Commands Section
 
 ###  UEFI Shell Commands  
 
@@ -92,7 +92,7 @@ Commands from the Command Line Interface
 
 
 ---
-## Slide  6  @title[Common Shell Commands ]
+## Slide  6  Common Shell Commands 
 ###  Common Shell Commands For Debugging 
 
 ```shell
@@ -121,7 +121,7 @@ We are not going to go all were these in detail but just to make you aware of th
 
 ---
 
-## Slide  7  @title[Shell Help Command ]
+## Slide  7  Shell Help Command 
 ###  Shell Help 
 
 
@@ -166,7 +166,7 @@ To exit, this emulation simply type: "reset"
 
 
 ---
-## Slide  8  @title[Shell memmap Command ]
+## Slide  8  Shell memmap Command 
 ###  Shell "memmap" 
 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
@@ -205,7 +205,7 @@ Shell>
 
 ---
 
-## Slide  9  @title[Shell mm Command help ]
+## Slide  9  Shell mm Command help 
 ###  Shell "mm" 
 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
@@ -334,7 +334,7 @@ Shell>
 
 
 ---
-## Slide  10  @title[Shell mm   Command ]
+## Slide  10  Shell mm   Command 
 ###  Shell "mm" 
 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
@@ -381,7 +381,7 @@ This command allows changing the contents of each memory location.
 
 
 ---
-## Slide  11  @title[Shell mem Command ]
+## Slide  11  Shell mem Command 
 ###  Shell "mem" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 mem
@@ -423,7 +423,7 @@ Note:
 ---
 
 
-## Slide  12  @title[Shell drivers Command ]
+## Slide  12  Shell drivers Command 
 ###  Shell "drivers" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 drivers -b
@@ -480,7 +480,7 @@ drivers -?
 
 
 ---
-## Slide  13  @title[Shell devices Command ]
+## Slide  13  Shell devices Command 
 ###  Shell "devices" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 devices
@@ -512,7 +512,7 @@ For the Windows Emulation there is not that many devices
 
 
 ---
-## Slide  14  @title[Shell devtree Command ]
+## Slide  14  Shell devtree Command 
 ###  Shell "devtree" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 devtree
@@ -547,7 +547,7 @@ Shell>
 
 
 ---
-## Slide  15  @title[Shell handle Database Command ]
+## Slide  15  Shell handle Database Command 
 ###  Shell handle database - "dh" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 dh -b
@@ -585,7 +585,7 @@ Press ENTER to continue or 'Q' break:
 
 ---
 
-## Slide  16  @title[Shell Load Command ]
+## Slide  16  Shell Load Command 
 ###  Shell "load" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 load -?
@@ -627,7 +627,7 @@ Shell>
 ```
 
 ---
-## Slide  17  @title[Shell Load Command ]
+## Slide  17  Shell Load Command 
 ###  Shell "Dmpstore" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 dmpstore -all -b
@@ -662,7 +662,7 @@ Variable NV+RT+BS 'EFIGlobalVariable:Boot0004' DataSize = 0x9C
   Press ENTER to continue or 'Q' break:
 ```
 ---
-## Slide  18  @title[Shell Stall Command ]
+## Slide  18  Shell Stall Command 
 ###  Shell "PCI"
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 pci -? -b
@@ -706,7 +706,7 @@ EXAMPLES:
 
 ```
 ---
-## Slide  19  @title[Shell Stall Command ]
+## Slide  19  Shell Stall Command 
 ###  Shell "stall" 
 <span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
 stall 10000000
@@ -724,7 +724,7 @@ Shell>
 
 
 
-## Slide  20  @title[UEFI Shell Lab Scripts Section]
+## Slide  20  UEFI Shell Lab Scripts Section
 
 
 ### UEFI Shell Scripts
@@ -733,7 +733,7 @@ Shell>
 Use Scripting with UEFI Shell 
 
 ---
-## Slide  21  @title[UEFI Shell Scripts ]
+## Slide  21  UEFI Shell Scripts 
 ###  UEFI Shell Scripts 
 <br>
 The UEFI Shell can execute commands from a file, which is called a batch script file (<font face="consolas" color="cyan"><b>.nsh</b></font> files).  
@@ -747,7 +747,7 @@ The UEFI Shell can execute commands from a file, which is called a batch script 
 
 ---
 
-## Slide  22  @title[Writing UEFI Shell Scripts]
+## Slide  22  Writing UEFI Shell Scripts
 ###  Writing UEFI Shell Scripts  
 
 
@@ -772,7 +772,7 @@ To save and exit
 - Press "F3" to exit
 
 ---
-## Slide  23  @title[Hello World Script]
+## Slide  23  Hello World Script
 ###  Hello World Script 
 
 
@@ -790,7 +790,7 @@ FS0:\>
 Close - at the shell prompt type : `reset`
 
 
-## Slide  24  @title[UEFI Shell Nested Scripts ]
+## Slide  24  UEFI Shell Nested Scripts 
 ###  UEFI Shell Nested Scripts  
 
 Copy the Scripts from the `/FW/LabSampleCode/ShellScripts` to the Emulator runtime directory  `C:/FW/edk2-ws/edk2/Build/EmulatorX64\DEBUG_VS20`<i>nn</i>`\X64`
@@ -803,8 +803,9 @@ Where *nn* is :
 
 
 ---
-## Slide  25  @title[UEFI Shell Script Example]
+## Slide  25  UEFI Shell Script Example
 <br>
+
 ### UEFI Shell Script Example 
 
 <font color="blue">Script1.nsh</font> 
@@ -833,7 +834,7 @@ walk through the script calling the second script
   - %a counting down...
   
 ---
-## Slide  26  @title[Run UEFI Shell Scripts ]
+## Slide  26  Run UEFI Shell Scripts 
 ###  Run UEFI Shell Scripts 
 
 
@@ -853,7 +854,7 @@ FS0:\> Edit Script1.nsh
 
 --- 
 
-## Slide  27  @title[Run UEFI Shell Scripts cont ]
+## Slide  27  Run UEFI Shell Scripts cont 
 ###  Run UEFI Shell Scripts 
 
 - Remove the "`#`" on the first line
@@ -864,9 +865,87 @@ FS0:\> Edit Script1.nsh
 - Press "F3" to exit
 - Type : `FS0:\> Script1`
 
+---
+## Slide 28 UEFI Shell Global Variables
+
+### Use BCFG and DmpStore
+
+
+---
+## Slide 29  Show the UEFI Boot Variables
+
+At the Shell Prompt:
+```
+Shell> FS0:
+Shell> BCFG Boot Dump
+```
+Note see the list of Boot000X options printed to the console
+
+---
+## Slide 30  Use the Dmpstore to Show the Boot Order
+
+At the Shell Prompt:
+
+```
+FS0: > Dmpstore BootOrder
+```
+---
+## Slide 31  Use the BCFG to Move a boot item 
+
+Use BCFG to Move the 5th boot item too 1st location.
+
+Then verify using the `dmpstore`
+
+(Hint: use `BCFG -? -b` for help menu)
+
+The dmpstore output should look like:
+
+```
+Variable NV+RT+BS 'EFIGlobalVariable:BootOrder' DataSize = 0x0C
+  00000000: 00 00 05 00 01 00 02 00-03 00 04 00              *............*
+```
+
+Solution:
+```
+bcfg boot mv 05 00
+```
+---
+## Slide 32  Use the BCFG to Add a boot item  
+
+From Windows File explorer, Copy the file from the 
+
+%WORKSPACE%\edk2\ShellPkg\OldShell\Shell_FullX64.efi to the directory %WORKSPACE%\Build\ . . .\X64
+
+Use BCFG to Add  a 06 entry for a new boot option with  `Shell_FullX64.efi`
+
+Then verify using the `BCFG Boot Dump`
+
+Hint: make sure Shell_FullX64.efi is in the FS0: directory by doing: 
+```
+FS0:> Dir 
+```
+After the bcfg add, The output should look like
+```
+. . .
+Option: 06. Variable: Boot0006   
+  Desc    - Old EFI Shell 1.0
+  DevPath - VenHw(5CF32E0B-8EDF-2E44-9CDA-93205E99EC1C,00000000)/VenHw(964E5B22-6459-11D2-8E39-00A0C969723B,00000000)/\Shell_FullX64.efi
+  Optional- N
+```
+
+Solution:
+```
+bcfg boot add 06 Shell_fullX64.efi "Old EFI Shell 1.0"
+```
+
+---
+## Slide 33  Build Edk2 -exit emulator
+<b>Emulator at Shell Prompt  </b>
+
+Type: "Reset" to exit
 
 ---  
-## Slide  28  @title[Summary]
+## Slide  34  Summary
 
 ### Summary  <br>
 
@@ -877,24 +956,24 @@ FS0:\> Edit Script1.nsh
  
 
 ---
-## Slide  29  @title[Questions]
+## Slide  35  Questions
 ### Questions
 
 ---
-## Slide  30  @title[Return to Main Training Page]
+## Slide  36  Return to Main Training Page
 ### Return to Main Training Page
 
 
 
 
 ---
-## Slide  31  @title[Logo Slide]
+## Slide  37  Logo Slide
 
 ### logo
 
 
 ---
-## Slide  32  @title[Acknowledgements]
+## Slide  38  Acknowledgements
 #### Acknowledgements 
 
 ```
@@ -922,7 +1001,7 @@ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWIS
 ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY 
 OF SUCH DAMAGE.
 
-Copyright (c) 2021, Intel Corporation. All rights reserved.
+Copyright (c) 2021-2022, Intel Corporation. All rights reserved.
 **/
 
 ```

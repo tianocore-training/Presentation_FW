@@ -9,7 +9,7 @@
 
 ---  
 
-## Slide 2 @title[Lesson Objective]
+## Slide 2 Lesson Objective
 
 ### Lesson Objective 
 
@@ -20,12 +20,12 @@
 
 
 ---
-## Slide 3 @title[UEFI Application w/ PCDs Section]
+## Slide 3 UEFI Application w/ PCDs Section
 
 ### UEFI Application w/ PCDs 
 
 ---
-## Slide 4 @title[EDK II PCD’s Purpose and Goals]
+## Slide 4 EDK II PCD’s Purpose and Goals
 <br>
 <p align="center"><b>EDK II PCD’s Purpose and Goals</b> - REVIEW</p>
 Documentaton :  <a href="https://github.com/tianocore/edk2/blob/master/MdeModulePkg/Universal/PCD/Dxe/Pcd.inf"> MdeModulePkg/Universal/PCD/Dxe/Pcd.inf  </a> 
@@ -47,7 +47,7 @@ Note:
 
 
 
-## Slide 5 @title[PCD Syntax review]
+## Slide 5 PCD Syntax review
 ### <p align="center">PCD Syntax  - REVIEW 
 PCDs can be located anywhere within the Workspace even though a different package will use those PCDs for a given project</span>
 
@@ -68,7 +68,7 @@ Note:
 
 - Not on this slide but also there is the FDF build description File – and this file would have flash layout related values 
 ---
-## Slide 6 @title[Lab 1: Writing UEFI Applications with PCDs]
+## Slide 6 Lab 1: Writing UEFI Applications with PCDs
 
 ### Lab 1: Writing UEFI Applications with PCDs
 
@@ -80,7 +80,7 @@ Note:
 
 
 ---
-## Slide 7 @title[EDK II HelloWorld  App  Lab ]
+## Slide 7 EDK II HelloWorld  App  Lab 
 <b>EDK II HelloWorld  App  Lab  </b></p>
 
 First Setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#slide-10--titlelab-1--build-emulator-section">Lab Setup for Emulator </a>
@@ -110,7 +110,7 @@ Note:
 
  
 
-## Slide 8 @title[EDK II HelloWorld  App  Lab steps]
+## Slide 8 EDK II HelloWorld  App  Lab steps
 <p align="left"><b>EDK II HelloWorld  App  Lab  </b></p>
 
 Open a VS  Command Prompt and type: `cd C:\FW\edk2-ws` then 
@@ -142,7 +142,7 @@ Note:
 RunEmulator.bat will run WinHost.exe from Build/EmulatorX64/DEBUG_TAG/X64 
 
 ---
-## Slide 9 @title[EDK II HelloWorld  App  Lab location]
+## Slide 9 EDK II HelloWorld  App  Lab location
 ### <b>EDK II HelloWorld  App  Lab  </b>
 
 <a href="https://github.com/tianocore/edk2/tree/master/MdeModulePkg/Application/HelloWorld"> MdeModulePkg/Application/HelloWorld </a>
@@ -153,7 +153,7 @@ Note:
 First let's look at the source code for the HellowWorld Application
 
 ---
-## Slide 10 @title[EDK II HelloWorld  App  Lab code]
+## Slide 10 EDK II HelloWorld  App  Lab code
 ### <b>EDK II HelloWorld  App  Lab  </b> 
 <span style="font-size:01.0em" >Source: <font color="green">Helloworld.c</font></span>
 
@@ -190,7 +190,7 @@ Source from Helloworld.c
 
 ---
 
-## Slide 11 @title[EDK II HelloWorld  App  Lab solution]
+## Slide 11 EDK II HelloWorld  App  Lab solution
 ### <b>EDK II HelloWorld  App  Solution </b> 
 
 
@@ -214,7 +214,7 @@ Solution:
 
 
 ---
-## SLide 12 @title[EDK II HelloWorld  App  Lab solution 02]
+## SLide 12 EDK II HelloWorld  App  Lab solution 02
 ### <b>EDK II HelloWorld  App  Solution </b> 
 
 
@@ -238,7 +238,7 @@ Note:
 
 
 ---
-## Slide 13 @title[Lab 2: Write a Simple UEFI Application]
+## Slide 13 Lab 2: Write a Simple UEFI Application
 <br>
 
 ### Lab 2: Write a Simple UEFI Application 
@@ -248,7 +248,7 @@ In this lab, you’ll learn how to write simple UEFI applications.
 
 
 ---
-Slide 14 @title[Lab 2 - Write A Simple App]
+Slide 14 Lab 2 - Write A Simple App
 ### <b>LAB 2 - Writing a Simple UEFI Application</b> 
 
 In this lab, you’ll learn how to write simple UEFI applications. 
@@ -293,7 +293,7 @@ Note:
 - What goes into a Simplest "C"
 
 ---
-## Slide 15 @title[Lab 2: Application Lab –start with .c and .inf template]
+## Slide 15 Lab 2: Application Lab –start with .c and .inf template
 ### <b>Application Lab –start with .c and .inf template</b> 
 
 
@@ -304,7 +304,7 @@ Note:
   - Create Name & GUID, and then fill in the MODULE_TYPE 
 
 
-## Slide 16 @title[Lab 2: Sample Application INF file]
+## Slide 16 Lab 2: Sample Application INF file
 ### <b>Lab 2: Sample Application INF file</b> 
 <br>
 
@@ -368,7 +368,7 @@ Note:
 
 ---
 
-## Slide 17 @title[Lab 2: Sample Application C file]
+## Slide 17 Lab 2: Sample Application C file
 ### <b>Lab 2: Sample Application ‘C’ file</b> 
 
 
@@ -389,7 +389,7 @@ Note:
 
 ---
 
-## Slide 18 @title[Lab 2: Will it compile now?]
+## Slide 18 Lab 2: Will it compile now?
 ### <b>Lab 2: Will it compile now?</b> 
 <br>
 Not yet . . .
@@ -409,7 +409,7 @@ Note:
 - Then the next thing we need to add is a few package dependencies and libraries to the INF file because, for instance, features like the UEFI Application entry point will need to be added, because it doesn’t know how to do an entry point until you’ve added that. 
 
 ---
-## SLide 19 @title[Lab 2: Application Lab – Update Files]
+## SLide 19 Lab 2: Application Lab – Update Files
 ### <b>Lab 2: Application Lab – Update Files</b> 
 <ul style="list-style-type:none">
  <li><span style="font-size:01.em" >1.&nbsp;&nbsp; <font color="Green">`.DSC` </font> (EmulatorPkg/EmulatorPkg.dsc)</span>  </li>
@@ -454,7 +454,7 @@ Note:
 
 ---
 
-## SLide 20 @title[Lab 2: Lab cont. Solution ]
+## SLide 20 Lab 2: Lab cont. Solution 
 ### <b>Lab 2: Lab cont. Solution </b> 
 
 
@@ -484,7 +484,7 @@ SampleApp/SampleApp.c - near the top of the file
 
 
 ---
-## Slide 21 @title[Lab 2: Will it compile now? ]
+## Slide 21 Lab 2: Will it compile now? 
 ### <b>Lab 2 : Will it compile now?</b> 
 <p style="line-height:90%"><span style="font-size:01.em" >Yes, At the VS Command Prompt 
 
@@ -517,7 +517,7 @@ Note:
 
 ---
 
-## Slide 22 @title[Possible Build Errors ]
+## Slide 22 Possible Build Errors 
 ### <b>Possible Build Errors</b> 
 
 Note:
@@ -528,7 +528,7 @@ The `FILE_GUID` was invalid or not updated from "`XXX…`" to a proper formatted
 ---
 
 
-## Slide 23 @title[Possible Build Errors 02 ]
+## Slide 23 Possible Build Errors 02 
 ### <b>Possible Build Errors</b> 
 
 Note:
@@ -536,7 +536,7 @@ Note:
 The `[Packages]` was invalid  or did not specify MdePkg/MdePkg.dec properly
 
 ---
-## Slide 24 @title[Possible Build Errors 03]
+## Slide 24 Possible Build Errors 03
 ### <b>Possible Build Errors</b> 
 
 Note:
@@ -544,7 +544,7 @@ Note:
 
 ---
 
-## Slide 25 @title[Possible Build Errors 04 ]
+## Slide 25 Possible Build Errors 04 
 ### <b>Possible Build Errors</b> 
 
 Note:
@@ -552,13 +552,13 @@ The SampleApp.inf section `[LibraryClasses]` did not reference `UefiApplicationE
 
 ---
 
-## Slide 26 @title[Possible Build Errors 05]
+## Slide 26 Possible Build Errors 05
 ### <b>Possible Build Errors</b> 
 
 Note:
 Ensure the SampleApp.inf BaseName is SampleApp 
 ---
-## SLide 27 @title[Lab 2.1: Build Switches]
+## SLide 27 Lab 2.1: Build Switches
 <br>
 
 ### Lab 2.1: Build Switches 
@@ -566,7 +566,7 @@ Ensure the SampleApp.inf BaseName is SampleApp
 In this lab, you’ll change the build switch  to be always `TRUE`
 
 Note:
-## Slide 28 @title[Lab 2.1: Build MACRO Switches  ]
+## Slide 28 Lab 2.1: Build MACRO Switches  
 ### <b>Build MACRO Switches </b> 
 The build for EmulatorPkg is using build MACRO Switch:<br>
 <font color="green">-D ADD_SHELL_STRING</font>  – used to change a string in the UEFI Shell application, only used for EDK II Training (requires ShellPkg be re-built on a change of this switch)
@@ -586,7 +586,7 @@ The build for EmulatorPkg is using build MACRO Switch:<br>
 
 
 
-## Slide 29 @title[Lab 2.1: Compiling w/ Build Switch ]
+## Slide 29 Lab 2.1: Compiling w/ Build Switch 
 ### <b>Lab 2.1: Compiling w/out Build Switch</b> 
 
 At the VS Command Prompt, Build <font color="green">without</font> the `-D` Switch</span>
@@ -614,7 +614,7 @@ You will need to Delete directory:   Build/EmulatorX64/DEBUG_tag/X64/ShellPkg
 Between each build
 
 ---
-## Slide 30 @title[Lab 2.1: Compiling w/out Build Switch 02]
+## Slide 30 Lab 2.1: Compiling w/out Build Switch 02
 ### <b>Lab 2.1: Compiling w/out Build Switch</b> 
 
 Edit the file `C:/FW/edk2-ws/edk2/EmulatorPkg/EmulatorPkg.dsc`<br>
@@ -634,7 +634,7 @@ Will need to Delete dir:   %WORKSPACE%/Build/EmulatorX64/DEBUG_tag/X64/ShellPkg
 Between each build
 
 ---
-## Slide 31@title[Lab 2: What we learned from LAB 2]
+## Slide 31Lab 2: What we learned from LAB 2
 ### <b>What we learned from LAB 2</b> 
 <br>
 
@@ -647,7 +647,7 @@ Between each build
 
 
 ---
-## Slide 32 @title[Lab 2: If there are Build Errors ]
+## Slide 32 Lab 2: If there are Build Errors 
 ### <b>Lab 2: If there are build errors …</b> 
 <br>
 See class files for the solution 
@@ -669,7 +669,7 @@ Note:
 
 
 ---
-Slide 33 @title[Add more Functionality Section]
+Slide 33 Add more Functionality Section
 
 ### Add Functionality 
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Functionality to the Simple UEFI Application : </span>
@@ -686,7 +686,7 @@ Next 3 Labs</span>
 <font color="green">Solutions in .../FW/LabSampleCode/LabSolutions/LessonB.<i>n</i></font>
 
 ---
-## Slide 34 @title[Lab 3: Print the UEFI System Table]
+## Slide 34 Lab 3: Print the UEFI System Table
 <br>
 
 ### Lab 3: Print the UEFI System Table 
@@ -696,7 +696,7 @@ Add code to print the hex address of the EFI System Table pointer to the console
 
 ---
 
-## Slide 35 @title[Lab 3 : Add System Table Code]
+## Slide 35 Lab 3 : Add System Table Code
 ### <b>Lab 3 : Add System Table Code</b> 
 
 Add code to print to the console the hex address of the system table pointer
@@ -714,7 +714,7 @@ Note:
 - So also as an exercise you can look at the file in the sample lab code Min.dsc, this is a platform description file without a platform or any packages that go with it,  and this demonstrates the minimal contents for a DSC file that can build this application. So it will build a single application orientated toward the one we just created except nothing else. So unlike the Emulator platform description file, if you were to look at it, There are huge amounts of other components, library classes, and all of that, this Min.dsc only does the minimum requirements.
 
 ---
-## Slide 36 @title[Locating the "Print" Function ]
+## Slide 36 Locating the "Print" Function 
 ### <b>Lab 3 : Locating the `Print()` Function </b> 
 
 1. Search the `MdePkg Document With Libraries.chm` and find that the Print function by clicking on the "Index" tab
@@ -734,7 +734,7 @@ Note:
 - bash$ sudo aptitude install kchmviewer
 
 ---
-## Slide 37 @title[Modifying .C & .INF Files ]
+## Slide 37 Modifying .C & .INF Files 
 ### <b>Lab 3 : Modifying .C & .INF Files</b> 
 
 
@@ -773,7 +773,7 @@ Note:
 
 ---
 
-## Slide 38 @title[Build and Test SampleApp]
+## Slide 38 Build and Test SampleApp
 ### <b>Lab 3 : Build and Test SampleApp</b> 
 
 At the VS Command Prompt 
@@ -800,7 +800,7 @@ Note:
 End of LAB 3
 
 ---
-## Slide 39 @title[Lab 4: Waiting for an Event]
+## Slide 39 Lab 4: Waiting for an Event
 <br>
 
 ### Lab 4: Waiting for an Event 
@@ -812,7 +812,7 @@ In this lab, you’ll learn how to locate code and .chm files to help write EFI 
 Note:
 ---
 
-## Sldie 40 @title[Lab 4 : Add Wait for Event ]
+## Sldie 40 Lab 4 : Add Wait for Event 
 ### <b>Lab 4 : Add Wait for Event</b> 
 <br>
 
@@ -833,7 +833,7 @@ Note:
 - Test by running your application in the Shell
 
 ---
-## Slide 41 @title[Lab 4 : How to locate functions? ]
+## Slide 41 Lab 4 : How to locate functions? 
 ### <b>Lab 4 : HOW?</b> 
 
 Locate Functions:  
@@ -862,7 +862,7 @@ Note:
 
 
 ---
-## Slide 42 @title[Lab 4 :Update the C File for WaitForKey ]
+## Slide 42 Lab 4 :Update the C File for WaitForKey 
 ### <b>Lab 4 : Update the C File for `WaitForKey`</b> 
 
 
@@ -892,7 +892,7 @@ UefiMain (
 
 ---
  
-## Slide 43 @title[Lab 4 :Test Compile ]
+## Slide 43 Lab 4 :Test Compile 
 ### <b>Lab 4 :Test Compile</b> 
 <br>
 However, this won’t compile … gBS and gST are not defined.
@@ -922,7 +922,7 @@ Note:
 ---
 
  
-## Slide 44 @title[Lab 4 : Update SampleApp.c for gBS & gST ]
+## Slide 44 Lab 4 : Update SampleApp.c for gBS & gST 
 ### <b>Lab 4 : Update for `gBS` & `gST`</b> 
 <br>
 
@@ -997,7 +997,7 @@ End of Lab 4
 
 
 ---
-## Slide 46 @title[Lab 5: Creating a Simple Typewriter Function]
+## Slide 46 Lab 5: Creating a Simple Typewriter Function
 <br>
 
 ### Lab 5: Creating a Simple Typewriter Function 
@@ -1009,7 +1009,7 @@ Note:
 
 --- 
 
-## Slide 47 @title[Lab 5 :Create a Simple Typewriter Function]
+## Slide 47 Lab 5 :Create a Simple Typewriter Function
 ### <b>Lab 5 : Typewriter Function</b> 
 <br>
 
@@ -1023,7 +1023,7 @@ Create a Simple Typewriter Function using the SampleApp from Lab 4 <br>
 
 
 --- 
-## Slide 48 @title[Lab 5 :Create a Simple Typewriter Function How]
+## Slide 48 Lab 5 :Create a Simple Typewriter Function How
 ### <b>Lab 5 : Typewriter Function</b> 
 <br>
 Create a Simple Typewriter Function using the SampleApp from Lab 4
@@ -1039,7 +1039,7 @@ Create a Simple Typewriter Function using the SampleApp from Lab 4
 
 ---
 
-## Slide 49 @title[Lab 5 : How Hints]
+## Slide 49 Lab 5 : How Hints
 ### <b>Lab 5 : How Process (Hints)</b> 
 
 - Use the same procedure as with Lab 4 to find "ReadKeyStroke" in the work space: 	<a href="https://github.com/tianocore/edk2/blob/master/MdePkg/Library/UefiLib/Console.c">  MdePkg/Library/UefiLib/Console.c</a> ~ ln 552
@@ -1062,13 +1062,13 @@ Create a Simple Typewriter Function using the SampleApp from Lab 4
 
 --- 
 
-## Slide 50 @title[Lab 5 :Typewriter Function Solution]
+## Slide 50 Lab 5 :Typewriter Function Solution
 ### <b>Lab 5 : Solution</b> 
 <br>
 
 Copy and paste from the following sub slide
 ---
-## Slide 51 @title[Lab 5 :Typewriter Function Solution]
+## Slide 51 Lab 5 :Typewriter Function Solution
 ### <b>Lab 5 :  Solution</b> 
 
 SampleApp.c Should have the following for Lab 5: 
@@ -1125,7 +1125,7 @@ UefiMain (
 ```
 ---
 
-## Slide 52 @title[Lab 5 :Build and Test SampleApp ]
+## Slide 52 Lab 5 :Build and Test SampleApp 
 ### <b>Lab 5 :Build and Test SampleApp</b> 
 
 At the VS Command Prompt
@@ -1156,7 +1156,7 @@ End of Lab 5
 
  
 ---
-## Slide 53 @title[Bonus Lab :Open Protocol example]
+## Slide 53 Bonus Lab :Open Protocol example
 ### <b>Bonus Exercise: Open Protocol Example</b> 
 
 Write an Application using argv, argc parameters
@@ -1184,7 +1184,7 @@ Note:
 
 
 ---
-## Slide 54 @title[Write a EADK Application  Section]
+## Slide 54 Write a EADK Application  Section
 <br>
 
 
@@ -1194,7 +1194,7 @@ Using EADK with UEFI Application
 
 
 ---
-## Slide 55 @title[Lab 6: Writing UEFI Applications with EADK]
+## Slide 55 Lab 6: Writing UEFI Applications with EADK
 **Optional** 
 <br>
 
@@ -1207,7 +1207,7 @@ Note:
 
 --- 
 
-## Slide 56 @title[Lab 6: With EDK II EADK]
+## Slide 56 Lab 6: With EDK II EADK
 **Optional** 
 ### <b>Lab 6: With EDK II EADK</b> 
 <br>
@@ -1219,7 +1219,7 @@ Write the same application with the same functionality as SampleApp.c using the 
   - What differences are there using the LibC
 
 ---
-## Slide 57 @title[Lab 6: EDK II using EADK]
+## Slide 57 Lab 6: EDK II using EADK
 **Optional** 
 ### <b>Lab 6: EDK II using EADK</b> 
 <br>
@@ -1236,7 +1236,7 @@ Copy and paste directory
 ```
 
 ---
-## Slide 58 @title[Lab 6: EDK II using EADK 02]
+## Slide 58 Lab 6: EDK II using EADK 02
 **Optional** 
 ### <b>Lab 6: EDK II using EADK</b> 
 <br>
@@ -1289,7 +1289,7 @@ main (
 
 ---
 
-## Slide 59 @title[Lab 6 : Update AppPkg.dsc ]
+## Slide 59 Lab 6 : Update AppPkg.dsc 
 **Optional** 
 ### <b>Lab 6 : Update AppPkg.dsc </b> 
 
@@ -1314,7 +1314,7 @@ Edit the file C:/fw/edk2-ws/edk2-libc/AppPkg/AppPkg.dsc and add `SampleCApp.inf`
 
 ---
 
-## Slide 60 @title[Lab 6 :Build and Test SampleCApp ]
+## Slide 60 Lab 6 :Build and Test SampleCApp 
 **Optional** 
 ### <b>Lab 6 :Build and Test SampleCApp</b> 
 Build AppPkg at the VS Command prompt
@@ -1342,7 +1342,7 @@ Notice that the program will immediately unload because the main function is emp
 
 
 ---
-## Slide 61 @title[Lab 7: Adding Functionality to SampleCApp]
+## Slide 61 Lab 7: Adding Functionality to SampleCApp
 **Optional** 
 
 ### <b>Lab 7:  Adding Functionality to SampleCApp</b> 
@@ -1353,7 +1353,7 @@ In this lab, you’ll add functionality to SampleCApp the same as in Lab 5. This
 
  ---
 
-## Slide 62 @title[Lab 7: With EDK II EADK]
+## Slide 62 Lab 7: With EDK II EADK
 **Optional** 
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
@@ -1362,26 +1362,26 @@ See slide 66 for solution
 
 ---
 
-## Slide 63 @title[Lab 7: With EDK II EADK]
+## Slide 63 Lab 7: With EDK II EADK
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
 
 See slide 66 for solution
 
 ---
-## Slide 64 @title[Lab 7: With EDK II EADK]
+## Slide 64 Lab 7: With EDK II EADK
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
 See slide 66 for solution
 
 ---
-## Slide 65 @title[Lab 7: With EDK II EADK]
+## Slide 65 Lab 7: With EDK II EADK
 ### <b>Lab 7: Add the same functionally from Lab 5</b> 
 <br>
 See slide 66 for solution
 
 ---
-## Slide 66 @title[Lab 7: With EDK II EADK solution]
+## Slide 66 Lab 7: With EDK II EADK solution
 **Optional** 
 ### <b>Lab 7: Solution</b> 
 
@@ -1450,7 +1450,7 @@ After compile notice the size of the final .EFI file is about 2K larger than the
 
 ---
 
-## Slide 67 @title[Lab 7 :Build and Test SampleCApp ]
+## Slide 67 Lab 7 :Build and Test SampleCApp 
 **Optional** 
 ### <b>Lab 7 :Build and Test SampleCApp</b> 
 
@@ -1481,7 +1481,7 @@ Run the application SampleCapp from the shell
 ```
 
 ---  
-## Slide 68 @title[Summary]
+## Slide 68 Summary
 <BR>
 <p align="left"><span class="gold"   >Summary  <br>
 
@@ -1493,7 +1493,7 @@ Run the application SampleCapp from the shell
  
 
 ---
-## SLide 69 @title[Questions]
+## SLide 69 Questions
 <br>
 
 
@@ -1506,12 +1506,12 @@ Return to Training Table of contents for next presentation link: https://github.
 
 
 ---
-## Slide 71 @title[Logo Slide]
+## Slide 71 Logo Slide
 <br><br><br>
 
 
 ---
-## SLide 72 @title[Acknowledgements]
+## SLide 72 Acknowledgements
 <p align="left"><span class="gold"   >Acknowledgements 
 
 ```c++
