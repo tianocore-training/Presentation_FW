@@ -168,7 +168,7 @@ Note:
 Notice the changes in DEBUG output for SampleApp in the Visual Studio Command Prompt.  Since the new PCD definitions were only applied to SampleApp, the DEBUG output properties are not changed for other parts of the Emulator project.
 At the VS Command Prompt
 
-
+---
 ## Slide 8 Lab 2: Changing PCD Value
 <br>
 
@@ -276,6 +276,7 @@ Notice the Debug messages output to the console
 
 
 
+---
 
 ## Slide 14 Lab 4: Serial port Instance of DebugLib
 
@@ -333,7 +334,7 @@ Notice NO Debug messages output to the console or cmd Prompt
 
 
 
-
+---
 
 ## Slide 17 Lab 5: Debugging EDK II with VS Debugger]
 <br>
@@ -347,7 +348,7 @@ First make sure you have "Just-in-Time" Debugging enabled in the Visual Studio A
  Link</a>
  
 
-
+---
 ## Slide 18 Lab 5: Emulator Debug with VS]
 ### <b>Lab 5:  Debug with VS</b> 
 <br>
@@ -368,6 +369,8 @@ Then copy and paste the assert statement just after the first 2 DEBUG statements
 
 - Save `SampleApp.c` <br>
 
+---
+
 ## Slide 19 Lab 5: Emulator Debug with VS - ASSERT ]
 ### <b>Lab 5: Debug with VS - ASSERT  </b>
 
@@ -377,6 +380,7 @@ Then copy and paste the assert statement just after the first 2 DEBUG statements
 3. Next Open the Visual Studio Application
 
 
+---
 
 ## Slide 20 Lab 5: Emulator Debug with VS - ASSERT ]
 ### <b>Lab 5: Debug with VS - ASSERT  </b>
@@ -390,6 +394,7 @@ Then copy and paste the assert statement just after the first 2 DEBUG statements
 - Inside the Visual Studio app, Enable the Winhost.exe for Debugging
   - Select "Debug" > "Attach to "Process" > find "Winhost.exe"
   - Click "Attach"
+---
 
 ## Slide 21 Lab 5: Emulator Debug with VS - ASSERT ]
 ### <b>Lab 5: Debug with VS - ASSERT  </b>
@@ -406,6 +411,7 @@ Note:
 
 Notice the Assert will have the line number and error code where the assert occured.
 
+---
 
 ## Slide 22 Lab 5: Debug with VS ASSERT 02
 ### <b>Lab 5: Debug with VS - ASSERT  </b>
@@ -427,6 +433,7 @@ Note:
 - Upon exiting you can choose to save the solution file or not save it.
 
 
+---
 
 
 ## Slide 23 Lab 5: Debug with VS- CPU bp
@@ -443,6 +450,7 @@ Note:
 - Save `SampleApp.c`
 
 
+---
 
 ## Slide 24 Lab 5:  Debug with VS - CPU bp 02
 ### <b>Lab 5: Debug with VS - `CpuBreakpoint`</b>
@@ -472,7 +480,7 @@ Shell> SampleApp
 Note:
 
 
-
+---
 
 ## Slide 25 Invoke Windows Visual Studio Debugger 02]
 ### <b>Invoke Windows Visual Studio Debugger</b>
@@ -485,8 +493,63 @@ Now the visual studio debugger is debugging the sampleapp function and common de
 - etc.
 
 
+
+---
+
+## Slide 26 Lab 6: Debugging EDK II add Debug to Boot Flow
+<br>
+
+### <b>Lab 6: Debugging EDK II add Debug to Boot Flow</b>
+<br>
+
+In this lab, you’ll learn how add Debug statements to the EDK II Boot flow and check the debug log output
+
+
+
+---
+
+## Slide 27 Lab 6: Debug Boot Flow
+
+### Lab 6: Debug Boot Flow
+
+Edit the MdeModulePkg/Core/Pei/PeiMain/PeiMain.c and add a “DEBUG”  print ~line 489 before the call to the PeiDispatcher:
+```
+	DEBUG((DEBUG_INFO, "***********Before call to Pei Dispatcher ********\n"));
+```
+
+
+Save PeiMain.c
+
+
+---
+
+## Slide 28 Lab 6: Build, Run and Test Result 
+
+
+At the VS Command Prompt
+```
+$> Build
+$> RunEmulator.bat
+```
+
+Check the VS Debug output
+```
+Loading PEIM at 0x227A1DC0000 EntryPoint=0x227A1DC1078 PeiCore.efi
+Reinstall PPI: 8C8CE578-8A3D-4F1C-9935-896185C32DD3
+Reinstall PPI: 5473C07A-3DCB-4DCA-BD6F-1E9689E7349A
+Reinstall PPI: B9E0ABFE-5979-4914-977F-6DEE78C278A6
+Install PPI: F894643D-C449-42D1-8EA8-85BDD8C65BDE
+***********Before call to Pei Dispatcher ********
+Loading PEIM 9B3ADA4F-AE56-4C24-8DEA-F03B7558AE50
+```
+
+Exit
+``` 
+Shell> Reset
+```
+
 ---  
-## Slide  26 Summary
+## Slide  29 Summary
 
 ### Summary 
 
@@ -497,23 +560,23 @@ Now the visual studio debugger is debugging the sampleapp function and common de
 
 
 ---
-## Slide 27 Questions
+## Slide 30 Questions
 <br>
 
 ---
-## Slide 28 return to main
+## Slide 31 return to main
 ### <b>Return to Main Training Page</b>
 <br>
 <br>
 Return to Training Table of contents for next presentation <a href="https://github.com/tianocore-training/Tianocore_Training_Contents/wiki#schedule--outline">link</a>
 
 ---
-## Slide 29 Logo Slide]
+## Slide 32 Logo Slide]
 
 
 
 ---
-## Slide 30 Acknowledgements
+## Slide 33 Acknowledgements
 #### Acknowledgements
 
 ```c++
@@ -548,11 +611,11 @@ Copyright (c) 2021, Intel Corporation. All rights reserved.
 
 
 ---
-## Slide 31 Backup Section
+## Slide 34 Backup Section
 
 
 ---
-## Slide 32 Issue: Debugging in Emulation with Windows 7 and VS
+## Slide 35 Issue: Debugging in Emulation with Windows 7 and VS
 ### Issue:<br>
 
 Debugging in  Emulator with Windows 7/10 64Bit <br>and Visual Studio does not work?

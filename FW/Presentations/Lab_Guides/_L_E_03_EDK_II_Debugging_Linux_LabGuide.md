@@ -211,7 +211,7 @@ Note:
 Notice the changes in DEBUG output for SampleApp in the Visual Studio Command Prompt.  Since the new PCD definitions were only applied to SampleApp, the DEBUG output properties are not changed for other parts of the Emulator project.
 At the debug.log file
 
-
+---
 ## Slide 10 Lab 2: Changing PCD Value
 <br>
 
@@ -395,6 +395,7 @@ Notice  Debug messages output to the Serial.log file now
 
 
 
+---
 
 ## Slide 19 Lab 5: Debugging EDK II with GDB
 <br>
@@ -528,11 +529,6 @@ This is useful to double check symbols are fixed up to the correct line numbers 
 ```
 Note: the above memory location maybe different on different labs
 
----
-## Slide 25 Lab 5.6: Invoking GDB
-### <b>Lab 5.6: Invoking GDB </b> 
-<br>
-
 
 
 
@@ -638,8 +634,85 @@ The GDB will hit your break point in your UEFI application's entry point, and yo
 picture  of GDB Debugger stoped at the entry point
 
 
+
+---
+
+## Slide 30 Lab 6: Debugging EDK II add Debug to Boot Flow
+<br>
+
+### <b>Lab 6: Debugging EDK II add Debug to Boot Flow</b>
+<br>
+
+In this lab, you’ll learn how add Debug statements to the EDK II Boot flow and check the debug log output
+
+
+
+---
+
+## Slide 31 Lab 6: Debug Boot Flow
+
+### Lab 6: Debug Boot Flow
+
+Edit the MdeModulePkg/Core/Pei/PeiMain/PeiMain.c and add a “DEBUG”  print ~line 489 before the call to the PeiDispatcher:
+```
+	DEBUG((DEBUG_INFO, "***********Before call to Pei Dispatcher ********\n"));
+```
+
+
+Save PeiMain.c
+
+
+
+---
+## Slide 32 Lab 6: Build,Run and Test Result 01
+### <b>Lab 1: Build, Run and Test Result 01</b>
+
+Build  – Cd to ~/src/edk2 dir
+```
+bash$ cd ~/src/edk2-ws/edk2
+bash$ build
+```
+Copy the OVMF.fd to the run-ovmf directory naming it bios.bin
+```
+bash$ cd ~/run-ovmf
+bash$ cp ~/src/edk2-ws/Build/OvmfX64/DEBUG_GCC5/FV/OVMF.fd bios.bin
+```
+
+
+---
+## Slide 33 Lab 6: Build,Run and Test Result 02
+### <b>Lab 6: Build, Run and Test Result 02</b>
+
+
+Test by Invoking Qemu
+```
+bash$ cd ~/run-ovmf 
+bash$ . RunQemu.sh
+```
+
+Check the contents of the debug.log file
+```
+bash$ cat debug.log
+```
+
+```
+Loading PEIM at 0x227A1DC0000 EntryPoint=0x227A1DC1078 PeiCore.efi
+Reinstall PPI: 8C8CE578-8A3D-4F1C-9935-896185C32DD3
+Reinstall PPI: 5473C07A-3DCB-4DCA-BD6F-1E9689E7349A
+Reinstall PPI: B9E0ABFE-5979-4914-977F-6DEE78C278A6
+Install PPI: F894643D-C449-42D1-8EA8-85BDD8C65BDE
+***********Before call to Pei Dispatcher ********
+Loading PEIM 9B3ADA4F-AE56-4C24-8DEA-F03B7558AE50
+```
+
+
+Exit QEMU
+
+
+Note:
+
 ---  
-## Slide  30 Summary
+## Slide  34 Summary
 
 ### Summary 
 
@@ -650,23 +723,23 @@ picture  of GDB Debugger stoped at the entry point
 
 
 ---
-## Slide 26 Questions
+## Slide 35 Questions
 <br>
 
 ---
-## Slide 27 return to main
+## Slide 36 return to main
 ### <b>Return to Main Training Page</b>
 <br>
 <br>
 Return to Training Table of contents for next presentation <a href="https://github.com/tianocore-training/Tianocore_Training_Contents/wiki#schedule--outline">link</a>
 
 ---
-## Slide 28 Logo Slide]
+## Slide 37 Logo Slide]
 
 
 
 ---
-## Slide 29 Acknowledgements
+## Slide 38 Acknowledgements
 #### Acknowledgements
 
 ```c++
@@ -699,26 +772,3 @@ Copyright (c) 2021, Intel Corporation. All rights reserved.
 
 ```
 
-
----
-## Slide 30 Backup Section
-
-
----
-## Slide 31 Issue: Debugging in Emulation with Windows 7 and VS
-### Issue:<br>
-
-Debugging in  Emulation with Windows 7 <br>and Visual Studio does not work?
-
-
-- Symptom:  With Windows 7 a CpuBreakpoint() or ASSERT  just exits with an error from the "Build Run" command. 
-
-
-- Link to fix this issue: 
-https://github.com/tianocore/tianocore.github.io/wiki/NT32#Debugging_in_Nt32_Emulation_with_Windows_7_and_Visual_Studio_does_not_work
-
-1. Run the RegEdt32
-2. Navigate to the HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\AeDebug
-3. Add a string value entry called "Auto" with a value of "1"
-
-- Windows 10  Visual Studio does not seem to have this issue 
