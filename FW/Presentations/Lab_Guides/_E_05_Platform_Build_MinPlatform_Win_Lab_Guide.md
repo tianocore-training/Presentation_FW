@@ -81,19 +81,19 @@ $ git config --global http.proxy proxy-dmz.intel.com:911
 
 ```
 
-**Edk2** Download  with tag  edk2-stable202111
+**Edk2** Download  with tag  edk2-stable202108
 ```
 $ git clone https://github.com/tianocore/edk2.git
 $ cd edk2
-$ git checkout bb1bba3d776733c41dbfa2d1dc0fe234819a79f2
+$ git checkout 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5
 $ git submodule update --init
 $ cd ..
 ```
-**Edk2-platforms** Download with tag
+**Edk2-platforms** Download with tag Aug 2021
 ```
 $ git clone https://github.com/tianocore/edk2-platforms.git
 $ cd edk2-platforms
-$ git checkout  ce768c6535cdc18113d88cb4a50dbdfa70bf0d85
+$ git checkout  40609743565da879078e6f91da76fc58a35ecaf7
 $ cd ..
 ```
 **Edk2-non-osi**
