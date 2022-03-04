@@ -91,19 +91,19 @@ May need to Set PROXYS FIRST  (below is an example for Intel OR)
 
 ```
 
-**Edk2** Download with tag  edk2-stable202111
+**Edk2** Download with tag  edk2-stable202108
 ```
   bash$ git clone https://github.com/tianocore/edk2.git
   bash$ cd edk2
-  bash$ git checkout bb1bba3d776733c41dbfa2d1dc0fe234819a79f2
+  bash$ git checkout 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5
   bash$ git submodule update --init
   bash$ cd ..
 ```
-**Edk2-platforms** Download with tag
+**Edk2-platforms** Download with tag  Aug 2021
 ```
   bash$ git clone https://github.com/tianocore/edk2-platforms.git
   bash$ cd edk2-platforms
-  bash$ git checkout  ce768c6535cdc18113d88cb4a50dbdfa70bf0d85
+  bash$ git checkout  40609743565da879078e6f91da76fc58a35ecaf7
   bash$ cd ..
 ```
 **Edk2-non-osi**
