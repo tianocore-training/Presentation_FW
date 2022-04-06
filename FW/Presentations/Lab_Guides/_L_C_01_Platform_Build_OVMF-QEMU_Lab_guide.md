@@ -61,10 +61,36 @@
  Setup OvmfPkg to build and run w/ QEMU
 
 ---
-## Slide 4  Pre-requisites Ubuntu 16.04  
+## Slide 4  Pre-requisites Ubuntu 20.04  
 
 
-### Pre-requisites Ubuntu 16.04 
+### **Pre-requisites Ubuntu 20.04**
+
+
+The following need to be accessible for building Edk2, From the terminal prompt (Cnt-Alt-T):
+```
+bash$ sudo apt install build-essential uuid-dev iasl git nasm  python-is-python3
+```
+
+- build-essential - Informational list of build-essential packages
+- uuid-dev - Universally Unique ID library (headers and static libraries)
+- iasl - Intel ASL compiler/decompiler (also provided by acpica-tools)
+- git - support for git revision control system
+- nasm - General-purpose x86 assembler 
+- python-is-python3 - Ubuntu 20.04 python command is `'python3'` but edk2 tools use `'python'`
+
+
+The following will install the QEMU for Intel X86 & 64 bit
+```
+bash$ sudo apt install qemu-system-x86-64
+```
+
+- Qemu - Emulation with Intel architecture with UEFI Shell 
+
+
+
+
+### **Pre-requisites Ubuntu 16.04**
 
 Instructions from: tianocore wiki Ubuntu_1610 
 - Example Ubuntu 16.04
@@ -72,28 +98,28 @@ Instructions from: tianocore wiki Ubuntu_1610
 The following need to be accessible for building Edk2, From the terminal prompt (Cnt-Alt-T):
 ```
 bash$ sudo apt-get install build-essential uuid-dev iasl git gcc-5 nasm  python3-distutils
+```
 
+- build-essential - Informational list of build-essential packages
+- uuid-dev - Universally Unique ID library (headers and static libraries)
+- iasl - Intel ASL compiler/decompiler (also provided by acpica-tools)
+- git - support for git revision control system
+- gcc-5 - GNU C compiler (v5.4.0 as of Ubuntu 16.04 LTS)
+- nasm - General-purpose x86 assembler 
+- python3 - distutils - distutils module from the Python standard library
 
-build-essential - Informational list of build-essential packages
-uuid-dev - Universally Unique ID library (headers and static libraries)
-iasl - Intel ASL compiler/decompiler (also provided by acpica-tools)
-git - support for git revision control system
-gcc-5 - GNU C compiler (v5.4.0 as of Ubuntu 16.04 LTS)
-nasm - General-purpose x86 assembler 
-python3 - distutils - distutils module from the Python standard library
-
-
+```
 bash$ sudo apt-get install qemu
 ```
 
-Qemu – Emulation with Intel architecture with UEFI Shell 
+- Qemu - Emulation with Intel architecture with UEFI Shell 
 
 
 ---
 ## Slide 5  Pre-requisites Clear Linux* Project 
 
 
-### Pre-requisites Clear Linux* Project
+### **Pre-requisites Clear Linux\* Project**
 - Example Using Clear Linux* Project 
 
 The following need to be accessible for building Edk2, From the terminal prompt (Cnt-Alt-T):
@@ -101,14 +127,14 @@ The following need to be accessible for building Edk2, From the terminal prompt 
 bash$  sudo swupd bundle-add devpkg-util-linux
 ```
 
-Devpkg-util-linux – includes bundles for developer tools for writing  "C" Applications included:
+Devpkg-util-linux - includes bundles for developer tools for writing  "C" Applications included:
  gcc, nasm, uuid, etc.
 
 ```
 bash$  sudo swupd bundle-add kvm-host
 ```
 
-Qemu – Emulation with Intel architecture with UEFI Shell 
+Qemu - Emulation with Intel architecture with UEFI Shell 
 
 
 
@@ -152,7 +178,7 @@ bash$ cd ~/src
 bash$ mkdir edk2-ws 
 ```
 
-Note:  if behind a firewall, set PROXYS FIRST
+**Note: ONLY**  if behind a firewall, set PROXYS FIRST (note the commands below are only examples)
 ```
 bash$ export http_proxy=http://proxy-us.company.com:911
 bash$ export ftp_proxy=$http_proxy
@@ -169,7 +195,7 @@ bash$ git clone https://github.com/tianocore/edk2-libc.git
 Download the Submodules and Checkout the Lab Branch
 ```
 bash$  cd edk2
-bash$ submodule update --init
+bash$ git submodule update --init
 bash$  cd ..
 ```
 ---
@@ -206,7 +232,7 @@ Directory Lab_Material_FW will be created
 ## Slide 10  Build  Edk2 -getting the Source 
 <b>Build EDK II OVMF </b><br>
 
-– Extract the Source  
+- Extract the Source  
 
 Extract the Downloaded `Lab_Material_FW-main.zip to $HOME `
 
@@ -242,7 +268,7 @@ bash$ export PACKAGES_PATH=$WORKSPACE/edk2:$WORKSPACE/edk2-libc
  
 ``` 
 bash$ cd edk2
-bash$ make –C BaseTools/
+bash$ make -C BaseTools/
 ```
 
 
