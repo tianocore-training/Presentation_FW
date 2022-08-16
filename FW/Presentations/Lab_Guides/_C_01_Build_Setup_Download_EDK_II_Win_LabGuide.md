@@ -186,7 +186,7 @@ $ git clone https:://github.com/tianocore/edk2-non-osi.git
 ```
 \#Intel FSP
 ```
-$ git clone https://github.com/IntelFsp/FSP.git
+$ git clone https://github.com/intel/FSP.git
 ```
 
 ---
@@ -235,7 +235,7 @@ Directory Lab_Material_FW will be created
 Extract the Downloaded Lab_Material_FW-main.zip to C:\
 
 
-Download the Lab_Material_FW.zip from 
+Download the Lab_Material_FW.zip from [link](https://github.com/tianocore-training/Lab_Material_FW/archive/refs/heads/main.zip)
 
 
 ---
@@ -312,7 +312,22 @@ $> edksetup.bat
 $> notepad Conf/target.txt
 ```
 
-**Save and Exit**
+```
+TARGET_ARCH        = X64
+. . .
+TOOL_CHAIN_TAG     = VS2015x86 // Change this depending on VS version
+```
+
+VS Version Guide
+
+|VS version| TOOL_CHAIN_TAG |
+| --- | --- |
+| 2015 | VS2015x86 |
+| 2017 | VS2017 |
+| 2019 | VS2019 |
+
+
+<br>
 
 ---
 ## Slide 23 Summary

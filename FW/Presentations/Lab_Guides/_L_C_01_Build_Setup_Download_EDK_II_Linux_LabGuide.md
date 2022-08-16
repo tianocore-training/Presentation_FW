@@ -109,8 +109,8 @@ Setup the Simics Simulator
 
 Open the "Intel Simics Package Manager"
 
-1. Using the Start menu in Windows, Left Click on "Windows Key" Lower Left
-2. Scroll down from the scroll bar on the right until "Intel Simics Package Manager"
+1. On Linux, run the ispm-gui application from inside the unpacked directory.
+2. Note If the application fails to start on older Linux versions, you may have to start the application with the --no-sandbox option, as ispm-gui --no-sandbox.
 
 Here is a snapshot of Intel Simics Package Manager with "My Simics Project 1" created
 
@@ -153,11 +153,11 @@ qemu-system-x86_64 -pflash bios.bin -hda fat:rw:hda-contents -net none -debugcon
 ---
 ## Slide 9 Create Workspace Directory
 
-Open Windows Command Prompt for VS
+Open Terminal Command Prompt:
 Make new directory for Workspace:
 
 ```bash
-$ cd /
+$ cd $HOME
 $ mkdir fw
 $ cd fw
 $ mkdir edk2-ws
@@ -198,7 +198,7 @@ $ git clone https:://github.com/tianocore/edk2-non-osi.git
 ```
 \#Intel FSP
 ```bash
-$ git clone https://github.com/IntelFsp/FSP.git
+$ git clone https://github.com/Intel/FSP.git
 ```
 
 ---
