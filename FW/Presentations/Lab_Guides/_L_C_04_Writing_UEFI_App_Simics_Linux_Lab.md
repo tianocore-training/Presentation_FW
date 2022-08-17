@@ -1,0 +1,2024 @@
+# Writing UEFI Apps with Simics Lab
+# Linux
+
+
+---
+## Slide 1 UEFI & EDK II Training
+### How to Write a UEFI Application with Linux Lab - Simics
+
+[tianocore.org](https://www.tianocore.org/)
+
+See also L_C_04_Writing_UEFI_App_Simics_Linux_Lab.md (this document) for Copy & Paste examples in labs
+
+---
+## Slide 2 Lesson Objectives
+
+First Seup for Building EDK II, See [Lab Setup](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Build_Setup_Download_EDK_II_Linux_LabGuide.md) then [Platform Build Lab for Simics](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_02_Platform_Build_Linux_Simics_LabGuide.md)
+
+- UEFI Application with PCDs
+- Simple UEFI Application
+- Add functionality to UEFI Application
+- Using EADK with UEFI Application
+
+
+---
+## Slide 3 UEFI Application w/ PCDs
+
+<br>
+
+
+---
+## Slide 4 EDK II PCD's Purpose and Goals (Review)
+
+Documentation: [link](https://github.com/tianocore/edk2/blob/master/MdeModulePkg/Universal/PCD/Dxe/Pcd.inf)
+
+**Purpose**
+
+- Establishes platform common definitions
+- Build-time/Run-time aspects
+- Binary Editing Capabilities
+
+
+**Goals**
+
+- Simplify porting
+- Easy to associate with a module or platform
+
+
+---
+## Slide 5 PCD Syntax (Review)
+
+PCDs can be located anywhere within the Workspace even though a different package will use those PCDs for a given project
+
+**.DEC  -  Define PCD  -  Package**
+
+**.INF  -  Reference PCD  -  Module**
+
+**.DSC  -  Modify PCD  -  Platform**
+
+
+---
+## Slide 6 Lab 1: Writing UEFI Applications with PCDs
+
+In this lab, you'll learn how to write UEFI applications with PCDs
+
+---
+## Slide 7 EDK II HelloWorld App Lab
+
+[MdeModulePkg/Application/HelloWorld](https://github.com/tianocore/edk2/tree/master/MdeModulePkg/Application/HelloWorld)
+
+Locate and Open edk2/MdeModulePkg/Application/HelloWorld/HelloWorld.c
+
+Notice the PCD values
+
+Then run HelloWorld in Simics
+
+---
+## Slide 8 Copy UefiAppLab.vhd File
+
+Copy the UefiAppLab.vhd
+
+From:
+
+`.../Lab_Material_FW/FW/LabSampleCode/AppLab/UefiAppLab.vhd`
+
+To:
+
+`Simics-Install-Directory/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
+
+---
+## Slide 9 Update the Simics Script
+
+Update the Simics script to use the UefiAppLab.vhd image as a file system
+Edit the file: gsp-modern-core.simics from
+
+	`Simics-Install-Directory/simics-qsp-cpu-6.0.4/targets/qsp-x86/qsp-modern-core.simics`
+
+Add the following line:
+
+```
+$disk1_image="%simics%/targets/qsp-x86/images/UefiAppLab.vhd"
+```
+
+Before the `run-command-file` line
+
+Save qsp-modern-core.simics
+
+---
+## Slide 10 Build Platform BoardX58Ich10
+
+Open another Terminal Prompt in $HOME/fw/edk2-ws
+
+Then CD to edk2 to do edksetup.sh
+
+```bash
+$ cd ~/fw/edk2-ws/edk2
+$ . edksetup.sh
+```
+
+Then CD to:
+
+```bash
+$ cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel
+```
+
+Invoke the Python Build script for Simics OpenBoard QSP
+
+```bash
+$ python build_bios.py -p BoardX58Ich10 -t GCC5
+```
+
+Copy
+
+`~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd`
+
+To
+
+`Simics-Install-Directory/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
+
+---
+## Slide 11 Invoke Simics & Run HelloWorld App
+
+1. Open a Terminal prompt
+
+```bash
+$> cd simics-projects/my-simics-project-1
+```
+
+2. Run the qsp-modern-core script:
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics 
+simics> run
+```
+
+Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
+
+3. At the UEFI Shell prompt
+
+```
+Shell> Fs1:
+FS1:/> Helloworld
+UEFI Hello World!
+FS1:/>
+```
+
+4. Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+How can we force the HelloWorld application to print out 3 times?
+
+---
+## Slide 12 EDK II HelloWorld App Lab
+
+[MdeModulePkg/Application/HelloWorld](https://github.com/tianocore/edk2/tree/master/MdeModulePkg/Application/HelloWorld)
+
+<br>
+
+---
+## Slide 13 EDK II HelloWorld App
+
+**Source HelloWorld.c**
+
+```c
+EFI_STATUS
+EFIAPI
+UefiMain (
+  IN EFI_HANDLE        ImageHandle,
+  IN EFI_SYSTEM_TABLE  *SystemTable
+  )
+{
+  UINT32 Index;
+  Index = 0;
+  // Three PCD type (FeatureFlag, UINT32 
+  // and String) are used as the sample.
+  if (FeaturePcdGet (PcdHelloWorldPrintEnable)) {
+    for (Index = 0; Index < PcdGet32   (PcdHelloWorldPrintTimes); Index ++) {
+  	  
+  	  // Use UefiLib Print API to print
+      // string to UEFI console
+      Print ((CHAR16*)PcdGetPtr (PcdHelloWorldPrintString));
+    }
+  }
+
+  return EFI_SUCCESS;
+}
+```
+
+**Notice the 3 PCDs**
+
+---
+## Slide 14 EDK II HelloWorld App Solution
+
+1. Edit the file:
+
+`~FW/edk2-ws/edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10/OpenBoardPkg.dsc`
+
+After the section \[PcdsFixedAtBuild\] (search for "PcdsFixedAtBuild" or "Hello")
+
+```
+[PcdsFixedAtBuild]
+gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintTimes|3
+```
+
+Note: it is best to update PCD values in the Platform DSC file.
+
+2. Re-build BoardX58Ich10
+
+Open a termincal command prompt
+
+```bash
+$ cd ~/FW/edk2-ws/edk2-platforms/Platform/Intel/ 
+$ python build_bios.py -p BoardX58Ich10 -t GCC5
+```
+
+---
+## Slide 15 Update UefiAppLab.vhd File
+
+3. Mount the UefiAppLab.vhd using GuestMount: TENTATIVE LINK (See slide 87)
+
+4. Copy
+
+```bash
+$cp ~/FW/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/HelloWorld.efi ~/VHD
+```
+
+Paste (see powerpoint)
+
+
+---
+## Slide 16 EDK II HelloWorld App Solution
+
+5. Run Simics script
+
+```bash
+$> ./simics target/qsp-x86/qsp-modern-core.simics 
+simics> run
+```
+
+(Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell")
+
+6. At the Shell prompt
+
+```
+Shell> Fs1:
+FS1:/> Helloworld
+UEFI Hello World!
+UEFI Hello World!
+UEFI Hello World!
+FS1:/>
+```
+
+7. Exit Simics
+
+```
+simics> Stop
+simics> quit
+```
+
+How can we change the **string** of the HelloWorld application?
+
+Also see `../edk2/Mde/ModulePkg.Dec`
+
+---
+## Slide 17 Lab 2: Write a Simple UEFI Application
+
+In this lab, you'll learn how to write simple UEFI applications
+
+---
+## Slide 18 LAB 2 Writing a Simple UEFI Application
+
+In this lab, you'll learn how to write simple UEFI applications.
+
+**"C" file**
+
+```
+EFI_STATUS
+EFIAPI
+UefiMain (
+  IN EFI_HANDLE        ImageHandle,
+  IN EFI_SYSTEM_TABLE  *SystemTable
+  )
+{
+  return EFI_SUCCESS;
+}
+```
+
+**.inf file**
+
+```
+[Defines]
+  INF_VERSION       =
+  BASE_NAME         =
+  FILE_GUID 		=
+  MODULE_TYPE       =
+  VERSION_STRING    =             
+  ENTRY_POINT       =
+
+[Sources]
+  
+[Packages]
+    
+[LibraryClasses]
+```
+
+- What goes into a Simplest "C"
+- Start with what should go into the Simplest .INF file
+
+---
+## Slide 19 Application Lab - start with .c and .inf template
+
+Copy the `LabSampleCode/SampleApp/MyPkg` directory to `~/FW/edk2-ws/edk2`
+
+Edit **SampleApp.inf**
+
+- Look in the INF for "XXXXXXXXXXX" sections that will need information
+- Create Name & GUID, and then fill in the MODULE_TYPE
+
+---
+## Slide 20 Lab 2: Sample Application INF File
+
+```
+[Defines]
+  INF_VERSION         = 0x00010005
+  BASE_NAME           = XXXXXXXXXXXX
+  FILE_GUID           = XXXXXXXXXXXX
+  MODULE_TYPE         = XXXXXXXXXXXX
+  VERSION_STRING      = 1.0
+  ENTRY_POINT         = UefiMain
+
+[Sources]
+  XXXXXXXXX
+[Packages]
+  #XXXXXXXX
+  
+[LibraryClasses]
+  #XXXXXXXXXXXXX
+    
+[Guids]
+ # . . .
+```
+
+Get a GUID [guidgenerator.com/](https://www.guidgenerator.com/) or [https://www.guidgen.com/](https://www.guidgen.com/)
+
+Copy and paste [TENTATIVE LINK](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_03_Writing_UEFI_App_WIN_LabGuide.md#slide-16-titlelab-2-sample-application-inf-file)
+
+---
+## Slide 21 Lab 2: Sample Application 'C' file
+
+```
+/** @file
+  This is a simple shell application
+**/
+EFI_STATUS
+EFIAPI
+UefiMain (
+  IN EFI_HANDLE        ImageHandle,
+  IN EFI_SYSTEM_TABLE  *SystemTable
+  )
+{
+  return EFI_SUCCESS;
+}
+```
+
+This application does not do anything but return Success
+
+---
+## Slide 22 Lab 2: Will it compile now?
+
+Not yet...
+
+1. Need to add headers to the .C file
+2. Need to add a reference to INF from the platform DSC
+3. Need to add a few Package dependencies and libraries to the .INF
+
+---
+## Slide 23 Application Lab - Update Files
+
+1. .DSC (`edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10/OpenBoard.dsc`)
+
+[Components . . .]
+	Add INF to components section, before build options
+	Hint: add after comment `# Add new modules here`
+	`MyPkg/SampleApp/SampleApp.inf`
+
+2. .INF File (`MyPkg/SampleApp/SampleApp.inf`)
+
+Pakages (all depend on MdePkg)
+
+```
+  [Packages]
+    MdePkg/MdePkg.dec
+  [LibraryClasses]
+    UefiApplicationEntryPoint
+```
+
+3. .C file - Header references file (`MyPkg/SampleApp/SampleApp.c`)
+
+```c
+  #include <Uefi.h>
+  #include <Library/UefiApplicationEntryPoint.h> 
+```
+
+---
+## Slide 24 Lab 2: cont. Solution
+
+*edk2-platforms/...*
+
+
+*SimicsOpenBoardPkg/BoardX58Ich10/OpenBoardPkg.dsc*
+
+```
+...
+
+#   Here is where you would put the HelloWorldPrintString PCD
+# HINT: look at MdeModulePkg.dec for HelloWorldPrintString
+
+[Components.X64]
+# UEFI / EDK II Training
+MdeModulePkg/Application/HelloWorld/HelloWorld.inf
+# Add new modules here
+MyPkg/SampleApp/SampleApp.inf
+```
+
+*MyPkg/SampleApp/SampleApp.inf*
+
+```
+...
+
+#
+#  VALID_ARCHITECTURES       = IA32 X64 IPF EBC
+#
+
+[Sources]
+  SampleApp.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  UefiApplicantionEntryPoint
+```
+
+*MyPkg/SampleApp/SampleApp.c*
+
+```c
+...
+
+#include <Uefi.h>
+#include <Lirary/UefiApplicationEntryPoint.h> 
+```
+
+---
+## Slide 25 Will it compile now?
+
+At the Terminal Command Prompt, Build BoardX58Ich10
+
+```bash
+$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
+$> python build_bios.py -p BoardX58Ich10 -t GCC5
+```
+
+Copy SampleApp.efi from the build directory to the VHD Disk
+
+```bash
+$ cp ~/fw/edk2-ws/edk2/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi ~/VHD
+```
+
+---
+## Slide 26 Invoke Simics & Run SampleApp
+
+1. Run the qsp-modern-core script from Terminal Command Prompt:
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+```
+
+Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
+
+2. At the UEFI Shell Prompt
+
+```
+Shell> Fs1:
+FS1:/> SampleApp.efi
+FS1:/>
+```
+
+3. Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+Notice that the program will immediately unload beacuse the main function is empty
+
+
+---
+## Slide 27 Possible Build Errors
+
+Error on SampleApp.inf
+
+(See Powerpoint for Screenshots)
+
+The FILE_GUID was invalid or not updated from "XXX..." to a proper formatted GUID
+
+---
+## Slide 28 Possible Build Errors
+
+Error on SampleApp.inf
+
+(See PowerPoint for Screenshot)
+
+The \[Packages\] was invalid or did not specify MdePkg/MdePkg.dec properly
+
+---
+## Slide 29 Possible Build Errors
+
+GCC compiler error on SampleApp.c
+
+(See PowerPoint for Screenshot)
+
+The #include \<Library/UefiApplicationEntryPoint.h\> has a typo ("Application " not "Applications")
+
+---
+## Slide 30 Possible Build Errors
+
+GCC compiler Error on SampleApp.c
+
+(See PowerPoint for Screenshot)
+
+The SampleApp.inf section \[LibraryClasses\] did not reference UefiApplicationEntryPoint
+
+---
+## Slide 31 Possible Build Errors
+
+Error at the Shell prompt
+
+(See PowerPoint for Screenshot)
+
+Ensure the SampleApp.inf BaseName is SampleApp
+
+---
+## Slide 32 Lab 2.1: Build Switches
+
+In this lab, you'll remove the build switches to be always TRUE
+
+
+---
+## Slide 33 Build MACRO Switches
+
+The build for BoardX58Ich10 OpenBoardPkg is using build MACRO Switch: `-D ADD_SHELL_STRING` - used to change a string in the UEFI Shell application, only used for EDK II Training (requirs ShellPkg be re-built on a change of this switch)
+
+
+---
+## Slide 34 Lab 2.1: Compiling w/ Build Switch
+
+Result without the build switch
+
+```
+Shell> ver
+UEFI Interactive Shell v2.2
+EDK II
+UEFI v2.70 (EDK II, 0x00010000)
+Shell>
+```
+
+Result with the build switch
+
+```
+Shell> ver
+UEFI Interactive Shell v2.2 -From ADD_SHELL_STRING Switch
+EDK II
+UEFI v2.70 (EDK II, 0x00010000)
+Shell> 
+```
+
+---
+## Slide 35 Lab 2.1: Compiling w/ Build Switch
+
+### Check Result without the build switch
+
+Run the qsp-modern-core script from Terminal Command Prompt:
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+```
+
+Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
+
+At the UEFI Shell prompt
+
+```
+Shell> ver
+UEFI Interactive Shell v2.2
+EDK II
+UEFI v.2.70 (EDK II, 0x00010000)
+Shell>
+```
+
+Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+---
+## Slide 36 Lab 2.1: Compiling w/ Build Switch
+
+### Add the Build Switch `-D ADD_SHELL_STRING`
+
+**Two Ways:**
+
+1. Update Python Script or
+2. Add list of DEFINES in .DSC file (Preferred)
+
+
+### Method 1
+
+The Build command is part of the python script, build_bios.py
+
+Notice the Build command from the python script for BoardX58Ich10:
+
+```
+...
+Calling build -n 0 --log=Build.log --report-file=BuildReport.log
+...
+```
+
+Update line 388 of build_bios.py to include `-D ADD_SHELL_STRING`
+
+```python
+command = ["build", "-n", config["NUMBER_OF_PROCESSORS"], "-D", "ADD_SHELL_STRING"]
+```
+
+Re-Build BoardX58Ich10
+From a Terminal Command Prompt
+
+```bash
+$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
+$> python build_bios.py -p BoardX58Ich10 GCC5
+```
+
+```
+...
+Calling build -n 0 -D ADD_SHELL_STRING --log=Build.log --report-file=BuildReport.log
+...
+```
+
+---
+## Slide 37 Lab 2.1: Compiling w/ Build Switch
+
+1. Invoke Simics and Test Shell Ver Command
+
+Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd` To `Simics-Install-Directory/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
+
+Run the qsp-modern-core script from Terminal Command Prompt
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+``` 
+
+Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
+
+At the UEFI Shell prompt, type: ver
+
+```
+Shell> ver
+UEFI Interactive Shell v2.2 -From ADD_SHELL_STRING Switch
+EDK II
+UEFI v2.70 (EDK II, 0x00010000)
+Shell>
+```
+
+Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+---
+## Slide 38 Lab 2.1: Compiling w/ Build Switch
+
+### Method 2
+
+Add list of DEFINES in .DSC file. This is the **preferred** method for EDK II when a Build script is used
+
+Update line 338 of build_bios.py and remove the `-D ADD_SHELL_STRING` - Save 
+Edit the file and add the following DEFINE after Line 7 - Save after update:
+
+`~/FW/edk2-ws/edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10/ OpenBoardPkgBuildOption.dsc`
+
+```
+[Defines]
+# For UEFI / EDK II Training
+# This flag is to enable a different ver string for building of the ShellPkg
+# These can be changed on the command line.
+#
+  DEFINE  ADD_SHELL_STRING        = TRUE
+```
+
+Re-Build BoardX58Ich10
+
+From a Terminal Command Prompt
+
+```bash
+$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
+$> python build_bios.py -p BoardX58Ich10 -t GCC5
+```
+
+---
+## Slide 39 Lab 2.1: Compiling w/ Build Switch 
+
+Invoke Simics and test Shell Ver command
+
+Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd` To `Simics-Install-Directory/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
+
+Run the qsp-modern-core script from a Terminal Command Prompt
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+```
+
+Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
+
+At the UEFI Shell prompt, type: ver
+
+```
+Shell> ver
+UEFI Interactive Shell v2.2 -From ADD_SHELL_STRING Switch
+EDK II
+UEFI v2.70 (EDK II, 0x00010000)
+Shell>
+```
+
+Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+---
+## Slide 40 Knowledge Check from LAB 2
+
+1. How to write a simple native UEFI Application
+2. Each module requires a .inf file with a unique GUID (use [link](https://www.guidgenerator.com/))
+3. The module created will be the base name defined in the .inf file
+4. The module's .inf file is required to be included in the platform .dsc file
+5. The [Packages] section is required at minimum to include MdePkg/MdePkg.dec
+6. When using a Build Switch (-D) on the command line it overrides the value in the .DSC file
+
+---
+## Slide 41 Lab 2: If there are build errors...
+
+See class files for the solution
+
+- `...FW/LabSampleCode/LabSolutions/LessonB.2`
+- Copy the .inf and .c files to `~/FW/edk2-ws/edk2/SampleApp`
+- Search sample DSC for reference to SampleApp.inf and add this line to your workspace DSC file:
+
+(`~/FW/edk2-ws/edk2-platforms/Platform/Intel/SimicsBoardPkg
+  /BoardX58Ich10/OpenBoard.dsc` - near the bottom)
+
+```
+MyPkg/SampleApp/SampleApp.inf
+```
+
+Invoke python build script again and check the solution
+
+---
+## Slide 42 Add Functionality
+
+Add Functionality to the Simple UEFI Appication:
+Next 3 Labs
+
+**Lab 3:** Print the UEFI System Table
+
+**Lab 4:**  Wait for an Event
+
+**Create a Simple typewriter function & Create a PCD to enable**
+
+Solutions in `.../FW/LabSampleCode/LabSolutions/LessonB.n`
+
+---
+## Slide 43 Lab 3: Print the UEFI System Table
+
+Add code to print the hex address of the EFI System Table pointer to the console
+
+---
+## Slide 44 Lab 3: Add System Table Code
+
+Add code to print to the console the hex address of the system table pointer
+
+- Where is the "print" function
+- Where does the app get the pointer value? (compared to mem command below)
+
+```
+FS1:\> mem
+...
+Valid EFI Header at Address: 00000000DEFED018
+...
+FS1:> SampleApp
+System Table: 0xDEFED018
+```
+
+---
+## Slide 45 Lab 3: Locating the Print() Function
+
+1. Search the MdePkg.chm and find the Print function by clikcing on the "Index" tab
+2. Type "Print" and double click
+3. Scroll to the top in the right window to see that the print function is in the UefiLib.h file
+
+
+---
+## Slide 46 Lab 3: Modifying .c & .inf files
+
+**SampleApp.c**
+
+```
+SampleApp.c
+#include <Uefi.h>
+#include <Library/UefiApplicationEntryPoint.h>
+#include <Library/UefiLib.h>
+
+EFI_STATUS
+EFIAPI
+UefiMain (
+  IN EFI_HANDLE        ImageHandle,
+  IN EFI_SYSTEM_TABLE  *SystemTable
+  )
+{
+  Print(L"System Table: 0x%p/n“, SystemTable); 
+  return EFI_SUCCESS;
+}
+```
+
+**SampleApp.inf**
+
+```
+SampleApp.inf
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiLib
+```
+
+---
+## Slide 47 Lab 3: Build and Test SampleApp
+
+1. At the Terminal Command Prompt, Re-Build BoardX58ICH10
+
+```bash
+$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
+$> python build_bios.py -p BoardX58Ich10 -t GCC5
+```
+
+2. Copy SamppleApp.efi from the build directory to the VHD Disk
+
+```bash
+$> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi ~/VHD
+```
+
+3. Run the qsp-modern-core script from Terminal Command Prompt
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+```
+
+4. At the UEFI Shell prompt
+
+```
+Shell> Fs1:
+FS1:/> SampleApp.efi
+System Table: 0x0DEFED018
+FS1:/>
+```
+
+Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+Verify using the "mem" command
+
+---
+## Slide 48 Lab 4: Waiting for an Event
+
+In this lab, you'll learn how to locate code and .chm files to help write EFI code for waiting for an event
+
+---
+## Slide 49 Lab 4: Add Wait for Event
+
+Add code to make your application wait for a key press event (`WaitForEvent` / `WaitForKey`)
+
+```
+Press ESC in 2 seconds to skip startup.nsh or any other key to continue.
+Shell> fs1:
+FS1:\> SampleApp
+System Table: 0xDEFD018
+
+Press any Key to continue :
+
+
+```
+- Where are these functions located?
+- What else can you do with the key press?
+
+---
+## Slide 50 Lab 4: HOW?
+
+Locate Functions: `WaitForEvent` / `WaitForKey`
+
+- Search MdePkg.chm - "MdePkg Document With Libraries.chm" located in `Lab_Material_FW/FW/Documentation`
+  - Locate `WaitForEvent` in Boot Services
+  - Locate `WaitForKey` and find (`EFI_SIMPLE_TEXT_INPUT_PROTOCOL` will be part of ConIn)
+- Check the [UEFI Spec](https://uefi.org/) for parameters needed:
+  - `WaitForEvent` is referenced via Boot Services pointer, which is referenced via EFI System Table
+  - `WaitForKey` can be referenced through the EFI System Table passed into the application
+- **OR** Search the working space for `WaitForEvent` for an example
+- One can be found in [MdePkg/Library/UefiLib/Console.c](https://github.com/tianocore/edk2/blob/master/MdePkg/Library/UefiLib/Console.c) ~ In 568.
+
+---
+## Slide 51 Lab 4: Update the C File for `WaitForKey`
+
+Search the *work space* and find the following MdePkg/Library/UefiLib/Console.c ~ In 563:
+
+```c
+...
+UINTN               EventIndex;     // Line 410
+...
+  // If we encounter error, continue to read another key in.
+  //
+    if (Status != EFI_NOT_READY) {
+      continue;
+    }
+    gBS->WaitForEvent (1, &gST->ConIn->WaitForKey, &EventIndex);
+  }
+...   
+```
+
+Add the following to SampleApp.c
+
+```
+UINTN                      EventIndex; 
+Print(L"System Table: 0x%p\n",SystemTable); 
+Print(L"\nPress any Key to continue : \n");
+gBS->WaitForEvent (1, &gST->ConIn->WaitForKey, &EventIndex);
+```
+
+---
+## Slide 52 Lab 4: Test Compile
+
+However, this won't compile ... gBS and gST are not defined
+
+(See PowerPoint for example of compilation errors)
+
+Search the MdePkg.chm for "gBS" and "gST" - they are located in `UefiBootServicesTableLib.h`
+
+Add the boot services lib to SampleApp.c
+
+```c
+#include <Library/UefiBootServicesTableLib.h>
+```
+
+(hint: Lesson B.4 has the solution)
+
+---
+## Slide 53 Lab 4: Update for gBS & gST
+
+```c
+#include <Uefi.h>
+#include <Library/UefiApplicationEntryPoint.h>
+#include <Library/UefiLib.h>
+#include <Library/UefiBootServicesTableLib.h>
+// . . .
+EFI_STATUS
+EFIAPI
+UefiMain (
+  IN EFI_HANDLE        ImageHandle,
+  IN EFI_SYSTEM_TABLE  *SystemTable
+  )
+{ 
+  UINTN                EventIndex;
+  Print(L"System Table: 0x%p\n", SystemTable); 
+  Print(L"\nPress any Key to  continue :\n");
+  gBS->WaitForEvent (1, &gST->ConIn->WaitForKey, &EventIndex);
+  return EFI_SUCCESS; 
+}
+
+```
+
+---
+## Slide 54 Lab 4: Build and Test SampleApp
+
+1. At the Terminal Command Prompt, Re-Build BoardX58Ich10
+
+```bash
+$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
+$> python build_bios.py -p BoardX58Ich10 GCC5
+```
+2. Copy SampleApp.efi from the build directory to the VHD Disk
+
+```bash
+$> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
+```
+
+3. Run the qsp-modern-core script from Terminal Command Prompt
+
+```bash
+$>  ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+```
+
+4. At the UEFI Shell prompt
+
+```
+Shell> Fs1:
+FS1:/> SampleApp.efi
+System Table: 0x0DEFED018
+Press any key to continue:
+```
+
+5. Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+---
+## Slide 55 Lab 5: Creating a Simple Typewriter Function
+
+In this lab, you'll learn how to create a simple typewriter function that retrieves the keys you type and subsequently prints each one back to the console
+
+---
+## Slide 56 Lab 5 : Typewriter Function
+
+Create a simple Typewriter Function using the SampleApp from Lab 4
+
+**Requirements:**
+
+- If the Typewriter Function is enabled
+- Retrieve keys entered from keyboard (like Lab 4)
+- Print back each key entered to the console
+- To exit, press "." (DOT) and then \<Enter\>
+
+```
+Shell> fs1:
+FS1:\> SampleApp
+System Table: 0xDEFED018
+
+Press any Key to continue :
+Enter text. Include a dot ('.') in a sentence then <Enter> to exit:
+this is the first line of the typewriter feature function.
+FS1:\>
+```
+
+---
+## Slide 57 Lab 5 : Typerwriter Function
+
+Create a simple Typewriter Function using the SampleApp from Lab 4
+
+**How:**
+
+1. Create a Feature Flag PCD to Enable
+2. Add a Loop using `WaitForEvent` with `WaitForKey`
+3. Use the `ReadKeyStroke` function from ConIn
+4. Print back each key to console
+5. Exit when DOT "." character is followed by an \<Enter\> key
+
+---
+## Slide 58 Lab 5: How Process (Hints)
+
+- Refer to Lab 2 for how PCDs work and create a PCD in the Platform DEC file.
+- Use the same procedure as with Lab 4 to find `ReadKeyStroke` in the workspace: [MdePkg/Library/UefiLib/Console.c](https://github.com/tianocore/edk2/blob/master/MdePkg/Library/UefiLib/Console.c) ~ In 552
+
+```c
+Status = gST->ConIn->ReadKeyStroke (gST->ConIn, Key);
+```
+
+- `ReadKeyStroke` uses a buffer called `EFI_INPUT_KEY` ~ In 393
+
+```
+OUT EFI_INPUT_KEY *Key,
+```
+
+- TIP: Good idea to zero out a buffer in your function -
+  - Use MdePkg.chm to find `ZeroMem` function
+  - Use `ZeroMem` function on your variable buffer "Key" of type EFI_INPUT_KEY
+- Use Boolean flag "ExitLoop" to exit your loop once the user enters a DOT "." character
+
+---
+## Slide 59 Lab 5: How Process (Hints)
+
+**How to create a Feature Flag PCD**
+
+1. Check the MdeModulePkg/MdeModulePkg.dec and search for the "PcdHelloWorldPrintEnable" PCD.
+  - Notice that it is in the \[PcdsFeatureFlag\] section
+2. Add a similar section in the Platform: SimicsOpenBoardPkg/OpenBoard.dec file and add a flag "PcdTypeWriterFeatureEnable" deafult, TRUE. (it can be added to the end of the file)
+3. Next Update the SampleApp.inf to include: SimicsOpenBoardPkg/OpenBoard.dec, the new PcD, and the PcdLib (hint: see how HelloWorld.inf used the PCD enable)
+4. SampleApp.c can now use the newly created PCD 
+
+---
+## Slide 60 Lab 5: Solution: Dec & Inf
+
+**MyPkg/MyPkg.dec**
+
+```
+[PcdsFeatureFlag]
+ ## Indicates if SampleApp Application will enable the Typewriter Feature.
+  #  This PCD is a sample to explain FeatureFlag PCD usage.<BR><BR>
+  #   TRUE  - SampleApp Application will enable the Typewriter Feature.<BR>
+  #   FALSE - SampleApp Application will not enable the Typewriter Feature.<BR>
+  # @Prompt Enable SampleApp enable the Typewriter Feature.
+ gEfiMyPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable|TRUE|BOOLEAN|0x0001200a
+```
+
+**SampleApp.inf**
+
+```
+. . .
+[Packages]
+  MdePkg/MdePkg.dec
+  MyPkg/MyPkg.dec
+  
+[LibraryClasses]
+   UefiBootServicesTableLib
+   UefiApplicationEntryPoint
+   UefiLib
+   DebugLib
+   PcdLib
+
+[FeaturePcd]
+   gEfiMyPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable  ## CONSUMES
+```
+
+---
+## Slide 61 Lab 5: Solution
+
+(hint: Lesson B.5 has the solution)
+
+**SampleApp.c**
+
+```c
+#include <Uefi.h>
+#include <Library/UefiApplicationEntryPoint.h>
+#include <Library/UefiLib.h>
+#include <Library/BaseMemoryLib.h>
+#include <Library/UefiBootServicesTableLib.h>
+#define  CHAR_DOT  0x002E    // '.' in Unicode
+
+EFI_STATUS
+EFIAPI
+UefiMain (
+  IN EFI_HANDLE        ImageHandle,
+  IN EFI_SYSTEM_TABLE  *SystemTable
+  )
+{
+  UINTN          EventIndex;
+  BOOLEAN        ExitLoop;
+  EFI_INPUT_KEY  Key;
+  
+// Lab 3
+ Print(L"System Table: 0xp/n",SystemTable); 
+
+//Lab 4
+ Print( L"/nPress any Key to continue : /n");
+ gBS->WaitForEvent (1, &gST->ConIn->WaitForKey,EventIndex);
+
+// Lab 5
+ gST->ConIn->ReadKeyStroke (gST->ConIn, &Key);
+ if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
+   Print(L"Enter text. Include a dot ('.') in a /
+     sentence then <Enter> to exit:/n/n");
+   ZeroMem (&Key, sizeof (EFI_INPUT_KEY));
+   ExitLoop = FALSE;
+   do {
+   gBS->WaitForEvent (1, &gST->ConIn->WaitForKey,       &EventIndex);
+   gST->ConIn->ReadKeyStroke (gST->ConIn, &Key);
+   Print(L"%c", Key.UnicodeChar);
+   if (Key.UnicodeChar ==  CHAR_DOT){
+    ExitLoop = TRUE;
+       }
+     } while (!(Key.UnicodeChar == CHAR_CARRIAGE_RETURN) || 
+              !(ExitLoop) );
+ }
+ Print(L"/n");
+ return EFI_SUCCESS;
+}
+```
+
+
+Copy and Paste from LabGuide (This document)
+
+---
+## Slide 62 Lab 5: Build and Test SampleApp
+
+1. At the Terminal Command Prompt, Re-Build BoardX58Ich10
+
+```bash
+$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
+$> python build_bios.py -p BoardX58Ich10 -t GCC5
+```
+
+2. Copy SampleApp.efi from the build directory to the VHD Disk Copy `../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi UefiAppLab Disk`
+
+3. Run the qsp-modern-core script from Terminal Command Prompt
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics 
+simics> run
+```
+
+4. Run SampleApp
+
+```
+Shell> fs1:
+FS1:\> SampleApp
+System Table: 0xDEFED018
+
+Press any Key to continue :
+Enter text. Include a dot ('.') in a sentence then <Enter> to exit:
+this is the first line of the typewriter feature function.
+FS1:\>
+```
+
+5. Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+---
+## Slide 63 Lab 5: Bug Reports
+
+You received the following bug reports on your SampleApp UEFI Application
+
+1. If an "Enter" Key is pressed before the "." character, there is no line feed to go to a new line like a real typewriter would do.
+2. Since the DOT "." is used in sentences a different character other than a "." is required to exit the Typewriter function. One suggestion was to use the "ESC" character instead.
+3. Some customers would like the application without the typewriter feature enabled.
+
+How would you add these fixed to the SampleApp UEFI application?
+
+---
+## Slide 64 Lab 5.1: Bug Fixes
+
+Add a line feed character after a "Enter" key.
+
+1. Update SampleApp.c with this fix (hint: print a CHAR_LINEFEED when a Carriage return is entered)
+2. At the Terminal Command Prompt, Re-Build BoardX58Ich10
+
+```bash
+$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
+$> python build_bios.py -p BoardX58Ich10 -t GCC5
+```
+
+3. Copy SampleApp.efi from the build directory to the VHD Disk
+
+```bash
+$> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
+```
+
+4. Run the qsp-modern-core script from Terminal Prompt:
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+```
+
+```
+Shell> Fs1:
+FS1:/> SampleApp
+System Table: 0x0DEFED018
+
+Press any key to continue:
+Enter text. Include a dot ('.') in a sentence then <Enter> to exit:
+This is the First Line
+This is the second Line.
+
+FS1:\>
+```
+
+5. Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+---
+## Slide 65 Lab 5.2: Bug Fixes
+
+Use the Scan Code for ESC instead of the DOT character to exit the Typewriter Function (Hint: the ExitLoop flag will no longer be needed. Hint: Search workspace for SCAN_ESC)
+
+1. Update SampleApp.c to use SCAN_ESC to exit the do-loop
+2. At the Terminal Command Prompt, Re-Build BoardX58Ich10
+
+```bash
+$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
+$> python build_bios.py -p BoardX58Ich10 -t GCC5
+```
+
+3. Copy SampleApp.efi from the build directory to the VHD Disk
+
+```bash
+$> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
+```
+
+4. Run the qsp-modern-core script from Terminal Prompt:
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+```
+
+```
+Shell> Fs1:
+FS1:/> SampleApp
+System Table: 0x0DEFED018
+
+Press any key to continue:
+Enter text as in a typewriter then type <ESC> to exit
+This is the First Line
+This is the second Line.    Now press "ESC" Key
+FS1:\>
+```
+
+5. Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+---
+## Slide 66 Lab 5.3: Bug Fixes
+
+Make the PCD PcdTypeWriterFeatureEnable determined by a Build Flag
+
+1. Update OpenBoardPkg.dsc (about line 45)
+
+```
+DEFINE ADD_TYPEWRITER       = TRUE
+```
+
+2. Update OpenBoardPkgPcd.dsc (at end in [PcdsFeatureFlag] Section)
+
+```
+!if   $(ADD_TYPEWRITTER) == TRUE
+   gEfiMyPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable|TRUE
+!else
+  gEfiMyPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable|FALSE
+!endif
+```
+
+3. At the Terminal Command Prompt, Re-Build BoardX58Ich10
+
+```bash
+$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
+$> python build_bios.py -p BoardX58Ich10 -t GCC5
+```
+
+4. Copy SampleApp.efi from the build directory to the VHD Disk
+
+```bash
+$> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
+```
+
+4. Run the qsp-modern-core script from Terminal Prompt:
+
+```
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+```
+
+Run SampleApp
+
+**FALSE**
+
+```
+FS1:/> SampleApp
+System Table: 0x0DEFED018
+
+Press any key to continue:
+Typewriter feature not enabled
+
+FS1:\>
+```
+
+
+**TRUE**
+
+```
+FS1:/> SampleApp
+System Table: 0x0DEFED018
+
+Press any key to continue:
+Enter text as in a typewriter then type <ESC> to exit
+line 1.
+line 2.
+Now the ESC key
+FS1:\>
+```
+
+5. Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+---
+## Slide 67 Bonus Exercise: Open Protocol Example
+
+Write an application using argv, argc parameters
+- Captures command line parameters using Open Protocol
+- Need to open SHELL_INTERFACE_PROTOCOL
+- Note: Requires ShellPkg
+
+Build SampleApp and copy to the VHD Drive
+
+Run the application from the shell in Simics
+
+```
+Shell> fs1:
+FS1:/. SampleApp  test1 test2
+```
+
+(hint: `~/FW/LabSampleCode/ShellAppSample has the solution`)
+
+---
+## Slide 68 Using EADK
+
+Using EADK with UEFI Application
+
+Labs 6-7 are Optional
+
+---
+## Slide 69 Lab 6: Writing UEFI Applications with EADK
+
+In this lab, you'll write an application with the same functionality as SampleApp.c using LibC from the EDK II Application Development Kit (EADK)
+
+---
+## Slide 70 Lab 6: With EDK II EADK
+
+Write the same application with te same functionality as SampleApp.c using the LibC from the EADK
+
+
+```
+Shell> fs0:
+FS0:\> SampleCApp
+System Table: 0x631bf90
+
+Press any Key and then <Enter> to continue :
+
+
+Enter text. Include a dot ('.') in a sentence then <Enter> to exit:
+
+This is a sentence using my UEFI Application using the C library
+
+
+FS0:\>
+```
+
+What libraries are needed
+
+What differences are there using the LibC
+
+---
+## Slide 71 Lab 6: EDK II using EADK
+
+Start with the packages for EADK from edk2-libc
+
+- /edk2-libc - AppPkg - has directory Applications
+- /edk2-libc - StdLib - contains the LibC libraries
+
+- Copy and paste directory ../FW/LabSampleCode/SampleCApp to \~/fw/edk2-ws/edk2-libc/AppPkg/Applications/SampleCApp
+
+---
+## Slide 72 Lab 6: EDK II using EADK
+
+Check out AppPkgg/Applications/CampleCApp
+
+**SampleCApp.c**
+
+```c
+#include <stdio.h>
+// . . .
+int
+main (
+  IN int Argc,
+  IN char **Argv
+)
+{
+  return 0;
+}
+```
+
+**SampleCApp.inf**
+
+```
+[Defines]
+  INF_VERSION        = 1.25
+  BASE_NAME          = SampleCApp
+  FILE_GUID          = 4ea9…
+  MODULE_TYPE        = UEFI_APPLICATION
+  VERSION_STRING     = 0.1
+  ENTRY_POINT        = ShellCEntryLib
+
+[Sources]
+  SampleCApp.c
+
+[Packages]
+  StdLib/StdLib.dec
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+
+[LibraryClasses]
+  LibC
+  LibStdio
+```
+
+---
+## Slide 73 Lab 6: Update AppPkg.dsc
+
+Edit the \~/fw/edk2-ws/edk2-libc/AppPkg/AppPkg.dsc and add SampleCApp.inf at the end of the components section
+
+- (hint: search for "#### Sample Applications")
+- AppPkg/Applications/SampleCApp/SampleCApp.inf
+
+```
+[Components]
+#### Sample Applications
+AppPkg/Applications/Hello/Hello.inf           # No LibC includes or functions.
+AppPkg/Applications/Main/Main.inf             # Simple invocation. No other LibC function
+AppPkg/Applications/Enquire/Enquire.inf       #
+AppPkg/Applications/ArithChk/ArithChk.inf     #
+
+AppPkg/Applications/SampleCApp/SampleCApp.inf # LAB 6
+```
+
+---
+## Slide 74 Lab 6: Build and Test SampleCApp
+
+1. Build the AppPkg at a NEW Terminal Prompt
+
+```bash
+$ cd ~/fw/edk2-ws/ 
+$ . setenv.sh 
+$ cd edk2 
+$ . edksetup.sh 
+$> build -p AppPkg/AppPkg.dsc -m AppPkg/Applications/SampleCApp/SampeCApp.inf
+```
+
+2. Copy the build application SampleCApp.efi to the VHD Drive
+
+```bash
+$ cp ~/fw/edk2-ws/Build/AppPkg/DEBUG_GCC5/X64/SampleCApp.efi ~/VHD
+```
+
+3. Run the qsp-modern-core script from Terminal Command Prompt
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+```
+
+Run SampleCApp
+
+```
+Shell> fs1:
+FS1:\> SampleCApp.efi
+FS1:\> 
+```
+
+4. Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+Notice that the program will immediately unload because the main function is empty
+
+
+---
+## Slide 75 Lab 7: Adding Functionality to SampleCApp
+
+In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This lab will use EADK libraries, so the coding style is similar to standard C.
+
+
+---
+## Slide 76 Lab 7: Add Feature PCD
+
+**AppPkg/AppPkg.dec**
+
+```
+[PcdsFeatureFlag]
+ ## Indicates if SampleCApp Application will enable the Typewriter Feature.
+  #  This PCD is a sample to explain FeatureFlag PCD usage.<BR><BR>
+  #   TRUE  - SampleCApp Application will enable the Typewriter Feature.<BR>
+  #   FALSE - SampleCApp Application will not enable the Typewriter Feature.<BR>
+  # @Prompt Enable SampleCApp enable the Typewriter Feature.
+  gAppPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable|TRUE|BOOLEAN|0x1200a
+
+```
+
+**SampleCApp.inf**
+
+```
+. . .
+[Packages]
+. . .
+[FeaturedPcd]
+  gAppPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable ## CONSUMES
+```
+
+---
+## Slide 77 Lab 7: Add the same functionality from Lab 5
+
+**SampleCApp.c**
+
+```c
+
+#include <stdio.h>
+#include <Library/PcdLib.h>
+#include <Library/UefiBootServicesTableLib.h>
+// . . .
+   char c;
+   printf("System Table: %p /n", gST) ; 
+   
+   puts("Press any Key and then <Enter> 
+         to continue : ");
+   c=(char)getchar();
+   
+   if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
+     puts ("Enter text. Include a dot ('.') in a 
+         sentence then <Enter> to exit:");
+     do {
+        c=(char)getchar();
+        } while (c != '.');
+   }
+   puts ("/n");
+
+   return 0;
+ }
+
+```
+
+
+**SampleCApp.inf**
+
+```
+[Defines]
+  INF_VERSION        = 1.25
+  BASE_NAME          = SampleCApp
+  FILE_GUID          = 4ea9…
+  MODULE_TYPE        = UEFI_APPLICATION
+  VERSION_STRING     = 0.1
+  ENTRY_POINT        = ShellCEntryLib
+
+[Sources]
+  SampleCApp.c
+
+[Packages]
+  StdLib/StdLib.dec
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+  AppPkg/AppPkg.dec
+
+[LibraryClasses]
+  LibC
+  LibStdio
+  UefiBootServicesTableLib
+  PcdLib
+
+[FeaturePcd]
+  gAppPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable
+```
+
+
+---
+## Slide 78 Lab 7: Add the same functionality from Lab 5
+
+
+**SampleCApp.c**
+
+```c
+
+#include <stdio.h>
+#include <Library/PcdLib.h>
+#include <Library/UefiBootServicesTableLib.h>           /** 3 **/
+// . . .
+   char c;
+   printf("System Table: %p /n", gST) ;                 /** 3 **/
+   
+   puts("Press any Key and then <Enter> 
+         to continue : ");
+   c=(char)getchar();
+   
+   if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
+     puts ("Enter text. Include a dot ('.') in a 
+         sentence then <Enter> to exit:");
+     do {
+        c=(char)getchar();
+        } while (c != '.');
+   }
+   puts ("/n");
+
+   return 0;
+ }
+
+```
+
+
+**SampleCApp.inf**
+
+```
+[Defines]
+  INF_VERSION        = 1.25
+  BASE_NAME          = SampleCApp
+  FILE_GUID          = 4ea9…
+  MODULE_TYPE        = UEFI_APPLICATION
+  VERSION_STRING     = 0.1
+  ENTRY_POINT        = ShellCEntryLib
+
+[Sources]
+  SampleCApp.c
+
+[Packages]
+  StdLib/StdLib.dec
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+  AppPkg/AppPkg.dec
+
+[LibraryClasses]
+  LibC
+  LibStdio
+  UefiBootServicesTableLib                              /** 3 **/
+  PcdLib
+
+[FeaturePcd]
+  gAppPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable
+```
+
+
+---
+## Slide 79 Lab 7: Add the same functionality from Lab 5 
+
+**SampleCApp.c**
+
+```c
+
+#include <stdio.h>
+#include <Library/PcdLib.h>
+#include <Library/UefiBootServicesTableLib.h>           /** 3 **/
+// . . .
+   char c;
+   printf("System Table: %p /n", gST) ;                 /** 3 **/
+   
+   puts("Press any Key and then <Enter>
+         to continue : ");                              /** 4 **/
+   c=(char)getchar();                                   /** 4 **/
+   
+   if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
+     puts ("Enter text. Include a dot ('.') in a 
+         sentence then <Enter> to exit:");
+     do {
+        c=(char)getchar();
+        } while (c != '.');
+   }
+   puts ("/n");
+
+   return 0;
+ }
+
+```
+
+
+**SampleCApp.inf**
+
+```
+[Defines]
+  INF_VERSION        = 1.25
+  BASE_NAME          = SampleCApp
+  FILE_GUID          = 4ea9…
+  MODULE_TYPE        = UEFI_APPLICATION
+  VERSION_STRING     = 0.1
+  ENTRY_POINT        = ShellCEntryLib
+
+[Sources]
+  SampleCApp.c
+
+[Packages]
+  StdLib/StdLib.dec
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+  AppPkg/AppPkg.dec
+
+[LibraryClasses]
+  LibC
+  LibStdio
+  UefiBootServicesTableLib                              /** 3 **/
+  PcdLib
+
+[FeaturePcd]
+  gAppPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable
+```
+
+
+---
+## Slide 80 Lab 7: Add the same functionality from Lab 5 
+
+**SampleCApp.c**
+
+```c
+
+#include <stdio.h>
+#include <Library/PcdLib.h>
+#include <Library/UefiBootServicesTableLib.h>           /** 3 **/
+// . . .
+   char c;
+   printf("System Table: %p /n", gST) ;                 /** 3 **/
+   
+   puts("Press any Key and then <Enter>
+         to continue : ");                              /** 4 **/
+   c=(char)getchar();                                   /** 4 **/
+   
+   if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {     /** 5 **/
+     puts ("Enter text. Include a dot ('.') in a 
+         sentence then <Enter> to exit:");              /** 5 **/
+     do {
+        c=(char)getchar();                              /** 5 **/
+        } while (c != '.');                             /** 5 **/
+   }
+   puts ("/n");
+
+   return 0;
+ }
+
+```
+
+
+**SampleCApp.inf**
+
+```
+[Defines]
+  INF_VERSION        = 1.25
+  BASE_NAME          = SampleCApp
+  FILE_GUID          = 4ea9…
+  MODULE_TYPE        = UEFI_APPLICATION
+  VERSION_STRING     = 0.1
+  ENTRY_POINT        = ShellCEntryLib
+
+[Sources]
+  SampleCApp.c
+
+[Packages]
+  StdLib/StdLib.dec
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+  AppPkg/AppPkg.dec
+
+[LibraryClasses]
+  LibC
+  LibStdio
+  UefiBootServicesTableLib                              /** 3 **/
+  PcdLib
+
+[FeaturePcd]                                            /** 5 **/
+  gAppPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable      /** 5 **/
+```
+
+
+---
+## Slide 81 Lab 7: Build and test SampleCApp
+
+
+1. Build the AppPkg at a NEW Terminal Prompt
+
+```bash
+$> build -p AppPkg/AppPkg.dsc -m AppPkg/Applications/SampleCApp/SampeCApp.inf
+```
+
+2. Copy the build application SampleCApp.efi to the VHD Drive
+
+```bash
+$ cp ~/fw/edk2-ws/Build/AppPkg/DEBUG_GCC5/X64/SampleCApp.efi ~/VHD
+```
+
+3. Run the qsp-modern-core script from Terminal Command Prompt
+
+```bash
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
+simics> run
+```
+
+Run SampleCApp
+
+```
+Shell> fs1:
+FS1:\> SampleCApp.efi
+System Table: 0xdefed018
+Press any Key and then <Enter> to continue:
+
+Enter text. Include a dot ('.') in a sentence then <Enter> to exit:
+this is line 1.
+
+
+FS1:\> 
+```
+
+4. Exit Simics
+
+```
+simics> stop
+simics> quit
+```
+
+---
+## Slide 82 Summary
+
+- UEFI Application with PCDs
+- Simple UEFI Application
+- Add functionality to UEFI Application
+- Using EADK with UEFI Application
+
+---
+## Slide 83 Questions?
+
+
+<br>
+
+---
+## Slide 84 Return to Main Training Page
+
+Return to Training table of contents for next presentation [link](https://github.com/tianocore-training/Tianocore_Training_Contents/wiki)
+
+---
+## Slide 85 Logo Slide
+
+
+<br>
+
+---
+## Slide 86 Acknowledgements
+
+Redistribution and use in source (original document form) and 'compiled‘ forms (converted to PDF, epub, HTML and other formats) with or without modification, are permitted provided that the following conditions are met:
+
+
+Redistributions of source code (original document form) must retain the above copyright notice, this list of conditions and the following disclaimer as the first lines of this file unmodified.
+
+
+Redistributions in compiled form (transformed to other DTDs, converted to PDF, epub, HTML and other formats) must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+
+THIS DOCUMENTATION IS PROVIDED BY TIANOCORE PROJECT "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL TIANOCORE PROJECT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+Copyright (c) 2021-2022, Intel Corporation. All rights reserved.
+
+
+---
+## Slide 87 Mounting a VhD File Disk
+
+To Mount:
+Open Terminal Prompt in the Simics Install directoryProject directory
+
+e.g., <InstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images (this is the directory where the .VHD files are copied to)
+
+First use virt-list-filesystems to create a file system from the .VHD file.
+  This will show a partition e.g. /dev/sda1 required for the guestmount command 
+
+```bash
+$ sudo virt-list-filesystems UefiAppLab.vhd
+```
+
+Use the guestmount command to mount the file.
+  (Note: may need to create \~/VHD directory with correct permissions)
+
+```bash
+$ sudo guestmount -a UefiAppLab.vhd -m /dev/sda1 -w ~/VHD -o allow_other
+```
+
+To Unmount:
+
+```bash
+$ sudo unmount /VHD
+```
+
+[Online Tutorial Link](https://www.youtube.com/watch?v=A7OlFwTNWYc)
