@@ -296,7 +296,7 @@ Update the Simics Script to Use the ShellLab.vhd image as a file system
 
 Edit the file: qsp-modern-core.simics from
 
-`\<SimicsInstallDir\>/simics-qsp-x86-6.0.57/targets/qsp-x86/qsp-modern-core.simics`
+\<SimicsInstallDir\>/simics-qsp-x86-6.0.57/targets/qsp-x86/qsp-modern-core.simics
 
 Add the following line:
 
@@ -321,7 +321,7 @@ default cpu_comp_class = "x86QSP2"
 default num_cores = 2  
 default num_threads = 2
 } 
-$disk1_image="%simics%/targets/qsp-x86/images/ShallLab.vhd“
+$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd“
 
 run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
 
@@ -361,7 +361,7 @@ Enter
 
 Press "F3" to exit
 
-(See Powerpoint for Help Menu - Shell)
+(See PDF for Help Menu - Shell)
 
 ---
 ## Slide 30 Hello World Script
@@ -495,7 +495,7 @@ Then verify using the "dmpstore"
 
 (Hint: use `BCFG - ? -b` for help menu)
 
-The dmpstore output should look like the screen shot (see powerpoint)
+The dmpstore output should look like the screen shot (see PDF)
 
 ---
 ## Slide 38 Use the BCFG to Add a boot item
@@ -506,7 +506,7 @@ Use the file from on FS1 `/OldShell.Shell_FullX64.efi` and use BCFG to Add a 08 
 
 Then verify using the "BCFG Boot Dump"
 
-After the bcfg add, the output should look like (see screenshot on powerpoint)
+After the bcfg add, the output should look like (see PDF for screenshot)
 
 ---
 ## Slide 39 Verify Results from BCFG Commands
@@ -521,6 +521,8 @@ Verify:
 
 - EFI Internal Shell - item 1
 - Old EFI Shell 1.0 - item 8
+
+(See Screenshot in PDF)
 
 ---
 ## Slide 40 Exit QSP UEFI Shell & Simics
