@@ -189,12 +189,12 @@ $ git clone https://github.com/tianocore/edk2-libc.git
 \#EDK II Platforms Repo
 
 ```bash
-$ git clone https:://github.com/tianocore/edk2-platforms.git
+$ git clone https://github.com/tianocore/edk2-platforms.git
 ```
 \#EDK II Non-OSI (Stand alone Binaries)
 
 ```bash
-$ git clone https:://github.com/tianocore/edk2-non-osi.git
+$ git clone https://github.com/tianocore/edk2-non-osi.git
 ```
 \#Intel FSP
 ```bash

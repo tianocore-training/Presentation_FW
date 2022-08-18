@@ -14,7 +14,7 @@
 <!---
  Lab_Guide.md for Platform Build Win Emulator Lab
 
-  Copyright (c) 2020-2021, Intel Corporation. All rights reserved –
+  Copyright (c) 2020-2022, Intel Corporation. All rights reserved –
 
   Redistribution and use in source (original document form) and 'compiled'
   forms (converted to PDF, epub, HTML and other formats) with or without
@@ -178,11 +178,11 @@ $ git clone https://github.com/tianocore/edk2-libc.git
 ```
 \#EDK II Platforms Repo
 ```
-$ git clone https:://github.com/tianocore/edk2-platforms.git
+$ git clone https://github.com/tianocore/edk2-platforms.git
 ```
 \#EDK II Non-OSI (Stand alone Binaries)
 ```
-$ git clone https:://github.com/tianocore/edk2-non-osi.git
+$ git clone https://github.com/tianocore/edk2-non-osi.git
 ```
 \#Intel FSP
 ```
