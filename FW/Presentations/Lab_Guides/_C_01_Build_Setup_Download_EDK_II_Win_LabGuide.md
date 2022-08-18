@@ -134,7 +134,7 @@ Open the "Intel Simics Package Manager"
 1. Using the Start menu in Windows, Left Click on "Windows Key" Lower Left
 2. Scroll down from the scroll bar on the right until "Intel Simics Package Manager"
 
-Here is a snapshot of Intel Simics Package Manager with "My Simics Project 1" created (see powerpoint for picture)
+Here is a snapshot of Intel Simics Package Manager with "My Simics Project 1" created (see PDF for picture)
 
 
 ---
