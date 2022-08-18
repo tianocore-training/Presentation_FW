@@ -247,7 +247,7 @@ $ python build_bios.py -p BoardX58Ich10 -t GCC5
 $cp ~/FW/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/HelloWorld.efi ~/VHD
 ```
 
-Paste (see powerpoint)
+Paste (see PDF)
 
 
 ---
@@ -282,7 +282,7 @@ simics> quit
 
 How can we change the **string** of the HelloWorld application?
 
-Also see `../edk2/Mde/ModulePkg.Dec`
+Also see `../edk2/MdeModulePkg/MdeModulePkg.Dec`
 
 ---
 ## Slide 17 Lab 2: Write a Simple UEFI Application
@@ -332,7 +332,7 @@ UefiMain (
 ---
 ## Slide 19 Application Lab - start with .c and .inf template
 
-Copy the `LabSampleCode/SampleApp/MyPkg` directory to `~/FW/edk2-ws/edk2`
+Copy the `~/Lab_Material_FW/LabSampleCode/SampleApp/MyPkg` directory to `~/FW/edk2-ws/edk2`
 
 Edit **SampleApp.inf**
 
@@ -365,7 +365,6 @@ Edit **SampleApp.inf**
 
 Get a GUID [guidgenerator.com/](https://www.guidgenerator.com/) or [https://www.guidgen.com/](https://www.guidgen.com/)
 
-Copy and paste [TENTATIVE LINK](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_03_Writing_UEFI_App_WIN_LabGuide.md#slide-16-titlelab-2-sample-application-inf-file)
 
 ---
 ## Slide 21 Lab 2: Sample Application 'C' file
@@ -399,7 +398,7 @@ Not yet...
 ---
 ## Slide 23 Application Lab - Update Files
 
-1. .DSC (`edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10/OpenBoard.dsc`)
+1. .DSC (`edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10/OpenBoardPkg.dsc`)
 
 [Components . . .]
 	Add INF to components section, before build options
@@ -524,7 +523,7 @@ Notice that the program will immediately unload beacuse the main function is emp
 
 Error on SampleApp.inf
 
-(See Powerpoint for Screenshots)
+(See PDF for Screenshots)
 
 The FILE_GUID was invalid or not updated from "XXX..." to a proper formatted GUID
 
@@ -533,7 +532,7 @@ The FILE_GUID was invalid or not updated from "XXX..." to a proper formatted GUI
 
 Error on SampleApp.inf
 
-(See PowerPoint for Screenshot)
+(See PDF for Screenshots)
 
 The \[Packages\] was invalid or did not specify MdePkg/MdePkg.dec properly
 
@@ -542,7 +541,7 @@ The \[Packages\] was invalid or did not specify MdePkg/MdePkg.dec properly
 
 GCC compiler error on SampleApp.c
 
-(See PowerPoint for Screenshot)
+(See PDF for Screenshots)
 
 The #include \<Library/UefiApplicationEntryPoint.h\> has a typo ("Application " not "Applications")
 
@@ -551,7 +550,7 @@ The #include \<Library/UefiApplicationEntryPoint.h\> has a typo ("Application " 
 
 GCC compiler Error on SampleApp.c
 
-(See PowerPoint for Screenshot)
+(See PDF for Screenshots)
 
 The SampleApp.inf section \[LibraryClasses\] did not reference UefiApplicationEntryPoint
 
@@ -560,7 +559,7 @@ The SampleApp.inf section \[LibraryClasses\] did not reference UefiApplicationEn
 
 Error at the Shell prompt
 
-(See PowerPoint for Screenshot)
+(See PDF for Screenshots)
 
 Ensure the SampleApp.inf BaseName is SampleApp
 
@@ -713,10 +712,11 @@ simics> quit
 
 Add list of DEFINES in .DSC file. This is the **preferred** method for EDK II when a Build script is used
 
-Update line 338 of build_bios.py and remove the `-D ADD_SHELL_STRING` - Save 
-Edit the file and add the following DEFINE after Line 7 - Save after update:
+1. Update line 388 of build_bios.py and remove the "-D ADD_SHELL_STRING", then Save
+2. Edit the file `~/FW/edk2-ws/edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10/OpenBoardPkgBuildOption.dsc`
 
-`~/FW/edk2-ws/edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10/ OpenBoardPkgBuildOption.dsc`
+- Add the following DEFINE after Line 7
+- Save after update
 
 ```
 [Defines]
@@ -807,7 +807,7 @@ Next 3 Labs
 
 **Lab 4:**  Wait for an Event
 
-**Create a Simple typewriter function & Create a PCD to enable**
+**Lab 5:** Create a Simple typewriter function & Create a PCD to enable
 
 Solutions in `.../FW/LabSampleCode/LabSolutions/LessonB.n`
 
@@ -984,7 +984,7 @@ gBS->WaitForEvent (1, &gST->ConIn->WaitForKey, &EventIndex);
 
 However, this won't compile ... gBS and gST are not defined
 
-(See PowerPoint for example of compilation errors)
+(See PDF for example of compilation errors)
 
 Search the MdePkg.chm for "gBS" and "gST" - they are located in `UefiBootServicesTableLib.h`
 
@@ -1128,8 +1128,8 @@ OUT EFI_INPUT_KEY *Key,
 
 1. Check the MdeModulePkg/MdeModulePkg.dec and search for the "PcdHelloWorldPrintEnable" PCD.
   - Notice that it is in the \[PcdsFeatureFlag\] section
-2. Add a similar section in the Platform: SimicsOpenBoardPkg/OpenBoard.dec file and add a flag "PcdTypeWriterFeatureEnable" deafult, TRUE. (it can be added to the end of the file)
-3. Next Update the SampleApp.inf to include: SimicsOpenBoardPkg/OpenBoard.dec, the new PcD, and the PcdLib (hint: see how HelloWorld.inf used the PCD enable)
+2. Add a similar section in MyPkg, `edk2/MyPkg/MyPkg.dec` file and add a flag “PcdTypeWriterFeatureEnable” default, TRUE. (it can be added to the end of the file)
+3. Next Update the SampleApp.inf to include: `MyPkg/MyPkg.dec`, the new PCD, and the `PcdLib` ( hint, see how HelloWorld.inf used the PCD enable )
 4. SampleApp.c can now use the newly created PCD 
 
 ---
@@ -1234,7 +1234,11 @@ $> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
 $> python build_bios.py -p BoardX58Ich10 -t GCC5
 ```
 
-2. Copy SampleApp.efi from the build directory to the VHD Disk Copy `../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi UefiAppLab Disk`
+2. Copy SampleApp.efi from the build directory to the VHD Disk Copy
+
+```bash
+$ ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi UefiAppLab ~/VHD
+```
 
 3. Run the qsp-modern-core script from Terminal Command Prompt
 
@@ -1376,9 +1380,13 @@ Make the PCD PcdTypeWriterFeatureEnable determined by a Build Flag
 DEFINE ADD_TYPEWRITER       = TRUE
 ```
 
-2. Update OpenBoardPkgPcd.dsc (at end in [PcdsFeatureFlag] Section)
+2. Update OpenBoardPkgPcd.dsc (at end add [Packages] MyPkg/MyPkg.dec and [PcdsFeatureFlag] Section)
 
 ```
+[Packages]
+  MyPkg/MyPkg.dec
+
+[PcdsFeatureFlag]
 !if   $(ADD_TYPEWRITTER) == TRUE
    gEfiMyPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable|TRUE
 !else
