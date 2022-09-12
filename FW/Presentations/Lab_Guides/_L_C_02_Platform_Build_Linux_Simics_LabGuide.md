@@ -8,7 +8,7 @@
 [tianocore.org](https://www.tianocore.org/)
 
 <!---
- Lab_Guide.md for  Platform Build Lab Simics QSP Lab
+ Lab_Guide.md for  Platform Build Lab Simics QSP Lab Linux
 
   Copyright (c) 2020-2022, Intel Corporation. All rights reserved.<BR>
 
@@ -88,7 +88,8 @@ $ build -D ADD_SHELL_STRING
 
 More info: [tianocore-wiki/OVMF](https://github.com/tianocore/tianocore.github.io/wiki/OVMF)
 
---
+---
+
 ## Slide 5 Build EDK II OVMF
 ### Inside Terminal
 
@@ -132,40 +133,52 @@ Exit QEMU
 
 ---
 ## Slide 8 Build QSP Simics Open board
+### Build QSP Simics Open board
 
 <br>
 
 ---
 ## Slide 9 Where to get Open Source Simics
 
-How to Download & Build: Open Source MiniPlatform [Readme.md](https://github.com/tianocore/edk2-platforms/blob/master/Platform/Intel/Readme.md)
+
+The Simics QSP is part of the MinPlatformPkg
+
+How to Download  & Build: Open Source MinPlatform [Readme.md](https://github.com/tianocore/edk2-platforms/blob/master/Platform/Intel/Readme.md)
 
 
+
+
+
+Note: done in Lab 1
 
 ---
 ## Slide 10 MinPlatform Open Board Tree Structure
+
+Below the Build script is invoked form the `edk2-platforms/Platform/Intel/`
+
+The Platform DSC & FDF file are in `edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10`
 
 ```
 edk2/ https://github.com/tianocore/edk2
  . . .
 edk2-platforms/ https://github.com/tianocore/edk2-platforms 
   Platform/
-      Intel/				# Invoke the Build .py from here
-		  BoardModulePkg 
-		  SimicsOpenBoardPkg
-   			 BoardX58Ich10           # Platform DSC & FDF here
-		  MinPlatformPkg
+      Intel/						# Invoke the Build .py from here
+		  BoardModulePkg /
+		  SimicsOpenBoardPkg/
+   			 BoardX58Ich10/         # Platform DSC & FDF here
+		  MinPlatformPkg/
   Silicon/
 	  Intel/
-		  SimicsIch10Pkg
-		  SimicsX58ktPkg
+		  SimicsIch10Pkg/
+		  SimicsX58ktPkg/
 . . .
  Features/Intel
-		    AdvancedFeaturePkg
+		    AdvancedFeaturePkg/
 edk2-non-osi/ https://github.com/tianocore/edk2-non-osi
    Silicon/
 	  Intel/
-		   SimicsIch10BinPkg
+		   SimicsIch10BinPkg/
 FSP/  https://github.com/IntelFsp/FSP
 
 ```
@@ -254,7 +267,7 @@ Calling build -n 0 --log=Build.log --report-file=BuildReport.log and from \edk2-
 Finished Build (see image on pdf)
 Similar to:
 ```
- home/USERID/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5\FV\BOARDX58ICH10.fd
+ home/USERID/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd
 ```
 Note the location of the final .fd file
 
@@ -282,10 +295,11 @@ Alternatively, Open another terminal  prompt and cd to `~/simics-projects/my-sim
 
 Copy \~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd
 
-*To*
+**To**
 
-Simics-Install-Directory/simics-qsp-x86-6.0.57/targets/qsp-x86/images
+\<*Install-Directory*|>/simics-qsp-x86-6.0.57/targets/qsp-x86/images
 
+- where \<*Install-Directory*|> could be e.g., `Computer/usr/bin/simics`
 
 ---
 ## Slide 19 Update the Simics Script
@@ -296,7 +310,7 @@ Edit the file:
 
 *<InstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/qsp-uefi.include*
 
-Where *InstallDir* is the directory selected to install simics, e.g., *usr/bin/simics*
+Where *InstallDir* is the directory selected to install simics, e.g., `Computer/usr/bin/simics`
 
 Replace `SIMICSX58IA32X64_1_0_0_bp_r.fd` with `BOARDX58ICH10.fd`
 
@@ -351,6 +365,7 @@ After invoking the First Steps script, **many** Simics windows will have opened:
 
 Simics Getting Started: [Link](https://www.intel.com/content/www/us/en/developer/articles/guide/simics-simulator-get-started.html)
 
+(see PDF for Simic windows examples)
 
 ---
 ## Slide 22 Run Simics to Boot Target

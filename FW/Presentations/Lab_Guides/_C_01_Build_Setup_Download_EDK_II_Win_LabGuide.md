@@ -2,7 +2,7 @@
 # Windows (Part 1)
 
 ---
-## Slide 1  Platform Build Win Emulator Lab
+## Slide 1  Build Setup and Download EDK II Lab
 
 ## UEFI & EDK II Training
 
@@ -12,7 +12,7 @@
 
 
 <!---
- Lab_Guide.md for Platform Build Win Emulator Lab
+ Lab_Guide.md for Build Setup and Download EDK II  Windows
 
   Copyright (c) 2020-2022, Intel Corporation. All rights reserved –
 

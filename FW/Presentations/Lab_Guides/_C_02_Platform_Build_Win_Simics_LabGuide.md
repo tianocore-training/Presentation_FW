@@ -13,7 +13,7 @@
 
 
 <!---
- Lab_Guide.md for  Platform Build Lab Simics QSP Lab
+ Lab_Guide.md for  Platform Build Lab Simics QSP Lab Windows
 
   Copyright (c) 2020-2022, Intel Corporation. All rights reserved.<BR>
 
@@ -161,28 +161,29 @@ Below the Build script is invoked form the `edk2-platforms/Platform/Intel/`
 
 The Platform DSC & FDF file are in `edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10`
 
-```bash
+```
 edk2/ https://github.com/tianocore/edk2
  . . .
 edk2-platforms/ https://github.com/tianocore/edk2-platforms 
-Platform/
-	Intel/                 # Invoke the Build .py from here
-      BoardModulePkg
-      SimicsOpenBoardPkg
-         BoardX58Ich10     # Platform DSC & FDF here
-      MinPlatformPkg
-Silicon/
-	Intel/
-      SimicsIch10Pkg
-      SimicsX58ktPkg
+  Platform/
+      Intel/						# Invoke the Build .py from here
+		  BoardModulePkg /
+		  SimicsOpenBoardPkg/
+   			 BoardX58Ich10/         # Platform DSC & FDF here
+		  MinPlatformPkg/
+  Silicon/
+	  Intel/
+		  SimicsIch10Pkg/
+		  SimicsX58ktPkg/
 . . .
  Features/Intel
-		   AdvancedFeaturePkg
+		    AdvancedFeaturePkg/
 edk2-non-osi/ https://github.com/tianocore/edk2-non-osi
    Silicon/
-	   Intel/
-         SimicsIch10BinPkg
+	  Intel/
+		   SimicsIch10BinPkg/
 FSP/  https://github.com/IntelFsp/FSP
+
 ```
 
 ---
@@ -374,7 +375,7 @@ After invoking the First Steps script, **many** Simics windows will have opened:
 
 Simics Getting Started: [Link](https://www.intel.com/content/www/us/en/developer/articles/guide/simics-simulator-get-started.html)
 
-
+(see PDF for Simic windows examples)
 ---
 ## Slide 23 Run Simics to Boot Target
 
@@ -413,7 +414,7 @@ Build and Run the EmulatorPkg
 Build a EDK II Platform using Simics Open Source QSP Board
 Run Simics with the QSP Board
 
---
+---
 ## Slide 27 Questions?
 
 <br>
@@ -452,12 +453,15 @@ Copyright (c) 2021-2022, Intel Corporation. All rights reserved.
 <br>
 <br>
 <br>
-##### Build Errors<br>
+
+### Build Errors
 
 
 ---
 ## Slide 33  Build Error- RC.exe 
+
 <b>Build Error- RC.exe </b>
+
 Because RC.Exe is not found, Error Message:
 
 ```bash
