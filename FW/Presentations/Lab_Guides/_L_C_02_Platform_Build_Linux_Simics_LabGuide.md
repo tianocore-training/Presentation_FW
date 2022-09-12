@@ -1,15 +1,47 @@
-# Build Setup and Download EDK II Lab Guide
+# Slide 1 Platform Build Lab  - Simics® Quick Start Platform(QSP)  - Linux
 # Linux (Part 2)
 
----
-## Slide 1 UEFI & EDK II Training
-### Platform Build Lab - Simics - Linux
+
+## UEFI & EDK II Training
+### Simics® Quick Start Platform(QSP) 
 
 [tianocore.org](https://www.tianocore.org/)
 
+<!---
+ Lab_Guide.md for  Platform Build Lab Simics QSP Lab
+
+  Copyright (c) 2020-2022, Intel Corporation. All rights reserved.<BR>
+
+  Redistribution and use in source (original document form) and 'compiled'
+  forms (converted to PDF, epub, HTML and other formats) with or without
+  modification, are permitted provided that the following conditions are met:
+
+  1) Redistributions of source code (original document form) must retain the
+     above copyright notice, this list of conditions and the following
+     disclaimer as the first lines of this file unmodified.
+
+  2) Redistributions in compiled form (transformed to other DTDs, converted to
+     PDF, epub, HTML and other formats) must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+
+  THIS DOCUMENTATION IS PROVIDED BY TIANOCORE PROJECT "AS IS" AND ANY EXPRESS OR
+  IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+  EVENT SHALL TIANOCORE PROJECT  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+
 ---
 ## Slide 2 Platform Build Labs
-### First Setup for Building EDK II, See [TENTATIVE LINK](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#build-emulator)
+### First Setup for Building EDK II, See [Lab Setup](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Build_Setup_Download_EDK_II_Linux_LabGuide.md)
+
 
 - Build a EDK II Platform using OVMF package
 - Run OVMF using Qemu
@@ -162,19 +194,34 @@ Check if Python is okay (may also need to set PYTHON_HOME)
 
 ```bash
 $ python --version
-Python 3.8.2
+Python 3.8.10
 ```
 
 Check for available MinPlatform Boards
 
 ```
 $ python build_bios.py -l
+Platforms:
+    BoardMtOlympus
+    BoardX58Ich10
+    AspireVn7Dash572G
+    GalagoPro3
+    KabylakeRvp3
+    UpXtreme
+    WhiskeylakeURvp
+    CometlakeURvp
+    TigerlakeURvp
+    CooperCityRvp
+    WilsonCityRvp
+    BoardTiogaPass
+    JunctionCity
+    Aowanda
 ```
 
 ---
 ## Slide 13 Invoke the build
 
-Invoke the Python Build script for UP Xtreme (Takes about 8 minutes)
+Invoke the Python Build script for Simics QSP (Takes about 8 minutes)
 
 ```
 $ python build_bios.py -p BoardX58Ich10 -t GCC5
@@ -202,14 +249,17 @@ Calling build -n 0 --log=Build.log --report-file=BuildReport.log and from \edk2-
 
 ---
 ## Slide 15 Build EDK II
-### Inside VS Prompt
+### Inside Command Prompt
 
-Finished Build (see image on ppt)
-
+Finished Build (see image on pdf)
+Similar to:
+```
+ home/USERID/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5\FV\BOARDX58ICH10.fd
+```
 Note the location of the final .fd file
 
 ---
-## Slide 16 Invoke QSP wit BOARDX58ICH10
+## Slide 16 Invoke QSP with BOARDX58ICH10
 
 <br>
 
@@ -223,6 +273,9 @@ $ ./ispm-gui
 ```
 
 In the GUI select **My** Projects
+
+Alternatively, Open another terminal  prompt and cd to `~/simics-projects/my-simics-project-1`
+
 
 ---
 ## Slide 18 Copy BoardX85Ich10.fd to Simics
@@ -258,17 +311,21 @@ decl {
 	default enable_efi = TRUE
 }
 ```
+Save qsp-uefi.include
 
 ---
-## Slide 20 Invoke Simics First Steps Script
+## Slide 20 Invoke Simics QSP Script 
+### Invoke Simics QSP Script 
 
 Open a Simics Command Prompt: double click on `>_`
 
-Invoke the firststeps script:
+Invoke the qsp-modern-core script:
 
 ```bash
-$> ./simics targets/qsp-x86/firststeps.simics
+$> ./simics targets/qsp-x86/qsp-modern-core.simics
 ```
+
+
 
 ---
 ## Slide 21 Simics Windows
@@ -323,7 +380,7 @@ Boots to UEFI Shell
 - To restart, reissue the command:
 
 ```bash
-$ ./simics targets/qsp-x86/firststeps.simics
+$ ./simics targets/qsp-x86/qsp-modern-core.simics
 ```
 
 ---

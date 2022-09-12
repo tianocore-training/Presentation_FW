@@ -39,7 +39,7 @@ $ sudo apt install build-essential uuid-dev iasl git python-is-python3
 - nasm - General-purpose x86 assembler (see below to install 2.15.05 or above)
 - python-is-python3 - Ubuntu 20.04 python command is \'python3\' but edk2 tools use \'python\'
 
-Now need Nasm 2.15.x [Link](https://www.linuxfromscratch.org/blfs/view/cvs/general/nasm.html)
+Now need Nasm 2.15.x [Link for how to Install 2.15.05](https://www.linuxfromscratch.org/blfs/view/cvs/general/nasm.html)
 
 The following is needed for Mounting a .VHD file to use with Simics
 
@@ -53,7 +53,7 @@ The following will install the QEMU for Intel x86 & 64 bit
 $ sudo apt install qemu-system-x86-64
 ```
 
-**See Lab guide for Ubuntu 16.04 pre-requisites (listed below)**
+**See Below for Ubuntu 16.04 pre-requisites **
 
 ### **Pre-requisites Ubuntu 16.04**
 
@@ -70,7 +70,7 @@ $ sudo apt-get install build-essential uuid-dev iasl git gcc-5 nasm  python3-dis
 - iasl - Intel ASL compiler/decompiler (also provided by acpica-tools)
 - git - support for git revision control system
 - gcc-5 - GNU C compiler (v5.4.0 as of Ubuntu 16.04 LTS)
-- nasm - General-purpose x86 assembler 
+- nasm - General-purpose x86 assembler  (2.15.x or greater required, see above)
 - python3 - distutils - distutils module from the Python standard library
 
 ```bash
@@ -176,27 +176,27 @@ $ git config --global http.proxy proxy-dmz.intel.com:911
 ```
 
 From the command prompt use "git clone" to download following repos
-\#Edk2 - main core code
+- Edk2 - main core code
 
 ```bash
 $ git clone -b Edk2Lab_22Q3 https://github.com/tianocore-training/edk2.git
 ```
-\#EDK II "C" Library Repo
+- EDK II "C" Library Repo
 
 ```bash
 $ git clone https://github.com/tianocore/edk2-libc.git
 ```
-\#EDK II Platforms Repo
+- EDK II Platforms Repo
 
 ```bash
 $ git clone https://github.com/tianocore/edk2-platforms.git
 ```
-\#EDK II Non-OSI (Stand alone Binaries)
+- EDK II Non-OSI (Stand alone Binaries)
 
 ```bash
 $ git clone https://github.com/tianocore/edk2-non-osi.git
 ```
-\#Intel FSP
+- Intel FSP
 ```bash
 $ git clone https://github.com/Intel/FSP.git
 ```
@@ -218,7 +218,7 @@ $ ~/fw/edk2-ws> cd edk2-platforms
 $ ~/fw/edk2-ws> git reset --hard c546cc01f1517b42470f3ae44d67efcb8ee257fc
 ```
 
-(rest to this commit since this is used with all the labs)
+(reset to this commit since this is used with all the labs)
 
 
 ---
