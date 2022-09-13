@@ -92,7 +92,7 @@ $> edksetup.bat
 
 ### Build EmulatorPkg
 ```bash
-$> build -D ADD_SHELL_STRING -a X64
+$> build -D ADD_SHELL_STRING -a X64 -p EmulatorPkg\EmulatorPkg.dsc
 ```
 ---
 ## Slide 5 Build EDK II
