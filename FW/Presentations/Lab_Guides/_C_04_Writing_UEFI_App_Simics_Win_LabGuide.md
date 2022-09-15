@@ -4,15 +4,16 @@
 
 ---
 ## Slide 1 UEFI & EDK II Training
-### How to Write a UEFI Application with Linux Lab - Simics
+### How to Write a UEFI Application with Windows Lab - Simics
 
 [tianocore.org](https://www.tianocore.org/)
 
-See also L_C_04_Writing_UEFI_App_Simics_Linux_Lab.md (this document) for Copy & Paste examples in labs
+See also _C_04_Writing_UEFI_App_Simics_Windows_Lab.md (this document) for Copy & Paste examples in labs
+
 
 
 <!---
- Lab_Guide.md for  Write a UEFI Application with Linux Lab - Simics
+ Lab_Guide.md for  Write a UEFI Application with Windows Lab - Simics
 
   Copyright (c) 2022, Intel Corporation. All rights reserved.<BR>
 
@@ -41,11 +42,12 @@ See also L_C_04_Writing_UEFI_App_Simics_Linux_Lab.md (this document) for Copy & 
   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
+
 ---
 ## Slide 2 Lesson Objectives
 
-First Seup for Building EDK II, See [Lab Setup](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_01_Build_Setup_Download_EDK_II_Linux_LabGuide.md) 
-then [Platform Build Lab for Simics](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_02_Platform_Build_Linux_Simics_LabGuide.md)
+First Seup for Building EDK II, See [Lab Setup](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Build_Setup_Download_EDK_II_Win_LabGuide.md)
+then [Platform Build Lab for Simics](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_02_Platform_Build_Win_Simics_LabGuide.md)
 
 - UEFI Application with PCDs
 - Simple UEFI Application
@@ -122,8 +124,6 @@ Notice the PCD values
 
 Then run HelloWorld in Simics
 
-
-
 ---
 ## Slide 8 Copy UefiAppLab.vhd File
 
@@ -131,13 +131,13 @@ Copy the UefiAppLab.vhd
 
 From:
 
-`.../Lab_Material_FW/FW/LabSampleCode/AppLab/UefiAppLab.vhd`
+`.../Lab_Material_FW/FW/LabSampleCode/AppLab/UefiAppLab.vhd` 
 
-To:
+**TO**
 
-`<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
+`%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\images`
 
-Where *SimicsInstallDir* is the directory selected to install Simics, e.g., `Computer/usr/bin/simics`
+
 
 ---
 ## Slide 9 Update the Simics Script
@@ -145,7 +145,8 @@ Where *SimicsInstallDir* is the directory selected to install Simics, e.g., `Com
 Update the Simics script to use the UefiAppLab.vhd image as a file system
 Edit the file: `gsp-modern-core.simics` from
 
-	`<SimicsInstallDir>/simics-qsp-cpu-6.0.4/targets/qsp-x86/qsp-modern-core.simics`
+`%USERPROFILE%\ \AppData\Local\Programs\Simics\simics-qsp-cpu-6.0.4\targets\qsp-x86\qsp-modern-core.simics`
+
 
 Add the following line:
 
@@ -153,12 +154,13 @@ Add the following line:
 $disk1_image="%simics%/targets/qsp-x86/images/UefiAppLab.vhd"
 ```
 
-Before the `run-command-file` line
 
+Before the `run-command-file` line
 
 Comment if `$disk1_image` was added from a previous lab using "#" at the line beginning
 
-Save qsp-modern-core.simics
+Save `qsp-modern-core.simics`
+
 
 File: 	`qsp-modern-core.simics`
 
@@ -180,52 +182,37 @@ run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
 
 ```
 
-
 ---
 ## Slide 10 Build Platform BoardX58Ich10
 
-Open another Terminal Prompt in $HOME/fw/edk2-ws
-
-Then CD to edk2 to do edksetup.sh
-
-```bash
-$ cd ~/fw/edk2-ws/edk2
-$ . edksetup.sh
-```
-
-Then CD to:
-
+1. Open a Visual Studio command prompt
+2. Build the Simics BoardX58Ich10
 ```bash
 $ cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel
+$ python build_bios.py -p BoardX58Ich10 -t VS200xx
+                            Where XX is 15x86 or 17 or 19
 ```
+3. Copy
+`C:\fw\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\FV\BOARDX58ICH10.fd`
 
-Invoke the Python Build script for Simics OpenBoard QSP
+**To** 
 
-```bash
-$ python build_bios.py -p BoardX58Ich10 -t GCC5
-```
+`%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\images`
 
-Copy
-
-`~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd`
-
-**To**
-
-`<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
 
 ---
 ## Slide 11 Invoke Simics & Run HelloWorld App
 
-1. Open a Terminal prompt
+1. Open a Windows Command prompt
 
 ```bash
-$> cd simics-projects/my-simics-project-1
+$> cd simics-projects\my-simics-project-1
 ```
 
 2. Run the qsp-modern-core script:
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics 
+$> .\simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
 
@@ -293,10 +280,9 @@ UefiMain (
 
 1. Edit the file:
 ```
-~FW/edk2-ws/edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10/OpenBoardPkg.dsc
+C:\FW\edk2-ws\edk2-platforms\Platform\Intel\SimicsOpenBoardPkg\BoardX58Ich10\OpenBoardPkg.dsc
 ```
-After the section `[PcdsFixedAtBuild]` (search for "PcdsFixedAtBuild" or "Hello")
-
+After the section `[PcdsFixedAtBuild]`  (search for “PcdsFixedAtBuild” or “Hello”)
 ```
 [PcdsFixedAtBuild]
 gEfiMdeModulePkgTokenSpaceGuid.PcdHelloWorldPrintTimes|3
@@ -306,25 +292,35 @@ Note: it is best to update PCD values in the Platform DSC file.
 
 2. Re-build BoardX58Ich10
 
-Open a termincal command prompt
+Open A Visual studio Command Prompt
 
 ```bash
-$ cd ~/FW/edk2-ws/edk2-platforms/Platform/Intel/ 
-$ python build_bios.py -p BoardX58Ich10 -t GCC5
+$> Cd C:\FW\edk2-ws\edk2-platforms\Platform\Intel\
+$> python build_bios.py -p BoardX58Ich10  -t VS20XX
 ```
+- Where XX is `15x86` or `17` or `19`
 
 ---
 ## Slide 15 Update UefiAppLab.vhd File
 
-3. Mount the UefiAppLab.vhd using GuestMount: [How to Link](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_04_Writing_UEFI_App_Simics_Linux_LabGuide.md#slide-87-mounting-a-vhd-file-disk)
+3. Mount the UefiAppLab.vhd using Disk Manager: TENTATIVE LINK (See slide 89)
+[How to Link FIX_THIS_LINK](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_04_Writing_UEFI_App_Simics_Win_LabGuide.md#slide-89-open-disk-manager-mounting-a-vhd-file-disk)
+
 
 4. Copy
 
 ```bash
-$cp ~/FW/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/HelloWorld.efi ~/VHD
+C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS2015x86\X64\HelloWorld.efi 
 ```
+**To**
+
+`X:\UEFIAPPLAB\` (where X is the VHD Drive)
+
 
 Paste (see PDF)
+
+Detach UefiAppLab.vhd at the end of this lab
+But can keep open for this Lab
 
 
 ---
@@ -333,7 +329,7 @@ Paste (see PDF)
 5. Run Simics script
 
 ```bash
-$> ./simics target/qsp-x86/qsp-modern-core.simics 
+$> .\simics target/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
 
@@ -409,7 +405,7 @@ UefiMain (
 ---
 ## Slide 19 Application Lab - start with .c and .inf template
 
-Copy the `~/Lab_Material_FW/LabSampleCode/SampleApp/MyPkg` directory to `~/FW/edk2-ws/edk2`
+Copy the `LabSampleCode/SampleApp/MyPkg` directory to `C:/FW/edk2-ws/edk2` 
 
 Edit **SampleApp.inf**
 
@@ -509,20 +505,34 @@ Note:
 ---
 ## Slide 24 Lab 2: cont. Solution
 
-**edk2-platforms/ ... SimicsOpenBoardPkg/BoardX58Ich10/OpenBoardPkg.dsc**
+*edk2-platforms/...*
+
+
+*SimicsOpenBoardPkg/BoardX58Ich10/OpenBoardPkg.dsc*
 
 ```
 ...
 
+#   Here is where you would put the HelloWorldPrintString PCD
+# HINT: look at MdeModulePkg.dec for HelloWorldPrintString
+
+[Components.X64]
+# UEFI / EDK II Training
 MdeModulePkg/Application/HelloWorld/HelloWorld.inf
 # Add new modules here
 MyPkg/SampleApp/SampleApp.inf
 ```
 
-**MyPkg/SampleApp/SampleApp.inf**
+*MyPkg/SampleApp/SampleApp.inf*
 
 ```
 ...
+
+#
+#  VALID_ARCHITECTURES       = IA32 X64 IPF EBC
+#
+
+[Sources]
   SampleApp.c
 
 [Packages]
@@ -532,7 +542,7 @@ MyPkg/SampleApp/SampleApp.inf
   UefiApplicantionEntryPoint
 ```
 
-**MyPkg/SampleApp/SampleApp.c**
+*MyPkg/SampleApp/SampleApp.c*
 
 ```c
 ...
@@ -544,18 +554,20 @@ MyPkg/SampleApp/SampleApp.inf
 ---
 ## Slide 25 Will it compile now?
 
-At the Terminal Command Prompt, Build BoardX58Ich10
+At the VS Command Prompt, Build BoardX58Ich10
 
 ```bash
-$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
-$> python build_bios.py -p BoardX58Ich10 -t GCC5
+$> cd C:\FW\edk2-ws\edk2-platforms\Platform\Intel\
+$> python build_bios.py -p BoardX58Ich10  -t VS20XX
 ```
 
 Copy SampleApp.efi from the build directory to the VHD Disk
 
 ```bash
-$ cp ~/fw/edk2-ws/edk2/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi ~/VHD
+$> copy ..\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS2015x86\X64\SampleApp.efi X:
 ```
+
+where X is the VHD drive
 
 ---
 ## Slide 26 Invoke Simics & Run SampleApp
@@ -563,7 +575,7 @@ $ cp ~/fw/edk2-ws/edk2/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/Sam
 1. Run the qsp-modern-core script from Terminal Command Prompt:
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
 
@@ -645,7 +657,6 @@ The build for BoardX58Ich10 OpenBoardPkg is using build MACRO Switch:
 
 `-D ADD_SHELL_STRING` - used to change a string in the UEFI Shell application, only used for EDK II Training (requirs ShellPkg be re-built on a change of this switch)
 
-
 File OpenBoardPkg.dsc (apx. line 270)  - Notice: `!if $(ADD_SHELL_STRING) == TRUE` below
 ```
   ShellPkg/Application/Shell/Shell.inf {
@@ -691,10 +702,10 @@ Shell>
 
 ### Check Result without the build switch
 
-Run the qsp-modern-core script from Terminal Command Prompt:
+Run the qsp-modern-core script from  Windows Command Prompt:
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
 
@@ -750,10 +761,9 @@ Re-Build BoardX58Ich10
 From a Terminal Command Prompt
 
 ```bash
-$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
-$> python build_bios.py -p BoardX58Ich10 GCC5
+$> cd C:\FW\edk2-ws\edk2-platforms\Platform\Intel\
+$> python build_bios.py -p BoardX58Ich10  -t VS20XX
 ```
-
 Notice as the build is called the "`-D ADD_SHELL_STRING`" is added
 
 ```
@@ -767,12 +777,18 @@ Calling build -n 0 -D ADD_SHELL_STRING --log=Build.log --report-file=BuildReport
 
 1. Invoke Simics and Test Shell `Ver` Command
 
-Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd` To `Simics-Install-Directory/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
+
+`Copy  C:\fw\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\FV\BOARDX58ICH10.fd` 
+
+**To**
+
+`%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\images`
+
 
 Run the qsp-modern-core script from Terminal Command Prompt
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ``` 
 
@@ -803,8 +819,7 @@ simics> quit
 Add list of DEFINES in .DSC file. This is the **preferred** method for EDK II when a Build script is used
 
 1. Update line 388 of build_bios.py and remove the "-D ADD_SHELL_STRING", then Save
-2. Edit the file `~/FW/edk2-ws/edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10/OpenBoardPkgBuildOption.dsc`
-
+2. Edit the file `C:/fw/edk2-ws/edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10/OpenBoardPkgBuildOption.dsc`
 - Add the following DEFINE after Line 7
 - Save after update
 
@@ -819,11 +834,13 @@ Add list of DEFINES in .DSC file. This is the **preferred** method for EDK II wh
 
 Re-Build BoardX58Ich10
 
-From a Terminal Command Prompt
+From a Visual Studio Command Prompt
+
 
 ```bash
-$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
-$> python build_bios.py -p BoardX58Ich10 -t GCC5
+$> Cd C:\FW\edk2-ws\edk2-platforms\Platform\Intel\
+$> python build_bios.py -p BoardX58Ich10  -t VS20XX
+
 ```
 
 ---
@@ -831,12 +848,17 @@ $> python build_bios.py -p BoardX58Ich10 -t GCC5
 
 Invoke Simics and test Shell `Ver` command
 
-Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd` To `Simics-Install-Directory/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
+`Copy  C:\fw\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\FV\BOARDX58ICH10.fd` 
 
-Run the qsp-modern-core script from a Terminal Command Prompt
+**To**
+
+`%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\images`
+
+
+Run the qsp-modern-core script from a Windows Command Prompt
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
 
@@ -872,18 +894,18 @@ simics> quit
 ---
 ## Slide 41 Lab 2: If there are build errors...
 
-See class files for the solution from: Lab_Material_FW\LabSampleCode
+See class files for the solution from: `Lab_Material_FW\LabSampleCode`
 
-1. Copy the `~/Lab_Material_FW/LabSampleCode/SampleApp/MyPkg` directory to `~/FW/edk2-ws/edk2`
-2. See class files for the solution `...FW/LabSampleCode/LabSolutions/LessonB.2`
-3. Copy the .inf and .c files to  `~/FW/edk2-ws/edk2/MyPkg/SampleApp`
+1. Copy the `FW\LabSampleCode\SampleApp\MyPkg` directory to `C:\FW\edk2-ws\edk2`
+2. See class files for the solution `...FW\LabSampleCode\LabSolutions\LessonB.2`
+3. Copy the .inf and .c files to  `C:\FW\edk2-ws\edk2\MyPkg\SampleApp`
 4. Search sample DSC for reference to SampleApp.inf and add this line to your workspace DSC file
-`~/FW/edk2-ws/edk2-platforms/Platform/Intel/SimicsBoardPkg/BoardX58Ich10/OpenBoardPkg.dsc`  (near the bottom)
-
+`C:\FW\edk2-ws\edk2-platforms\Platform\Intel\SimicsBoardPkg\BoardX58Ich10\OpenBoard.dsc`  (near the bottom)
 ```
    MyPkg/SampleApp/SampleApp.inf
 ```
 Invoke  python build script again and check the solution
+
 
 ---
 ## Slide 42 Add Functionality
@@ -950,6 +972,7 @@ Note:
 - * NOTE -:  Install a CHM Viewer for Ubuntu
 - bash$ sudo aptitude install kchmviewer
 
+
 ---
 ## Slide 46 Lab 3: Modifying .c & .inf files
 
@@ -987,23 +1010,23 @@ Note: Solution files are in the lab materials directory `...FW\LabSampleCode\Lab
 ---
 ## Slide 47 Lab 3: Build and Test SampleApp
 
-1. At the Terminal Command Prompt, Re-Build BoardX58ICH10
+1. At the Visual Studio Command Prompt, Re-Build BoardX58ICH10
 
 ```bash
-$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
-$> python build_bios.py -p BoardX58Ich10 -t GCC5
+$> Cd C:\FW\edk2-ws\edk2-platforms\Platform\Intel\
+$> python build_bios.py -p BoardX58Ich10  -t VS20XX
 ```
 
 2. Copy SamppleApp.efi from the build directory to the VHD Disk
 
 ```bash
-$> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi ~/VHD
+$> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
 3. Run the qsp-modern-core script from Terminal Command Prompt
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
 
@@ -1073,8 +1096,6 @@ Locate Functions: `WaitForEvent` / `WaitForKey`
 - **OR** Search the working space for `WaitForEvent` for an example
 - One can be found in [MdePkg/Library/UefiLib/Console.c](https://github.com/tianocore/edk2/blob/master/MdePkg/Library/UefiLib/Console.c) ~ In 568.
 
-
-
 ---
 ## Slide 51 Lab 4: Update the C File for `WaitForKey`
 
@@ -1089,7 +1110,7 @@ UINTN               EventIndex;     // Line 410
     if (Status != EFI_NOT_READY) {
       continue;
     }
-    gBS->WaitForEvent (1, &gST->ConIn->WaitForKey, &EventIndex);  // Line 563
+    gBS->WaitForEvent (1, &gST->ConIn->WaitForKey, &EventIndex);  //Line 563
   }
 ...   
 ```
@@ -1098,7 +1119,7 @@ Add the following to SampleApp.c
 
 ```
 UINTN                      EventIndex; 
-Print(L"System Table: 0x%p\n",SystemTable); // From Lab 3
+Print(L"System Table: 0x%p\n",SystemTable);   //From Lab 3
 Print(L"\nPress any Key to continue : \n");
 gBS->WaitForEvent (1, &gST->ConIn->WaitForKey, &EventIndex);
 ```
@@ -1108,7 +1129,7 @@ gBS->WaitForEvent (1, &gST->ConIn->WaitForKey, &EventIndex);
 
 However, this won't compile ... `gBS` and `gST` are not defined
 
-The build error will be similar to: "`...error: 'gSt'  : undeclared (first use in thi function) ...`"
+The build error will be similar to: "`...error C2065: 'gSt'  : undeclared identifier ...`"
 - (See PDF for example of compilation errors)
 
 Search the MdePkg.chm for "`gBS`" and "`gST`" - they are located in `UefiBootServicesTableLib.h`
@@ -1149,22 +1170,22 @@ UefiMain (
 ---
 ## Slide 54 Lab 4: Build and Test SampleApp
 
-1. At the Terminal Command Prompt, Re-Build BoardX58Ich10
+1. At the Visual Studio Command Prompt, Re-Build BoardX58Ich10
 
 ```bash
-$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
-$> python build_bios.py -p BoardX58Ich10 GCC5
+$> cd C:\FW\edk2-ws\edk2-platforms\Platform\Intel\
+$> python build_bios.py -p BoardX58Ich10  -t VS20XX
 ```
-2. Copy SampleApp.efi from the build directory to the VHD Disk
+2. Copy SampleApp.efi from the build directory to the VHD Disk (X drive shown)
 
 ```bash
-$> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
+$> copy  C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the qsp-modern-core script from Windows Command Prompt
 
 ```bash
-$>  ./simics targets/qsp-x86/qsp-modern-core.simics
+$>  .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
 
@@ -1200,6 +1221,7 @@ Create a simple Typewriter Function using the SampleApp from Lab 4
 - Retrieve keys entered from keyboard (like Lab 4)
 - Print back each key entered to the console
 - To exit, press "." (DOT) and then \<Enter\>
+
 
 It should look similar to the following:
 ```
@@ -1242,6 +1264,7 @@ Create a simple Typewriter Function using the SampleApp from Lab 4
       - Use MdePkg.chm to find `ZeroMem` function
       - Use `ZeroMem` function on your variable buffer "Key" of type EFI_INPUT_KEY
 4. Use Boolean flag "ExitLoop" to exit your loop once the user enters a DOT "." character
+
 
 ---
 ## Slide 59 Lab 5: How Process (Hints)
@@ -1343,29 +1366,28 @@ UefiMain (
 }
 ```
 
-
 Copy and Paste from LabGuide (This document)
 
 ---
 ## Slide 62 Lab 5: Build and Test SampleApp
 
-1. At the Terminal Command Prompt, Re-Build BoardX58Ich10
+1. At the Visual Studio Command Prompt, Re-Build BoardX58Ich10
 
 ```bash
-$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
-$> python build_bios.py -p BoardX58Ich10 -t GCC5
+$> cd C:\FW\edk2-ws\edk2-platforms\Platform\Intel\
+$> python build_bios.py -p BoardX58Ich10  -t VS20XX
 ```
 
-2. Copy SampleApp.efi from the build directory to the VHD Disk Copy
+2. Copy SampleApp.efi from the build directory to the VHD Disk (drive X: as shown)
 
 ```bash
-$ cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi UefiAppLab ~/VHD
+$> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the qsp-modern-core script from Windows Command Prompt
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics 
+$> .\simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
 
@@ -1403,32 +1425,31 @@ How would you add these fixed to the SampleApp UEFI application?
 ---
 ## Slide 64 Lab 5.1: Bug Fixes
 
+
 (hint: Lesson B.5. has the solution)
-
-
 
 Add a line feed character after a "Enter" key.
 
 1. Update SampleApp.c with this fix (hint: print a CHAR_LINEFEED when a Carriage return is entered)
-2. At the Terminal Command Prompt, Re-Build BoardX58Ich10
-
+2. At the Visual Studio Command Prompt, Re-Build BoardX58Ich10
 ```bash
-$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
-$> python build_bios.py -p BoardX58Ich10 -t GCC5
+$> cd C:\FW\edk2-ws\edk2-platforms\Platform\Intel\
+$> python build_bios.py -p BoardX58Ich10  -t VS20XX
 ```
 
-3. Copy SampleApp.efi from the build directory to the VHD Disk
+3. Copy SampleApp.efi from the build directory to the VHD Disk (drive X: as shown)
 
 ```bash
-$> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
+$> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-4. Run the qsp-modern-core script from Terminal Prompt:
+4. Run the qsp-modern-core script from Windows Command Prompt
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
+
 5. Run SampleApp
 
 ```
@@ -1457,27 +1478,26 @@ simics> quit
 Use the Scan Code for ESC instead of the DOT character to exit the Typewriter Function (Hint: the ExitLoop flag will no longer be needed. Hint: Search workspace for SCAN_ESC)
 
 1. Update SampleApp.c to use SCAN_ESC to exit the do-loop
-2. At the Terminal Command Prompt, Re-Build BoardX58Ich10
-
+2. At the Visual Studio Command Prompt, Re-Build BoardX58Ich10
 ```bash
-$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
-$> python build_bios.py -p BoardX58Ich10 -t GCC5
+$> cd C:\FW\edk2-ws\edk2-platforms\Platform\Intel\
+$> python build_bios.py -p BoardX58Ich10  -t VS20XX
 ```
 
-3. Copy SampleApp.efi from the build directory to the VHD Disk
+3. Copy SampleApp.efi from the build directory to the VHD Disk (drive X: as shown)
 
 ```bash
-$> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
+$> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-4. Run the qsp-modern-core script from Terminal Prompt:
+4. Run the qsp-modern-core script from Windows Command Prompt
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
-5. Run SampleApp
 
+5. Run SampleApp
 
 ```
 Shell> Fs1:
@@ -1522,28 +1542,28 @@ DEFINE ADD_TYPEWRITER       = TRUE
   gEfiMyPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable|FALSE
 !endif
 ```
+3. At the Visual Studio Command Prompt, Re-Build BoardX58Ich10
+```bash
+$> cd C:\FW\edk2-ws\edk2-platforms\Platform\Intel\
+$> python build_bios.py -p BoardX58Ich10  -t VS20XX
+```
 
-3. At the Terminal Command Prompt, Re-Build BoardX58Ich10
+4. Copy SampleApp.efi from the build directory to the VHD Disk (drive X: as shown)
 
 ```bash
-$> cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel/
-$> python build_bios.py -p BoardX58Ich10 -t GCC5
+$> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-4. Copy SampleApp.efi from the build directory to the VHD Disk
+5. Run the qsp-modern-core script from Windows Command Prompt
 
 ```bash
-$> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
-```
-
-5. Run the qsp-modern-core script from Terminal Prompt:
-
-```
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
 
 6. Run SampleApp
+
+
 
 **FALSE**
 
@@ -1644,7 +1664,7 @@ Start with the packages for EADK from edk2-libc
 - /edk2-libc - AppPkg - has directory Applications
 - /edk2-libc - StdLib - contains the LibC libraries
 
-- Copy and paste directory ../FW/LabSampleCode/SampleCApp to \~/fw/edk2-ws/edk2-libc/AppPkg/Applications/SampleCApp
+- Copy and paste directory ../FW/LabSampleCode/SampleCApp to C:/FW/edk2-ws/edk2-libc/AppPkg/Applications/SampleCApp 
 
 ---
 ## Slide 72 Lab 6: EDK II using EADK
@@ -1693,7 +1713,7 @@ main (
 ---
 ## Slide 73 Lab 6: Update AppPkg.dsc
 
-Edit the \~/fw/edk2-ws/edk2-libc/AppPkg/AppPkg.dsc and add SampleCApp.inf at the end of the components section
+Edit the C:/fw/edk2-ws/edk2-libc/AppPkg/AppPkg/AppPkg.dsc and add SampleCApp.inf at the end of the components section
 
 - (hint: search for "#### Sample Applications")
 - `AppPkg/Applications/SampleCApp/SampleCApp.inf`
@@ -1710,28 +1730,38 @@ AppPkg/Applications/SampleCApp/SampleCApp.inf # LAB 6
 ```
 
 ---
-## Slide 74 Lab 6: Build and Test SampleCApp
+## Slide 74 Lab 6: Open Another Visual Studio Command Prompt
 
-1. Build the AppPkg at a NEW Terminal Prompt
+1. Right Click on the Task tray VS Command prompt Icon to Open another Visual Studio Command Prompt 
+2. Left Click on "Developer . . ."
+      (this opens another window)
+3. Then :
+```
+$> cd C:\fw\edk2-ws\
+$> setenv.bat
+$> cd edk2
+$> edksetup.bat
+```
+
+----
+## Slide 75 Lab 6: Build and Test SampleCApp
+
+1. Build the AppPkg at a NEW VS Prompt
 
 ```bash
-$ cd ~/fw/edk2-ws/ 
-$ . setenv.sh 
-$ cd edk2 
-$ . edksetup.sh 
 $> build -p AppPkg/AppPkg.dsc -m AppPkg/Applications/SampleCApp/SampeCApp.inf
 ```
 
-2. Copy the build application SampleCApp.efi to the VHD Drive
+2. Copy the build application SampleCApp.efi to the VHD Drive (X: is UefiAppLab Disk)
 
 ```bash
-$ cp ~/fw/edk2-ws/Build/AppPkg/DEBUG_GCC5/X64/SampleCApp.efi ~/VHD
+$> copy C:\fw\edk2-ws\Build\AppPkg\DEBUG_VS20XX\X64\SampleCApp.efi  X:
 ```
 
 3. Run the qsp-modern-core script from Terminal Command Prompt
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
 
@@ -1754,13 +1784,13 @@ Notice that the program will immediately unload because the main function is emp
 
 
 ---
-## Slide 75 Lab 7: Adding Functionality to SampleCApp
+## Slide 76 Lab 7: Adding Functionality to SampleCApp
 
 In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This lab will use EADK libraries, so the coding style is similar to standard C.
 
 
 ---
-## Slide 76 Lab 7: Add Feature PCD
+## Slide 77 Lab 7: Add Feature PCD
 
 **AppPkg/AppPkg.dec**
 
@@ -1786,7 +1816,7 @@ In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This l
 ```
 
 ---
-## Slide 77 Lab 7: Add the same functionality from Lab 5
+## Slide 78 Lab 7: Add the same functionality from Lab 5
 
 **SampleCApp.c**
 
@@ -1850,7 +1880,7 @@ In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This l
 
 
 ---
-## Slide 78 Lab 7: Add the same functionality from Lab 5
+## Slide 79 Lab 7: Add the same functionality from Lab 5
 
 
 **SampleCApp.c**
@@ -1867,70 +1897,6 @@ In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This l
    puts("Press any Key and then <Enter> 
          to continue : ");
    c=(char)getchar();
-   
-   if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
-     puts ("Enter text. Include a dot ('.') in a 
-         sentence then <Enter> to exit:");
-     do {
-        c=(char)getchar();
-        } while (c != '.');
-   }
-   puts ("/n");
-
-   return 0;
- }
-
-```
-
-
-**SampleCApp.inf**
-
-```
-[Defines]
-  INF_VERSION        = 1.25
-  BASE_NAME          = SampleCApp
-  FILE_GUID          = 4ea9…
-  MODULE_TYPE        = UEFI_APPLICATION
-  VERSION_STRING     = 0.1
-  ENTRY_POINT        = ShellCEntryLib
-
-[Sources]
-  SampleCApp.c
-
-[Packages]
-  StdLib/StdLib.dec
-  MdePkg/MdePkg.dec
-  ShellPkg/ShellPkg.dec
-  AppPkg/AppPkg.dec
-
-[LibraryClasses]
-  LibC
-  LibStdio
-  UefiBootServicesTableLib                              /** 3 **/
-  PcdLib
-
-[FeaturePcd]
-  gAppPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable
-```
-
-
----
-## Slide 79 Lab 7: Add the same functionality from Lab 5 
-
-**SampleCApp.c**
-
-```c
-
-#include <stdio.h>
-#include <Library/PcdLib.h>
-#include <Library/UefiBootServicesTableLib.h>           /** 3 **/
-// . . .
-   char c;
-   printf("System Table: %p /n", gST) ;                 /** 3 **/
-   
-   puts("Press any Key and then <Enter>
-         to continue : ");                              /** 4 **/
-   c=(char)getchar();                                   /** 4 **/
    
    if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
      puts ("Enter text. Include a dot ('.') in a 
@@ -1996,6 +1962,70 @@ In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This l
          to continue : ");                              /** 4 **/
    c=(char)getchar();                                   /** 4 **/
    
+   if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
+     puts ("Enter text. Include a dot ('.') in a 
+         sentence then <Enter> to exit:");
+     do {
+        c=(char)getchar();
+        } while (c != '.');
+   }
+   puts ("/n");
+
+   return 0;
+ }
+
+```
+
+
+**SampleCApp.inf**
+
+```
+[Defines]
+  INF_VERSION        = 1.25
+  BASE_NAME          = SampleCApp
+  FILE_GUID          = 4ea9…
+  MODULE_TYPE        = UEFI_APPLICATION
+  VERSION_STRING     = 0.1
+  ENTRY_POINT        = ShellCEntryLib
+
+[Sources]
+  SampleCApp.c
+
+[Packages]
+  StdLib/StdLib.dec
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+  AppPkg/AppPkg.dec
+
+[LibraryClasses]
+  LibC
+  LibStdio
+  UefiBootServicesTableLib                              /** 3 **/
+  PcdLib
+
+[FeaturePcd]
+  gAppPkgTokenSpaceGuid.PcdTypeWriterFeatureEnable
+```
+
+
+---
+## Slide 81 Lab 7: Add the same functionality from Lab 5 
+
+**SampleCApp.c**
+
+```c
+
+#include <stdio.h>
+#include <Library/PcdLib.h>
+#include <Library/UefiBootServicesTableLib.h>           /** 3 **/
+// . . .
+   char c;
+   printf("System Table: %p /n", gST) ;                 /** 3 **/
+   
+   puts("Press any Key and then <Enter>
+         to continue : ");                              /** 4 **/
+   c=(char)getchar();                                   /** 4 **/
+   
    if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {     /** 5 **/
      puts ("Enter text. Include a dot ('.') in a 
          sentence then <Enter> to exit:");              /** 5 **/
@@ -2043,25 +2073,25 @@ In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This l
 
 
 ---
-## Slide 81 Lab 7: Build and test SampleCApp
+## Slide 82 Lab 7: Build and test SampleCApp
 
 
-1. Build the AppPkg at a NEW Terminal Prompt
+1. Build the AppPkg at a NEW Visual Studio Prompt
 
 ```bash
 $> build -p AppPkg/AppPkg.dsc -m AppPkg/Applications/SampleCApp/SampeCApp.inf
 ```
 
-2. Copy the build application SampleCApp.efi to the VHD Drive
+2. Copy the build application SampleCApp.efi to the VHD Drive (X: is UefiAppLab Disk)
 
 ```bash
-$ cp ~/fw/edk2-ws/Build/AppPkg/DEBUG_GCC5/X64/SampleCApp.efi ~/VHD
+$> copy C:\fw\edk2-ws\Build\AppPkg\DEBUG_VS20XX\X64\SampleCApp.efi  X:
 ```
 
 3. Run the qsp-modern-core script from Terminal Command Prompt
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
 
@@ -2088,7 +2118,7 @@ simics> quit
 ```
 
 ---
-## Slide 82 Summary
+## Slide 83 Summary
 
 - UEFI Application with PCDs
 - Simple UEFI Application
@@ -2096,24 +2126,24 @@ simics> quit
 - Using EADK with UEFI Application
 
 ---
-## Slide 83 Questions?
+## Slide 84 Questions?
 
 
 <br>
 
 ---
-## Slide 84 Return to Main Training Page
+## Slide 85 Return to Main Training Page
 
 Return to Training table of contents for next presentation [link](https://github.com/tianocore-training/Tianocore_Training_Contents/wiki)
 
 ---
-## Slide 85 Logo Slide
+## Slide 86 Logo Slide
 
 
 <br>
 
 ---
-## Slide 86 Acknowledgements
+## Slide 87 Acknowledgements
 
 Redistribution and use in source (original document form) and 'compiled‘ forms (converted to PDF, epub, HTML and other formats) with or without modification, are permitted provided that the following conditions are met:
 
@@ -2131,37 +2161,42 @@ Copyright (c) 2021-2022, Intel Corporation. All rights reserved.
 
 
 ---
-## Slide 87 Mounting a VhD File Disk
+## Slide 88 
+## Open Disk Manager & Attach VHD
 
-To Mount:
-Open Terminal Prompt in the Simics Install directoryProject directory
+### Attach VHD with Disk Manager
 
-e.g., <InstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images (this is the directory where the .VHD files are copied to)
-
-First use virt-list-filesystems to create a file system from the .VHD file.
-  This will show a partition e.g. /dev/sda1 required for the guestmount command 
-
-```bash
-$ sudo virt-list-filesystems UefiAppLab.vhd
-```
-
-Use the guestmount command to mount the file.
-  (Note: may need to create \~/VHD directory with correct permissions)
-
-```bash
-$ sudo guestmount -a UefiAppLab.vhd -m /dev/sda1 -w ~/VHD -o allow_other
-```
-
-To Unmount:
-
-```bash
-$ sudo unmount /VHD
-```
-
-[Online Tutorial Link](https://www.youtube.com/watch?v=A7OlFwTNWYc)
+1. Open Disk Manager - Using the Search menu,  Lower Left, just right of the  Windows Logo, type:
+    - "Disk Manager"
+2. Select Open and select "OK" on the Security menu
 
 ---
-## Slide 88 Simics Agent for UEFI  using Matic
+## Slide 89 Attach a VHD File
+	
+
+1. Select “Action” then “Attach VHD file” - This will mount the file as a disk image
+2. Select Browse
+3. Use File Explorer to Find VHD file in Simics Image directory where the .VHD files are copied to
+    - ` %USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\images` 
+4. Select Open
+5. Click: OK
+    - UEFIAPPLAB will be assigned a Drive letter  (e.g., X:)
+---
+## Slide 90 Mounted VHD is Ready
+
+Files from Windows can now be copied to & from the mounted VHD. Update files Here on the VHD Drive (e.g., X:)
+
 ### Simics Agent for UEFI  using Matic
-- Note, the VHD method of copying UEFI Applications to use inside the UEFI Shall running Simics works only for coping TO the VHD driver. 
-- If there is data required FROM the UEFI Shell running under Simics, It is preferable to use the Simics simics_agent_efi  
+- Note, the VHD method of copying UEFI Applications to use inside the UEFI Shall running Simics works only for coping **TO** the 
+VHD driver. 
+- If there is data required **FROM** the UEFI Shell running under Simics, It is preferable to use the Simics `simics_agent_efi`  
+
+
+---
+## Slide 91 Detach/Dismount the VHD File
+
+Once Finished, 
+1. Right Click inside left box in Disk Manager
+2. Select “Detach VHD”
+3. OK
+

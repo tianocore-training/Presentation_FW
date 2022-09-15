@@ -2,7 +2,7 @@
 # Windows (Part 1)
 
 ---
-## Slide 1  Platform Build Win Emulator Lab
+## Slide 1  Build Setup and Download EDK II Lab
 
 ## UEFI & EDK II Training
 
@@ -12,9 +12,9 @@
 
 
 <!---
- Lab_Guide.md for Platform Build Win Emulator Lab
+ Lab_Guide.md for Build Setup and Download EDK II  Windows
 
-  Copyright (c) 2020-2021, Intel Corporation. All rights reserved –
+  Copyright (c) 2020-2022, Intel Corporation. All rights reserved –
 
   Redistribution and use in source (original document form) and 'compiled'
   forms (converted to PDF, epub, HTML and other formats) with or without
@@ -116,14 +116,14 @@ All Windows Labs use this short-cut to Build Edk II platforms and projects using
    - Non Stuart CI - Visual Studio VS2015, VS2017 or VS2019
 - Python 3.8.x or greater and /Scripts directories on Path: [Link](https://www.python.org/) to download 
 - Git for Windows on Path: [Link](http://git-scm.com/download/win)
-- NASM  for Win64: [Link](https://www.nasm.us/pub/nasm/releasebuilds/2.12.02/win64/)
+- NASM  2.15.x or greater for Win64: [Link](https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/win64/)
 - IASL Compiler Install iasl from [Link](https://acpica.org/node/199) (iasl-win-20220331.zip)
 
 
 ---
 ## Slide 10 Setup Simics Environment
 
-Download and Install the Simics Simulator (both Package Manager & Simics-6 Packages)[Simics® Simulator Public Release](https://www.intel.com/content/www/us/en/developer/articles/tool/simics-simulator.html)
+Download and Install the Simics Simulator (both Package Manager & Simics-6 Packages) [Simics® Simulator Public Release](https://www.intel.com/content/www/us/en/developer/articles/tool/simics-simulator.html)
 
 Setup the Simics Simulator
 
@@ -149,7 +149,7 @@ Use Git Bash to download EDK II
 Open a Windows Command Prompt for VS
 Make new directory for Workspace:
 
-```
+```bash
 $ cd /
 $ Mkdir FW
 $ cd FW
@@ -162,30 +162,30 @@ $ cd edk2-ws
 ### Download the open source EDK II from GitHub
 
 Note:  if behind a firewall, set PROXYS FIRST (example shows for Intel Corp. -- Maybe different for your Corp. or GEO)
-```
+```bash
 $ git config --global https.proxy proxy-dmz.intel.com:912
 $ git config --global http.proxy proxy-dmz.intel.com:911
 ```
 
 From the command prompt use "git clone" to download following repos
-\#Edk2 - main core code
-```
+- Edk2 - main core code
+```bash
 $ git clone -b Edk2Lab_22Q3 https://github.com/tianocore-training/edk2.git
 ```
-\#EDK II "C" Library Repo
-```
+- EDK II "C" Library Repo
+```bash
 $ git clone https://github.com/tianocore/edk2-libc.git
 ```
-\#EDK II Platforms Repo
+- EDK II Platforms Repo
+```bash
+$ git clone https://github.com/tianocore/edk2-platforms.git
 ```
-$ git clone https:://github.com/tianocore/edk2-platforms.git
+- EDK II Non-OSI (Stand alone Binaries)
+```bash
+$ git clone https://github.com/tianocore/edk2-non-osi.git
 ```
-\#EDK II Non-OSI (Stand alone Binaries)
-```
-$ git clone https:://github.com/tianocore/edk2-non-osi.git
-```
-\#Intel FSP
-```
+- Intel FSP
+```bash
 $ git clone https://github.com/intel/FSP.git
 ```
 
@@ -194,24 +194,26 @@ $ git clone https://github.com/intel/FSP.git
 ### Download the open source EDK II from GitHub
 
 Download the Submodules and Checkout the Lab Branch
-```
+```bash
 $ C:\fw\edk2-ws> cd edk2
 $ C:\fw\edk2-ws\edk2> git submodule update --init
 $ C:\fw\edk2-ws> cd ..
 ```
 
 Download Checkout the Sha tag for edk2-platforms repo
-```
+```bash
 $ C:\fw\edk2-ws> cd edk2-platforms
 $ C:\fw\edk2-ws> git reset --hard c546cc01f1517b42470f3ae44d67efcb8ee257fc
 ```
 
-(rest to this commit since this is used with all the labs)
+(reset to this commit since this is used with all the labs)
 
 ---
 ## Slide 15  Download Lab_Material_FW - getting the Source 
 Download the Lab_Material_FW.zip from: [github.com Lab_Matrial_FW.zip](https://github.com/tianocore-training/Lab_Material_FW/archive/refs/heads/main.zip)
+
 OR
+
 Use `git clone` to download the Lab_Material_FW
 ```bash
 C:\> git clone https://github.com/tianocore-training/Lab_Material_FW.git
@@ -239,24 +241,25 @@ Download the Lab_Material_FW.zip from [link](https://github.com/tianocore-traini
 
 
 ---
-## Slide 17  Build  Edk2
+## Slide 17  Build  Edk II
 ### Copy edk2-ws
 
 
-From the downloaded Lab_Material_FW folder **copy** and **paste** folder `"..\edk2-ws"` to `"C:/FW"`
+From the downloaded Lab_Material_FW folder **copy** and **paste** folder `"..Lab_Material_FW\FW\edk2-ws"` to `"C:\FW"`
 
 
 *Note:* Overwrite existing files and directories
 
 
 ---
-## Slide 18  Build  Edk2
+## Slide 18  Build  Edk II
 ### Get Nasm
 
 Copy `Nasm` directory to `C:\`
 
 (creating `C:\Nasm` directory)
 
+*Note: If only Readme.txt exist in the Directory from the   Lab_Material_FW folder then follow Readme.txt instructions to download the Nasm Executable
 
 ---
 ## Slide 19  Build EDK II
@@ -265,6 +268,9 @@ Copy `Nasm` directory to `C:\`
 Copy `asl` directory to `C:\`
 
 (creating `C:\asl` directory)
+
+*Note: If only Readme.txt exist in the Directory from the   Lab_Material_FW folder then follow Readme.txt instructions to download the Iasl Executable.
+
 
 
 ---
@@ -278,37 +284,38 @@ Note: will need to update conf/target.txt for other labs
 ### build BaseTools
 
 Open VS Command prompt & cd to workspace directory
-```
+```bash
 $> cd C:\fw\edk2-ws
 ```
 
 Setup the local environment: (see batch file `setenv.bat`)
 Sets WORKSPACE and PACKAGES_PATH env variables
-```
+```bash
 $> setenv.bat
 ```
 
 Invoke Edksetup.bat from directory C:/fw/edk2-ws/edk2 to Build BaseTools
-```
+```bash
 $> cd edk2
 $> edksetup.bat Rebuild
 ```
 
 **Important NOTE:** only use "Rebuild" on the first time - there after just use "edkseup.bat"
 
+Building BaseTools only needs to be done once but setting up local environment and edksetup.bat needs to be done each new VS prompt session
 
 ---
 ## Slide 22 Update Conf/Target.txt
 
 **Invoke** Edksetup.bat
 
-```
+```bash
 $> cd C:\fw\edk2-ws\edk2
 $> edksetup.bat
 ```
 
 **Edit** the file Conf/target.txt (**change** TOOL_CHAIN_TAG)
-```
+```bash
 $> notepad Conf/target.txt
 ```
 
@@ -326,6 +333,7 @@ VS Version Guide
 | 2017 | VS2017 |
 | 2019 | VS2019 |
 
+Save and exit
 
 <br>
 

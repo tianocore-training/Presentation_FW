@@ -1,16 +1,20 @@
-# UEFI Shell Lab with Simics
-# Linux
 
----
-## Slide 1 UEFI & EDK II Training
-### UEFI Shell Lab with Simics - Linux
+# UEFI Shell Lab with Simics
+# Windows
+
+##  Slide  1   UEFI & EDK II Training
+### UEFI Shell Lab with Simics - Windows
 
 See also Lab Guide (this document) for Copy & Paste examples in labs
 
 [tianocore.org](https://www.tianocore.org/)
 
+
+<br>
+<a href='http://www.tianocore.org'>tianocore.org</a>
+
 <!---
- Lab_Guide.md for UEFI / EDK II Training  UEFI Shell Linux Lab
+ Lab_Guide.md for UEFI / EDK II Training  UEFI Shell Windows Lab
 
   Copyright (c) 2020-2022, Intel Corporation. All rights reserved.<BR>
 
@@ -39,40 +43,51 @@ See also Lab Guide (this document) for Copy & Paste examples in labs
   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
+
+---  
+## Slide  2  Lesson Objective
+
+###  Lesson Objective  <br>
+
+
+- Run UEFI Shell  win Simics QSP
+- Run UEFI Shell Commands 
+- Run UEFI Shell Scripts 
+
+  
+
 ---
-## Slide 2 Lesson Objectives
+## Slide  3  UEFI Shell Lab with Simics
 
-- Run UEFI Shell with Simics  QSP
-- Run UEFI Shell Commands
-- Run UEFI Shell Scripts
+###  UEFI Shell Lab with Simics
 
----
-## Slide 3 UEFI Shell Lab with Simics
 
-<br>
 
 ---
 ## Slide 4 Invoke Simics with Platform BoardX58Ich10
 
-First Setup for Building EDK II, See [Lab Setup](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md#build-emulator) then [Platform Build Lab for Simics Linux](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_02_Platform_Build_Linux_Simics_LabGuide.md)
+First Setup for Building EDK II, See [Lab Setup](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Build_Setup_Download_EDK_II_Win_LabGuide.md)
+then [Platform Build Lab for Simics Windows](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_02_Platform_Build_Win_Simics_LabGuide.md)
 
 To Build BoardX58Ich10, from a Terminal Command prompt
 
 ```bash
-$ cd ~/fw/edk2-ws/edk2
+$ cd C:\fw\edk2-ws\edk2
 $ . edksetup.sh
-$ cd ~/fw/edk2-ws/edk2-platforms/Platform/Intel
-$ python build_bios.py -p BoardX58Ich10 -t GCC5
+$ cd C:\fw\edk2-ws\edk2-platforms\Platform\Intel
+$ python build_bios.py -p BoardX58Ich10 -t VS20xx
 ```
+- Where XX is `15x86` or `17` or `19`
 
-Copy the .../Build/.../FV/BOARDX58ICH10.fd to \<SimicsInstallDir\>/simics-qsp-x86-6.0.57/targets/qsp-x86/images
 
-Open Terminal Prompt in the Simics project directory e.g. `$ HOME/simics-projects/my-simics-project-1`
+Copy the ...\Build\...\FV\BOARDX58ICH10.fd to %USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\images
+
+Open a Windows Command Prompt in the Simics project directory e.g. `%USERPROFILE%/simics-projects/my-simics-project-1`
 
 Run the qsp-modern-core script:
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run (Press "F2" at the logo)
 ```
 
@@ -80,13 +95,14 @@ simics> run (Press "F2" at the logo)
 ## Slide 5 UEFI Shell Commands
 ### Commands from the Command Line Interface
 
-<br>
+
 
 ---
-## Slide 6 Common Shell Commands for Debugging
+## Slide  6  Common Shell Commands 
+###  Common Shell Commands For Debugging 
 
-```
-help
+```shell
+help 
 mm
 mem
 memmap
@@ -94,17 +110,33 @@ drivers
 devices
 devtree
 dh
-load
+Load
 dmpstore
 pci
 stall
 bcfg
 ```
 
-"-b" is the command line parameter for breaking after each page.
+- "-b" is the command line parameter for breaking after each page.
+
+
+Note:
+
+Next for this lab there are a few shell commands that will help us with debugging. For example if you are writing a driver, you would want to get familiar with these shell commands. Each of these commands will have a help option to give you further information about these commands.
+
+We are not going to go all were these in detail but just to make you aware of the shell commands.
+
 
 ---
-## Slide 7 Shell Help
+
+## Slide  7  Shell Help Command 
+###  Shell Help 
+
+
+<span style="background-color: #000000"><font color="#FFFF00">&nbsp;
+<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
+help -b</font>&nbsp; </font></span>
+
 
 
 ```
@@ -140,8 +172,10 @@ Next let’s just try the help shell command. So once you reach the shell go ahe
 And what you will see is the list of all the shell commands built into this platform followed by a one liner information about each command.
 To exit, this emulation simply type: "reset"
 
+
 ---
-## Slide 8 Shell "memmap"
+## Slide  8  Shell memmap Command 
+###  Shell "memmap" 
 
 ```
 Shell> memmap
@@ -150,7 +184,6 @@ Shell> memmap
 Displays the memory map maintained by the UEFI environment
 
 ```
-
 . . .
 
 BS_Data    00000117FC9E7000-00000117FC9F3FFF 000000000000000D 000000000000000F
@@ -178,16 +211,17 @@ Total Memory:            128 MB (134,217,728 Bytes)
 Shell> 
 ```
 
-
 ---
-## Slide 9 Shell "mm"
+
+## Slide  9  Shell mm Command help 
+###  Shell "mm" 
+
 
 ```
 Shell> mm -? -b
 ```
 
-Help for "mm" command shows options for different types of memory and I/O that can be modified.
-
+Help for "mm" command shows options for different types of memory and I/O that can be modified
 ```
 Shell> mm -? -b
 Displays or modifies MEM/MMIO/IO/PCI/PCIE address space.
@@ -306,20 +340,24 @@ EXAMPLES:
 Shell>
 ```
 
+
+
+
 ---
-## Slide 10 Shell "mm" Command
+## Slide  10  Shell mm   Command 
+###  Shell "mm" 
+
 
 ```
 Shell> mm df33d000**
 ```
 
 
-
 **Pick a location from the MemMap command on Previous slides e.g.:
 ```
   BS_Data    00000000DF33D000-00000000DF552FFF 0000000000000028 000000000000000F
 ```
-MM in can display / modify any location 
+MM in can display / modify any location  
 Note use "q" to quit
 
 
@@ -337,15 +375,16 @@ MEM 0x00000117FC9F5004 : 0x00 >q
 
 Shell>
 ```
-
 Try 
+
+Do **not** try in Windows Emulator. Because the emulator will crash. It is okay with Simics.
+
 
 ```
 Shell> mm 0000
 ```
 
-"q" to quit
-
+Use "q" to quit
 
 Note:
 
@@ -353,16 +392,18 @@ Press the "enter" key and the contents of each location is shown.
 
 This command allows changing the contents of each memory location.
 
+
 ---
-## Slide 11 Shell "mem"
+## Slide  11  Shell mem Command 
+###  Shell "mem" 
 
 ```
 Shell> mem
 ```
 
-Displays the contents of the system or device memory 
 
-without arguments, displays the system memory configuration nad
+Displays the contents of the system or device memory
+without arguments, displays the system memory configuration and
 the UEFI System Table Pointer 
 
 ```
@@ -395,9 +436,11 @@ Note:
 
 
 
-
 ---
-## Slide 12 Shell "Drivers"
+
+
+## Slide  12  Shell drivers Command 
+###  Shell "drivers" 
 
 ```
 Shell> drivers -b
@@ -446,7 +489,6 @@ V  VERSION  E G G #D #C DRIVER NAME                         IMAGE NAME
 Shell>
 ```
 
-
 To get a description of each section in the list, (top header)
 
 Use:
@@ -455,12 +497,15 @@ Use:
 Shell> drivers -?
 ```
 
----
-## Slide 13 Shell "Devices"
 
-```
-Shell> devices -b
-```
+
+
+---
+## Slide  13  Shell devices Command 
+###  Shell "devices" 
+<span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
+devices
+ </font>&nbsp;&nbsp; </font></span>
 
 Displays a list of devices that UEFI drivers manage.
 
@@ -484,10 +529,12 @@ CTRL E G G #P #D #C  Device Name
 Shell>
 
 ```
+For the Windows Emulation there is not that many devices
+
 
 ---
-## Slide 14 Shell "Devtree"
-
+## Slide  14  Shell devtree Command 
+###  Shell "devtree" 
 ```
 Shell> devtree -b
 ```
@@ -518,16 +565,20 @@ Shell> devtree
 Shell>
 ```
 
----
-## Slide 15 Shell Handle Database - "Dh"
 
-```
-Shell> dh -b
-```
+
+---
+## Slide  15  Shell handle Database Command 
+###  Shell handle database - "dh" 
+<span style="background-color: #000000"><font color="#FFFF00">&nbsp;&nbsp;<font face="Consolas">Shell&gt;</font></font><font color="#FFFFFF"><font face="Consolas"> 
+dh -b
+ </font>&nbsp;&nbsp; </font></span>
 
 Dump Handle - Displays the device handles associated with UEFI drivers
 
-Also try `dh - d` with handle number to get more information on that handle.
+
+Also try "dh -d" with handle number to get more information on that handle.
+
 ```
 Shell> dh -b
 Handle dump
@@ -570,7 +621,9 @@ dh -d b5
 to get more information on that device being managed
 
 ---
-## Slide 17 Shell "Load"
+
+## Slide  17  Shell Load Command 
+###  Shell "load" 
 
 ```
 Shell> load -?
@@ -612,11 +665,14 @@ Shell>
 ```
 
 ---
-## Slide 18 Shell "dmpstore"
+## Slide  18  Shell Dmpstore Command 
+###  Shell "Dmpstore" 
+
 
 ```
 Shell> dmpstore -all -b
 ```
+
 
 Display the contents of the NVRAM variables
 
@@ -647,9 +703,9 @@ Variable NV+RT+BS 'EFIGlobalVariable:Boot0004' DataSize = 0x9C
   00000090: 11 9F 59 4D 85 0E E2 1A-52 2C 59 B2              *..YM....R,Y.*
   Press ENTER to continue or 'Q' break:
 ```
-
 ---
-## Slide 19 Shell "pci"
+## Slide  19  Shell PCI Command 
+###  Shell "PCI"
 
 ```
 Shell> pci -? -b
@@ -694,6 +750,7 @@ EXAMPLES:
 
 ```
 
+
 ---
 ## Slide 20 Shell "pci"
 
@@ -713,7 +770,8 @@ Shell> pci 00 00 00 -i
 Display the configuration space of Bus 0, Device 0, Function 0.
 
 ---
-## Slide 22 Shell "Stall"
+## Slide  22  Shell Stall Command 
+###  Shell "stall" 
 
 ```
 Shell> stall 10000000
@@ -723,26 +781,39 @@ Stalls the operation for a specified number of microseconds
 
 ```
 Shell> stall 10000000
-Shell> 
+Shell>
 ```
 
 
 ---
-## Slide 23 UEFI Shell Scripts
-### Use Scripting with UEFI Shell
 
-<br>
+
+
+
+## Slide  23  UEFI Shell Lab Scripts Section
+
+
+### UEFI Shell Scripts
+
+
+### Use Scripting with UEFI Shell 
 
 ---
-## Slide 24 UEFI Shell Scripts
+## Slide  24  UEFI Shell Scripts 
+###  UEFI Shell Scripts 
 
-The UEFI Shell can execute commands from a file, which is called a batch script file (.nsh files)
 
-**Benefits:** These files allow users to simplify routine or repetitive tasks.
+The UEFI Shell can execute commands from a file, which is called a batch script file (<font face="consolas" color="cyan"><b>.nsh</b></font> files).  
 
-- Perform basic flow control.
-- Allow branching and looping in a script.
-- Allow users to control input and output and call other batch programs (known as script nesting).
+
+**Benefits:** These files allow users to simplify routine or repetitive tasks. <br>
+
+- Perform basic flow control.  
+- Allow branching and looping in a script.  
+- Allow users to control input and output and call other batch programs (known as script nesting).  
+
+
+
 
 ---
 ## Slide 25 Exit QSP UEFI Shell & Simics
@@ -753,11 +824,11 @@ The UEFI Shell can execute commands from a file, which is called a batch script 
 - To exit this situation, type: "quit"
 	- This will remove all other Simics windows
 
-
 ```
 simics> stop
 simics> quit
 ```
+
 ---
 ## Slide 26 Copy ShellLab.vhd file
 
@@ -765,13 +836,12 @@ Copy the ShellLab.vhd
 
 From:
 
-.../Lab_Material_FW/FW?LabSampleCode/ShellScripts/ShellLab.vhd
+.../Lab_Material_FW/FW/LabSampleCode/ShellScripts/ShallLab.vhd 
 
 to
 ```
-<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images
+%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\images
 ```
-Where *SimicsInstallDir* is the directory selected to install simics, e.g., `Computer/usr/bin/simics`
 
 ---
 ## Slide 27 Update the Simics Script
@@ -780,7 +850,10 @@ Update the Simics Script to Use the ShellLab.vhd image as a file system
 
 Edit the file: `qsp-modern-core.simics` from
 
-`<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/qsp-modern-core.simics`
+
+```
+%USERPROFILE%\ \AppData\Local\Programs\Simics\simics-qsp-cpu-6.0.4\targets\qsp-x86\qsp-modern-core.simics
+```
 
 Add the following line:
 
@@ -788,11 +861,11 @@ Add the following line:
 $disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd"
 ```
 
-Before the "run-command-file" line
+Before the "`run-command-file`" line
 
-Save `qsp-modern-core.simics`
+Save qsp-modern-core.simics
 
-File: 	`qsp-modern-core.simics`
+File: qsp-modern-core.simics
 
 ```
 Decl{
@@ -817,14 +890,17 @@ run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
 Re-run the qsp-modern-core script from the Simics Command Prompt:
 
 ```bash
-$> ./simics targets/qsp-x86/qsp-modern-core.simics
+$> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run (Press "F2" at the logo)
 ```
 
 Note: now there is a "FS1" file system
 
 ---
-## Slide 29 Writing UEFI Shell Scripts
+
+
+## Slide  29  Writing UEFI Shell Scripts
+###  Writing UEFI Shell Scripts  
 
 
 
@@ -832,25 +908,20 @@ With the UEFI shell There is an editor included. This is a very simple editor bu
 
 Shell editor help  menu - Cnt W
 
-
 At the shell prompt
-
 ```
 Shell> fs1:
-FS1:\> edit HelloScript.nsh
+FS1:\> edit HelloScript.nsh 
 ```
 
-Type:
+**Type:** `echo Hello World`  inside the editor
 
-```
-echo Hello World
-```
+Note do not use double quotes
 
 To save and exit
 - Press "F2"
-- Enter
+- Enter 
 - Press "F3" to exit
-
 
 UEFI Shell Editor Help
 
@@ -867,16 +938,19 @@ UEFI Shell Editor Help
 | Ctrl-T | F9 | File type |
 
 ---
-## Slide 30 Hello World Script
+## Slide  30  Hello World Script
+###  Hello World Script 
+
 
 In the shell, type HelloScript for the following result:
 
 ```
-FS1:\> HelloScript.nsh
-FS1:\> echo Hello World
+FS0:\> HelloScript.nsh
+FS0:\> echo Hellow World
 Hello World
-FS1:\> 
+FS0:\>
 ```
+
 
 ---
 ## Slide 31 UEFI Shell Script Example
@@ -909,13 +983,14 @@ walk through the script calling the second script
 - if
 - for loop
   - %a counting down...
-
-
+  
 ---
-## Slide 32 Run UEFI Shell Scripts
+## Slide  32  Run UEFI Shell Scripts 
+###  Run UEFI Shell Scripts 
 
-At the shell prompt type:
 
+ At the Shell prompt Type  
+ 
 ```
 Shell> fs1:
 FS1:\> cd ShellScripts
@@ -944,8 +1019,7 @@ FS1:\ShellScripts\>		echo %a counting down
 FS1:\ShellScripts\> if exist %cwd%Mytime.log then
 FS1:\ShellScripts\> echo " Thank you." " ByeBye" " :)" " " " Done"
  Thank you.  ByeBye  :)  Done
-```
-
+``` 
 ---
 ## Slide 33 Run UEFI Shell Scripts
 
@@ -974,32 +1048,31 @@ Type
 FS1:\ShellScripts\> Script1
 ```
 
+
 ---
 ## Slide 34 UEFI Shell Global Variables
-### Use BCFG and DmpStore
 
-<br>
+### Use BCFG and DmpStore
 
 
 ---
-## Slide 35 Show the UEFI Boot Variables
+## Slide 35  Show the UEFI Boot Variables
 
 At the Shell Prompt:
-
 ```
 Shell> FS1:
 FS1:> BCFG Boot Dump
 ```
 Note see the list of Boot000X options printed to the console
+
 ---
-## Slide 36 Use the Dmpstore to Show the Boot Order
+## Slide 36  Use the Dmpstore to Show the Boot Order
 
 At the Shell Prompt:
 
 ```
-FS1:> Dmpstore BootOrder
+FS0: > Dmpstore BootOrder
 ```
-
 
 Result should look like:
 ```
@@ -1009,15 +1082,13 @@ Variable NV+RT+BS 'EFIGlobalVariable:BootOrder' DataSize = 0x12
 ```
 
 ---
-## Slide 37 Use the BCFG to Move a boot item
+## Slide 37  Use the BCFG to Move a boot item 
 
-Use BCFG to Move the 8th boot item too 1st location (location 0).
+Use BCFG to Move the 5th boot item too 1st location.
 
-Then verify using the "dmpstore"
+Then verify using the `dmpstore`
 
-(Hint: use `BCFG - ? -b` for help menu)
-
-The dmpstore output should look like the screen shot (see PDF)
+(Hint: use `BCFG -? -b` for help menu)
 
 The dmpstore output should look like:
 
@@ -1032,10 +1103,8 @@ Solution:
 ```
 bcfg boot mv 09 00
 ```
-
-
 ---
-## Slide 38 Use the BCFG to Add a boot item
+## Slide 38  Use the BCFG to Add a boot item  
 
 Use the file from on FS1 `/OldShell.Shell_FullX64.efi` and use BCFG to Add a 08 entry for a new boot option with Shell_FullX64.efi
 
@@ -1044,6 +1113,8 @@ Use the file from on FS1 `/OldShell.Shell_FullX64.efi` and use BCFG to Add a 08 
 Then verify using the "BCFG Boot Dump"
 
 After the bcfg add, the output should look like (see PDF for screenshot)
+
+
 Then verify using the `BCFG Boot Dump`
 
 
@@ -1081,8 +1152,6 @@ Verify:
 - EFI Internal Shell - item 1
 - Old EFI Shell 1.0 - item 8
 
-(See Screenshot in PDF)
-
 ---
 ## Slide 40 Exit QSP UEFI Shell & Simics
 
@@ -1092,41 +1161,65 @@ Verify:
 - To Exit this Simulation, type: "quit"
 	- This will remove all other Simics windows
 
----
-## Slide 41 Summary
+
+
+## Slide  31  Summary
+
+### Summary  <br>
 
 - Run UEFI Shell (Simics QSP Emulation)
-- Run UEFI Shell Commands
-- Run UEFI Shell Scripts
+- Run UEFI Shell Commands 
+- Run UEFI Shell Scripts 
+
+ 
 
 ---
-## Slide 42 Questions?
-
-<br>
-
----
-## Slide 43 Return to Main Training Page
-
-Return to Training Table of Contents for next presentation [link](https://github.com/tianocore-training/Tianocore_Training_Contents/wiki)
+## Slide  42  Questions
+### Questions
 
 ---
-## Slide 44 Logo Slide
+## Slide  43  Return to Main Training Page
+### Return to Main Training Page
 
-<br>
+
+
 
 ---
-## Slide 45 Ackowleedgements 
+## Slide  44  Logo Slide
 
-Redistribution and use in source (original document form) and 'compiled‘ forms (converted to PDF, epub, HTML and other formats) with or without modification, are permitted provided that the following conditions are met:
-
-
-Redistributions of source code (original document form) must retain the above copyright notice, this list of conditions and the following disclaimer as the first lines of this file unmodified.
+### logo
 
 
-Redistributions in compiled form (transformed to other DTDs, converted to PDF, epub, HTML and other formats) must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+---
+## Slide  38  Acknowledgements
+#### Acknowledgements 
 
+```
+/**
+Redistribution and use in source (original document form) and 'compiled' forms (converted
+to PDF, epub, HTML and other formats) with or without modification, are permitted provided
+that the following conditions are met:
 
-THIS DOCUMENTATION IS PROVIDED BY TIANOCORE PROJECT "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL TIANOCORE PROJECT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+Redistributions of source code (original document form) must retain the above copyright 
+notice, this list of conditions and the following disclaimer as the first lines of this 
+file unmodified.
 
+Redistributions in compiled form (transformed to other DTDs, converted to PDF, epub, HTML
+and other formats) must reproduce the above copyright notice, this list of conditions and 
+the following disclaimer in the documentation and/or other materials provided with the 
+distribution.
+
+THIS DOCUMENTATION IS PROVIDED BY TIANOCORE PROJECT "AS IS" AND ANY EXPRESS OR IMPLIED 
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND 
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL TIANOCORE PROJECT BE 
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY 
+OF SUCH DAMAGE.
 
 Copyright (c) 2021-2022, Intel Corporation. All rights reserved.
+**/
+
+```

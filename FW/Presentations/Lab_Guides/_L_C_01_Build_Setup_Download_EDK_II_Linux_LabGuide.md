@@ -7,6 +7,37 @@
 
 [tianocore.org](http://www.tianocore.org)
 
+<!---
+ Lab_Guide.md for Build Setup and Download EDK II  Linux
+
+  Copyright (c) 2020-2022, Intel Corporation. All rights reserved –
+
+  Redistribution and use in source (original document form) and 'compiled'
+  forms (converted to PDF, epub, HTML and other formats) with or without
+  modification, are permitted provided that the following conditions are met:
+
+  1) Redistributions of source code (original document form) must retain the
+     above copyright notice, this list of conditions and the following
+     disclaimer as the first lines of this file unmodified.
+
+  2) Redistributions in compiled form (transformed to other DTDs, converted to
+     PDF, epub, HTML and other formats) must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+
+  THIS DOCUMENTATION IS PROVIDED BY TIANOCORE PROJECT "AS IS" AND ANY EXPRESS OR
+  IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+  EVENT SHALL TIANOCORE PROJECT  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+
 ---
 ## Slide 2 Platform Build Labs
 
@@ -39,7 +70,7 @@ $ sudo apt install build-essential uuid-dev iasl git python-is-python3
 - nasm - General-purpose x86 assembler (see below to install 2.15.05 or above)
 - python-is-python3 - Ubuntu 20.04 python command is \'python3\' but edk2 tools use \'python\'
 
-Now need Nasm 2.15.x [Link](https://www.linuxfromscratch.org/blfs/view/cvs/general/nasm.html)
+Now need Nasm 2.15.x [Link for how to Install 2.15.05](https://www.linuxfromscratch.org/blfs/view/cvs/general/nasm.html)
 
 The following is needed for Mounting a .VHD file to use with Simics
 
@@ -53,7 +84,7 @@ The following will install the QEMU for Intel x86 & 64 bit
 $ sudo apt install qemu-system-x86-64
 ```
 
-**See Lab guide for Ubuntu 16.04 pre-requisites (listed below)**
+**See Below for Ubuntu 16.04 pre-requisites **
 
 ### **Pre-requisites Ubuntu 16.04**
 
@@ -70,7 +101,7 @@ $ sudo apt-get install build-essential uuid-dev iasl git gcc-5 nasm  python3-dis
 - iasl - Intel ASL compiler/decompiler (also provided by acpica-tools)
 - git - support for git revision control system
 - gcc-5 - GNU C compiler (v5.4.0 as of Ubuntu 16.04 LTS)
-- nasm - General-purpose x86 assembler 
+- nasm - General-purpose x86 assembler  (2.15.x or greater required, see above)
 - python3 - distutils - distutils module from the Python standard library
 
 ```bash
@@ -112,7 +143,7 @@ Open the "Intel Simics Package Manager"
 1. On Linux, run the ispm-gui application from inside the unpacked directory.
 2. Note If the application fails to start on older Linux versions, you may have to start the application with the --no-sandbox option, as ispm-gui --no-sandbox.
 
-Here is a snapshot of Intel Simics Package Manager with "My Simics Project 1" created
+See PDF to see a snapshot of Intel Simics Package Manager with "My Simics Project 1" created
 
 
 ---
@@ -176,27 +207,27 @@ $ git config --global http.proxy proxy-dmz.intel.com:911
 ```
 
 From the command prompt use "git clone" to download following repos
-\#Edk2 - main core code
+- Edk2 - main core code
 
 ```bash
 $ git clone -b Edk2Lab_22Q3 https://github.com/tianocore-training/edk2.git
 ```
-\#EDK II "C" Library Repo
+- EDK II "C" Library Repo
 
 ```bash
 $ git clone https://github.com/tianocore/edk2-libc.git
 ```
-\#EDK II Platforms Repo
+- EDK II Platforms Repo
 
 ```bash
-$ git clone https:://github.com/tianocore/edk2-platforms.git
+$ git clone https://github.com/tianocore/edk2-platforms.git
 ```
-\#EDK II Non-OSI (Stand alone Binaries)
+- EDK II Non-OSI (Stand alone Binaries)
 
 ```bash
-$ git clone https:://github.com/tianocore/edk2-non-osi.git
+$ git clone https://github.com/tianocore/edk2-non-osi.git
 ```
-\#Intel FSP
+- Intel FSP
 ```bash
 $ git clone https://github.com/Intel/FSP.git
 ```
@@ -218,7 +249,7 @@ $ ~/fw/edk2-ws> cd edk2-platforms
 $ ~/fw/edk2-ws> git reset --hard c546cc01f1517b42470f3ae44d67efcb8ee257fc
 ```
 
-(rest to this commit since this is used with all the labs)
+(reset to this commit since this is used with all the labs)
 
 
 ---
