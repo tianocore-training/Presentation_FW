@@ -297,9 +297,9 @@ Copy \~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58
 
 **To**
 
-\<*Install-Directory*|>/simics-qsp-x86-6.0.57/targets/qsp-x86/images
+\<*SimicsInstallDir*|>/simics-qsp-x86-6.0.57/targets/qsp-x86/images
 
-- where \<*Install-Directory*|> could be e.g., `Computer/usr/bin/simics`
+- where \<*SimicsInstallDir*|> could be e.g., `Computer/usr/bin/simics`
 
 ---
 ## Slide 19 Update the Simics Script
@@ -308,9 +308,9 @@ Update the Simics Script to Use the BoardX85Ich10.fd image just built
 
 Edit the file:
 
-*<InstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/qsp-uefi.include*
+*<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/qsp-uefi.include*
 
-Where *InstallDir* is the directory selected to install simics, e.g., `Computer/usr/bin/simics`
+Where *SimicsInstallDir* is the directory selected to install simics, e.g., `Computer/usr/bin/simics`
 
 Replace `SIMICSX58IA32X64_1_0_0_bp_r.fd` with `BOARDX58ICH10.fd`
 

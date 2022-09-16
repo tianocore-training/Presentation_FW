@@ -303,11 +303,11 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 ---
 ## Slide 15 Update UefiAppLab.vhd File
 
-3. Mount the UefiAppLab.vhd using Disk Manager: TENTATIVE LINK (See slide 89)
-[How to Link FIX_THIS_LINK](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_04_Writing_UEFI_App_Simics_Win_LabGuide.md#slide-89-open-disk-manager-mounting-a-vhd-file-disk)
+3. Mount the UefiAppLab.vhd using Disk Manager: 
+[How to Mount VHD LINK](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_04_Writing_UEFI_App_Simics_Win_LabGuide.md#how-to-mount-vhd)
 
 
-4. Copy
+4. Copy & Paste HelloWorld.efi
 
 ```bash
 C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS2015x86\X64\HelloWorld.efi 
@@ -316,8 +316,6 @@ C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS2015x86\X64\HelloWo
 
 `X:\UEFIAPPLAB\` (where X is the VHD Drive)
 
-
-Paste (see PDF)
 
 Detach UefiAppLab.vhd at the end of this lab
 But can keep open for this Lab
@@ -2162,7 +2160,9 @@ Copyright (c) 2021-2022, Intel Corporation. All rights reserved.
 
 ---
 ## Slide 88 
-## Open Disk Manager & Attach VHD
+## How to Mount VHD
+### Open Disk Manager & Attach VHD
+
 
 ### Attach VHD with Disk Manager
 

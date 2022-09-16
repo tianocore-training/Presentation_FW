@@ -318,13 +318,13 @@ $ python build_bios.py -p BoardX58Ich10 -t GCC5
 
 3. Mount the UefiAppLab.vhd using GuestMount: [How to Link](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_L_C_04_Writing_UEFI_App_Simics_Linux_LabGuide.md#slide-87-mounting-a-vhd-file-disk)
 
-4. Copy
+4. Copy HelloWorld.efi
 
 ```bash
 $cp ~/FW/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/HelloWorld.efi ~/VHD
 ```
 
-Paste (see PDF)
+
 
 
 ---
@@ -767,7 +767,8 @@ Calling build -n 0 -D ADD_SHELL_STRING --log=Build.log --report-file=BuildReport
 
 1. Invoke Simics and Test Shell `Ver` Command
 
-Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd` To `Simics-Install-Directory/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
+Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd` To 
+`<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
 
 Run the qsp-modern-core script from Terminal Command Prompt
 
@@ -831,7 +832,11 @@ $> python build_bios.py -p BoardX58Ich10 -t GCC5
 
 Invoke Simics and test Shell `Ver` command
 
-Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd` To `Simics-Install-Directory/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
+Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd` 
+
+**To**
+
+`<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
 
 Run the qsp-modern-core script from a Terminal Command Prompt
 
@@ -2133,10 +2138,13 @@ Copyright (c) 2021-2022, Intel Corporation. All rights reserved.
 ---
 ## Slide 87 Mounting a VhD File Disk
 
-To Mount:
-Open Terminal Prompt in the Simics Install directoryProject directory
+## Mounting a VhD File Disk
 
-e.g., <InstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images (this is the directory where the .VHD files are copied to)
+To Mount:
+
+Open Terminal Prompt in the Simics Install directory Project directory
+
+e.g., `<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images` (this is the directory where the .VHD files are copied to)
 
 First use virt-list-filesystems to create a file system from the .VHD file.
   This will show a partition e.g. /dev/sda1 required for the guestmount command 

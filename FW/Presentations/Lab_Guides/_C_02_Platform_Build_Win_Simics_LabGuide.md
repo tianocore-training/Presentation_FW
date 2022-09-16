@@ -67,7 +67,7 @@ First Setup for Building EDK II, See [Lab Setup](https://github.com/tianocore-tr
 Note: May need to update conf/target.txt for other labs
 
 ---
-## Slide 4  Build EDK II EmulatorPk
+## Slide 4  Build EDK II EmulatorPkg
  
 Open VS Command prompt & Cd to work space directory 
 ```bash
@@ -101,7 +101,7 @@ $> build -D ADD_SHELL_STRING -a X64 -p EmulatorPkg\EmulatorPkg.dsc
 
 build will take approximately 6 Minutes
 
-Fuild will end at VS Prompt
+Build will end at VS Prompt
 
 ---
 ## Slide 6 Run the Emulator
@@ -122,23 +122,23 @@ $> RunEmulator.bat
 Or 
 run WinHost.exe  from:
 ```bash
-  Build/ . . ./X64 directory
+  C:\FW\edk2-ws\Build\EmulatorPkg\ . . .\X64 directory
 ```
 
-
 Notice 2  "GOP Window n" opened 
----
+
 
 ---
 ## Slide 8 Emulator at Shell Prompt
 ### Emulator at Shell Prompt
 
 Type : "Reset" to exit
----
+
 
 ---
 ## Slide 9 Build Simics QSP Open board
 ### Build Simics QSP Open board
+
 ---
 ## Slide 10 Build Simics QSP Open board
 ### Build Simics QSP Open board
@@ -166,10 +166,10 @@ edk2/ https://github.com/tianocore/edk2
  . . .
 edk2-platforms/ https://github.com/tianocore/edk2-platforms 
   Platform/
-      Intel/						# Invoke the Build .py from here
+      Intel/                     # Invoke the Build .py from here
 		  BoardModulePkg /
 		  SimicsOpenBoardPkg/
-   			 BoardX58Ich10/         # Platform DSC & FDF here
+   			 BoardX58Ich10/      # Platform DSC & FDF here
 		  MinPlatformPkg/
   Silicon/
 	  Intel/
