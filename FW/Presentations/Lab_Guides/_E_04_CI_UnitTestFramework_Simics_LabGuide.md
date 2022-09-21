@@ -804,15 +804,22 @@ Note, that the host [`UnitTestFrameWorkPkgHost.dsc.inc`](https://github.com/tian
 ---
 
 ### **5.7. Build and run as above for either CI or Non-CI Build and Run**
-* CI Build and Run (where "Your TAG" is you Compiler Tag)
+* CI Build and Run (where "Your TAG" is you Compiler Tag) from the `edk2` workspace directory
 ```
 $  stuart_ci_build -c .pytool\CISettings.py TOOL_CHAIN_TAG=<Your TAG> -p UnitTestFrameworkPkg -t NOOPT -a X64
 ```
 * Non-CI Build (where "Your TAG" is your VS Compiler Tag e.g. VS2015x86, VS2017, VS2019)
+**Windows**
 ```shell
 $ build -b NOOPT -t <Your TAG> -a X64 -p UnitTestFrameworkPkg\Test\UnitTestFrameworkPkgHostTest.dsc 
 ```
+**Linux**
+```shell
+$ build -b NOOPT -t GCC5 -a X64 -p UnitTestFrameworkPkg/Test/UnitTestFrameworkPkgHostTest.dsc 
+```
 
+
+---
 ### **5.8. Run the Host Unit Test Locally**
 ```shell
 :: FIRST CD to the BUILD Directory where unit test host .EXE was built.
@@ -880,7 +887,9 @@ C:\FW\edk2-ws\edk2-platforms\Platform\Intel\SimicsOpenBoardPkg\BoardX58Ich10\Ope
 
 
 
-#### 6.2.2. Add the following in the `[Components.X64]` Section of the `OpenBoardPkg.dsc` file. Hint, After the "`# UEFI / EDK II Training Class`" in the  Section.
+#### 6.2.2. Add the following:
+In the `[Components.X64]` Section of the `OpenBoardPkg.dsc` file. Hint, After the 
+"`# UEFI / EDK II Training Class`" in the  Section.
 
 ```
 
