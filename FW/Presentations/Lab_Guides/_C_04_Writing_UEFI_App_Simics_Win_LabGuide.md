@@ -310,7 +310,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 4. Copy & Paste HelloWorld.efi
 
 ```bash
-C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS2015x86\X64\HelloWorld.efi 
+C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20xx\X64\HelloWorld.efi 
 ```
 **To**
 
