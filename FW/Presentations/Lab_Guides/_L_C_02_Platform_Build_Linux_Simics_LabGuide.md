@@ -1,4 +1,4 @@
-# Slide 1 Platform Build Lab  - Simics® Quick Start Platform(QSP)  - Linux
+# Slide 1 Platform Build Lab  - Simics® Quick Start Platform(QSP) 
 # Linux (Part 2)
 
 

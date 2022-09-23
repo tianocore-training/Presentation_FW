@@ -1,5 +1,5 @@
 # Writing UEFI Apps with Simics Lab
-# Linux
+# Windows 
 
 
 ---

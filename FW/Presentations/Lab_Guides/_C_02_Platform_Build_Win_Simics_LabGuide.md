@@ -1,15 +1,17 @@
+# Platform Build Lab Simics® Quick Start Platform (QSP)  
+# Windows (Part 2)
+
+---
+
 ## Slide 1  Platform Build Lab Simics® Quick Start Platform (QSP)
 
 ## UEFI & EDK II Training
 
- Platform Build Lab Simics® Quick Start Platform (QSP)  
- 
- Windows (Part 2)
- 
- 
+## Platform Build Lab Simics® Quick Start Platform (QSP)  
 
-<br>
-<a href='http://www.tianocore.org'>tianocore.org</a>
+ 
+[tianocore.org](http://www.tianocore.org)
+
 
 
 <!---
