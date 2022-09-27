@@ -80,7 +80,7 @@ This lab will show how to build and run a unit test sample code in the host-base
 ## Slide 4 Steps for this Lab
 ### **Steps for this Lab**
 
-1. [How to build](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_E_04_CI_UnitTestFramework_Simics_LabGuide.md#lab-setup)
+1. [Lab Setup](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_E_04_CI_UnitTestFramework_Simics_LabGuide.md#lab-setup)
 2. [Build and Run for Stuart CI Locally](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_E_04_CI_UnitTestFramework_Simics_LabGuide.md#how-to-build)
 3. Or [Build and Run for Windows | Linux Non-Stuart CI](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_E_04_CI_UnitTestFramework_Simics_LabGuide.md#how-to-build-non-stuart)
 4. [Run the Host Unit test locally](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_E_04_CI_UnitTestFramework_Simics_LabGuide.md#4-run-the-host-unit-test-locally)
