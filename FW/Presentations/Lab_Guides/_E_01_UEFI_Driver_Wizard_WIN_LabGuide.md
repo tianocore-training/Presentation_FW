@@ -1,285 +1,260 @@
-
-## slide 01 [UEFI_Driver_Wizard_Win_Lab]
-<br><br><br><br><br>
-### UEFI & EDK II Training
-
-#### UEFI Driver Wizard Lab - Windows
-<span style="font-size:0.75em" >See also
-<a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_E_01_UEFI_Driver_Wizard_WIN_LabGuide.md">LabGuide.md </a> for Copy & Paste examples in labs</span>
-
-<br>
-<span style="font-size:0.75em" ><a href='http://www.tianocore.org'>tianocore.org</a></span>
-
-
-
+# UEFI Driver Wizard Lab
+# Windows
 
 ---
-## slide 02 [Lesson Objective]
-<BR>
+## Slide 1 UEFI & EDK II Training
+### UEFI Driver Wizar Lab - Windows
 
-### Lesson Objective 
 
+[tianocore.org](https://www.tianocore.org/)
+<!---
+LabGuide.md for UEFI / EDK II Training  UEFI Driver Wizard Windows Lab
+
+  Copyright (c) 2021-2022, Intel Corporation. All rights reserved.<BR>
+
+  Redistribution and use in source (original document form) and 'compiled'
+  forms (converted to PDF, epub, HTML and other formats) with or without
+  modification, are permitted provided that the following conditions are met:
+
+  1) Redistributions of source code (original document form) must retain the
+     above copyright notice, this list of conditions and the following
+     disclaimer as the first lines of this file unmodified.
+
+  2) Redistributions in compiled form (transformed to other DTDs, converted to
+     PDF, epub, HTML and other formats) must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+
+  THIS DOCUMENTATION IS PROVIDED BY TIANOCORE PROJECT "AS IS" AND ANY EXPRESS OR
+  IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+  EVENT SHALL TIANOCORE PROJECT  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+
+---
+## Slide 2 Lesson Objective
 
 - Setup the UEFI Driver Wizard
-- Create a UEFI Driver Template
+- Create a UEFI Driver Templated
 
+---
+## Slide 3 UEFI Driver Wizard
 
-## slide 03 [UEFI Driver Wizard Section ]
+Creating a Template UEFI Driver with the UEFI Driver Wizard
 
-### UEFI Driver Wizard
-- Creating a Template UEFI Driver with the
-- UEFI Driver Wizard
-
-
-
-## slide 04 [UEFI Driver Wizard  Overview]
-<br>
-
-### UEFI Driver Wizard  Overview
-<br>
+---
+## Slide 4 UEFI Driver Wizard Overview
 
 - Open source tool
-- Based on Driver Writer’s Guide for UEFI 2.3.1 content
-- Intel  engineers contributed
-- Located on www.TianoCore.org
+- Based on Driver Writer's Guide for UEFI 2.3.1 content
+- Intel engineers contributed
+- Located on [tianocore.org](https://www.tianocore.org/)
 
-Note:
+---
+## Slide 5 Installing UEFI Driver Wizard 
 
-## slide 05 [Installing UEFI Driver Wizard]
-### Installing UEFI Driver Wizard
+**Requirements and Options**
 
-### Requirements and Options
+- Workspace must contain `BaseTools` , `MdePkg` , `MdeModulePkg` Packages from [tianocore edk2](https://github.com/tianocore/edk2) for Driver development on [tianocore.org](https://www.tianocore.org/)
+- Uses previous lab's setup w/ Windows `C:\FW\edk2-ws\`
+- Python* scripts from [GitHub](https://github.com/tianocore/edk2-share/tree/master/DriverDeveloper/UefiDriverWizard) then use instructions from README for Python and wxPython versions to install then run
 
-- Workspace  must contain BaseTools, MdePkg & MdeModulePkg Packages from tianocore.org edk2 for Driver development on Tianocore.org 
-
-- Uses previous lab’s setup w/ Windows C:\FW\edk2-ws\
-
-- Python* scripts from  Github Link then use instructions from README for Python and wxPython versions to install then run
+```bash
+$ python launch.py
 ```
-	 bash$ python launch.py
 
-```
-Note:
+---
+## Slide 6 Requirements for Your Driver
 
-Same as slide
+**Using UEFI Driver Wizard**
 
-
-## slide 06 [Requirements for Your Driver ]
-
-### Requirements for Your Driver
-- Using UEFI Driver Wizard
 - UEFI Device Driver
 - UEFI Version 2.7 (0x00020046)
-   #define EFI_2_70_SYSTEM_TABLE_REVISION ((2<<16) | (70DEC))
+
+```
+#define EFI_2_70_SYSTEM_TABLE_REVISION ((2<<16) | (70DEC)) 
+```
+
 - Unloadable driver
 - Support IA32 & x64 CPUs
 - Returns component name information
-- Byte stream device (i.e.UART / Serial I/O)
+- Byte stream device (i.e. UART / Serial I/O)
 - Option to produce HII strings & forms for setup
 
+---
+## Slide 7 Template File Contents
 
-Note:
+**Proper UEFI driver entry point**
 
+**Basic driver libraries/headers**
+
+**Skeletons for common driver functions**
+
+**Error values until ported EFI_UNSUPPORTED, EFI_DEVICE_ERROR**
 
 
 ---
-## slide 07 [Template File Contents]
-
-<b>Template File Contents </b>
-
-- Proper UEFI driver entry point
-- Basic driver libraries/headers
-- Skeletons for common driver functions
-
-
-
-- Error values until ported EFI_UNSUPPORTED, EFI_DEVICE_ERROR<br>&nbsp;
-
-
-
-
-Note:
-- Establishes a proper UEFI Driver Entry Point
-- References to basic driver libraries/headers based on Driver Wizard form input
-- Inserted in .INF, .H and .C files
-- Skeletons for common driver functions
-- Includes comments based on information from the Driver Writer’s Guide for UEFI 2.3.1
-- Functions may return error values until ported : (EFI_UNSUPPORTED, EFI_DEVICE_ERROR)
-
-
-
-## slide 08 [Lab 1: Create a UEFI Driver section]
-
-
-### Lab 1: Create a UEFI Driver with the UEFI Driver Wizard
+## Slide 8 Lab 1: Create a UEFI Driver with the UEFI Driver Wizard
 
 - In this lab, you'll create a new UEFI driver using the UEFI Driver Wizard.
 - This will create a set of "c" code files to be used as a template UEFI Driver used in the subsequent driver labs
 
+---
+## Slide 9 Lab 1: Install UEFI Driver Wizard
 
- 
-Note:
+First setup for Building EDK II Windows, See [Lab Setup](https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/__C_01_Build_Setup_Download_EDK_II_Win_LabGuide.md)
 
-
-## slide 09 [Lab 1: Install UEFI Driver Wizard ]
-
-### Lab 1: Install UEFI Driver Wizard
-
-First setup for Building EDK II for Emulator, See <a href="https://github.com/tianocore-training/Presentation_FW/blob/main/FW/Presentations/Lab_Guides/_C_01_Platform_Build_Win_Emulator_Lab_guide.md"> Lab Setup </a>
 Install UEFI Driver Wizard
-1. Open and Run  /FW/DriverWizard/UefiDriverWizard.msi
-   -  Click through "Next" until install finishes
 
-2. Open the UEFI Driver Wizard
+1. **Open** and **Run** `/FW/DriverWizard/UefiDriverWizard.msi`
+2. **Click** through "Next" until install finishes
 
+**Open** the UEFI Driver Wizard
 
-## slide 10 [Lab 1: UefiDriverWizard -Select Work Space]
+---
+## Slide 10 Lab 1: UefiDriverWizard - Select Work Space
 
-### Lab 1: UefiDriverWizard -Select Work Space
+Click on File and Select "Open WORKSPACE" Or Or *Control+O*
 
+Browse to `C:/FW/edk2-ws/edk2`
 
-- Click on File and Select
+Select "OK"
 
-```
-  "Open WORKSPACE"
-   Or 
-  Control+O
-```
-- Browse to C:/FW/edk2-ws/edk2
-- Select  "OK"
-- Should say
+Should say 
 
-```
-  "WORKSPACE C:\FW\edk2-ws\edk2 selected"
-```
-
-- select Open
+"WORKSPACE C:\FW\edk2-ws\edk2 selected"
 
 Note: the environment for EDK II must be setup with edksetup.bat
 
+---
+## Slide 11 Lab 1: Create a New UEFI Driver
 
-## slide 11 [Lab 1: -Create a New UEFI Driver]
+Control+**N** - to Open Menu
 
-### Lab 1: -Create a New UEFI Driver
-
-- Control+N – to Open Menu
-- select "New UEFI Driver"
+(See PDF for screenshots)
 
 ---
-## slide 12 [Lab 1: New UEFI Driver Menu]
+## Slide 12 Lab 1: New UEFI Driver Menu
 
+- UEFI Driver Path - Type: "`MyPkg/MyWizardDriver`"
 
-### Lab 1: New UEFI Driver Menu
+*Note:* "UEFI Driver Name" is filled in.
 
-- UEFI Driver Path" – Type: "MyWizardDriver"
-      Note:  "UEFI Driver Name" is filled in.
+- **Ensure** all the forms, radio buttons, and boxes are filled in and selected *exactly* like the image to the right. (except GUID)
+
+(See PDF for screenshot)
 
 
 - "UEFI Driver Version" – Type: "1.0"
 - "UEFI Driver Type" – Select: "UEFI Driver Model Device Driver"
 - "Optional Features …" – Select:
-  - 	Unloadable
-  - 	Driver Supporte EFI Version Protocol
-  - 	HII Packages for Strings, Fonts, or images
+  - Unloadable
+  - Driver Supporte EFI Version Protocol
+  - HII Packages for Strings, Fonts, or images
 - "CPU Architecture" – Select: "IA32" and "X64"
- Note:  A new, specific driver GUID will populate, so it will be different than this image
 
-- Click Next
+
+- **Note:** A new, specific driver GUID will populate, so it will be different than this image
+
+Click **Next**
+
 ---
+## Slide 13 Lab 1: UEFI Driver Model Optional Features
+
+**Ensure** all the forms, radio buttons, and boxes are filled in and selected *exactly* like the image to the right.
+
+- "Component Name 2 Protocol"
+- "Component Name Protocol"
+- "HII Packages for Forms ..."
+
+(See PDF for screenshot)
+
+Click **Next**
+
+---
+## Slide 14 Lab 1: UEFI Driver Consumed Protocol
+
+**Select**
+
+- "USB Driver that consumes the USB I/O Protocol"
+
+(See PDF for screenshot)
+
+Click **Next**
 
 
-## slide 13 [Lab 1: UEFI Driver Model Optional Features]
+---
+## Slide 15 Lab 1: UEFI Driver Produced Protocols
 
-### Lab 1: UEFI Driver Model Optional Features
+**Select**
 
-- UEFI Driver Model Optional Features  – Select:
-  -	Componnt Name 2 Prorocol
-  -	Componnt Name  Prorocol
-  -	HII Packages for Forms and HII based configuruation
+- "Byte stream device (i.e.UART) producing Serial I/O Protocol"
 
+(See PDF for screenshot)
 
-- Click Next
+Click **Finish**
 
+---
+## Slide 16 Lab 1: UEFI Driver Created
 
-## slide 14 [Lab 1: UEFI Driver Consumed Protocol]
-<br>
-### Lab 1: UEFI Driver Consumed Protocol
+UEFI Driver template created
+```
+Create UEFI Driver MyWizardDriver
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\MyWizardDriver.inf
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\MyWizardDriver.c
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\MyWizardDriver.h
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\DriverBinding.h
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\ComponentName.c
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\ComponentName.h
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\MyWizardDriver.uni
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\MyWizardDriver.vfr
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\HiiConfigAccess.c
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\HiiConfigAccess.h
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\SerialIo.c
+  Create file C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\SerialIo.h
+```
 
-- Select  "PCI Driver that consumes the PCI I/O Protocol"
+(See PDF for screenshots)
 
-- Click Next
-Note:
+Close the UEFI Wizard
 
-Same as slide
-
-
-
-
-
-## slide 15 [Lab 1: UEFI Driver Produced Protocols]
-
-### Lab 1: UEFI Driver Produced Protocols
-
-- Select  "Byte stream device (i.e.UART)producing Serial I/O Protocol"
-
-- Click Finish
-Note:
-
-Same as slide
-
-
-
-## slide 16 [Lab 1: UEFI Driver Created]
-<br>
-### Lab 1: UEFI Driver Created
-- UEFI Driver template created
-
-Several files should have been  created in the .. edk2/MyWizardDriver directory
-
-- click OK
-
-- Close the wizard
-
-Note:
-
-Same as slide
-
-
-
----  
-## slide 17 [Summary]
-<BR>
-### Summary
+---
+## Slide 17 Summary
 
 - Setup the UEFI Driver Wizard
 - Create a UEFI Driver Template
 
---
-## Slide 18 [Questions]
+---
+## Slide 18 Questions?
+
 <br>
 
+---
+## Slide 19 Return to Main Training Page
+
+Return to Training Table of Contents for next presentation [link](https://github.com/tianocore-training/Tianocore_Training_Contents/wiki)
 
 ---
-## Slide 19 [Return to Training schedule main page]
+## Slide 20 Logo Slide
+
 <br>
 
-Return to Training schedule main page
-https://github.com/tianocore-training/Tianocore_Training_Contents/wiki 
-
 ---
+## Slide 21 Acknowledgements
 
-## Slide 20 [Logo Slide]
-<br><br><br>
-
-
-
----
-## Slide 21 [Acknowledgements]
-
-```
 Redistribution and use in source (original document form) and 'compiled‘ forms (converted to PDF, epub, HTML and other formats) with or without modification, are permitted provided that the following conditions are met:
+
 Redistributions of source code (original document form) must retain the above copyright notice, this list of conditions and the following disclaimer as the first lines of this file unmodified.
+
 Redistributions in compiled form (transformed to other DTDs, converted to PDF, epub, HTML and other formats) must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
 THIS DOCUMENTATION IS PROVIDED BY TIANOCORE PROJECT "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL TIANOCORE PROJECT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-Copyright (c) 2021, Intel Corporation. All rights reserved.
-```
+
+Copyright (c) 2021-2022, Intel Corporation. All rights reserved.
