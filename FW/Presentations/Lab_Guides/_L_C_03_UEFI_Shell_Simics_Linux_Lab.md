@@ -73,8 +73,13 @@ Run the qsp-modern-core script:
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
-simics> run (Press "F2" at the logo)
+simics> run 
 ```
+Press "F2" at the Logo 
+
+From QSP Setup
+1. Click on "Boot Manager"
+2. Click on "EFI Internal Shell"
 
 ---
 ## Slide 5 UEFI Shell Commands
@@ -805,7 +810,7 @@ default cpu_comp_class = "x86QSP2"
 default num_cores = 2  
 default num_threads = 2
 } 
-$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd“
+$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd"
 
 run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
 
@@ -818,8 +823,9 @@ Re-run the qsp-modern-core script from the Simics Command Prompt:
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
-simics> run (Press "F2" at the logo)
+simics> run 
 ```
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 Note: now there is a "FS1" file system
 
@@ -830,7 +836,7 @@ Note: now there is a "FS1" file system
 
 With the UEFI shell There is an editor included. This is a very simple editor but can help if running on the target system without an OS "Nice" editor available.
 
-Shell editor help  menu - Cnt W
+Shell editor help  menu - Ctrl-E to exit Help use Ctrl-W
 
 
 At the shell prompt
@@ -881,6 +887,16 @@ FS1:\>
 ---
 ## Slide 31 UEFI Shell Script Example
 
+At the shell prompt type:
+
+```
+Shell> fs1:
+FS1:\> cd ShellScripts
+FS1:\ShellScripts\> type Script1.nsh
+FS1:\ShellScripts\> type Script2.nsh
+```
+
+
 Script1.nsh
 
 ```
@@ -914,11 +930,11 @@ walk through the script calling the second script
 ---
 ## Slide 32 Run UEFI Shell Scripts
 
-At the shell prompt type:
+At the shell prompt type: CD to `FS1:\ShellScripts\>`  if not already in this directory at the shell
+
+Then type:
 
 ```
-Shell> fs1:
-FS1:\> cd ShellScripts
 FS1:\ShellScripts\> Script1
 ```
 
@@ -972,6 +988,23 @@ Type
 
 ```bash
 FS1:\ShellScripts\> Script1
+```
+
+Output:
+```
+FS1\ShellScripts:\> echo  -off
+3 counting down
+2 counting down
+1 counting down 
+18:03:54 (LOCAL)
+
+Thank you.  ByeBye  :)   Done
+```
+
+
+```bash
+FS1:\ShellScripts\> cd ..
+FS1:\
 ```
 
 ---
@@ -1081,6 +1114,7 @@ Verify:
 - EFI Internal Shell - item 1
 - Old EFI Shell 1.0 - item 8
 
+boot to the old EFI Shell 1.0 and use the shell command `ver -s` to verify that the Old Shell is running
 (See Screenshot in PDF)
 
 ---

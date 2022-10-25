@@ -246,7 +246,8 @@ $ ~/fw/edk2-ws> cd ..
 Download Checkout the Sha tag for edk2-platforms repo
 ```bash
 $ ~/fw/edk2-ws> cd edk2-platforms
-$ ~/fw/edk2-ws> git reset --hard c546cc01f1517b42470f3ae44d67efcb8ee257fc
+$ ~/fw/edk2-ws/edk2-platforms> git reset --hard c546cc01f1517b42470f3ae44d67efcb8ee257fc
+$ ~/fw/edk2-ws/edk2-platforms> cd ..
 ```
 
 (reset to this commit since this is used with all the labs)

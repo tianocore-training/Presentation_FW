@@ -163,21 +163,19 @@ Save qsp-modern-core.simics
 File: 	`qsp-modern-core.simics`
 
 ```
-Decl{
 decl {
-! Script that runs the Quick Start Platform (QSP) with a modern 
-!   processor core. 
+! Script that runs the Quick Start Platform (QSP) with a modern processor core.
 
-params from "%simics%/targets/qsp-x86/qsp-clear-linux.simics"  
-default cpu_comp_class = "x86QSP2"  
-default num_cores = 2  
-default num_threads = 2
-} 
-#$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd“
-$disk1_image="%simics%/targets/qsp-x86/images/UefiAppLab.vhd“
+ params from "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
+  default cpu_comp_class = "x86QSP2"
+  default num_cores = 2
+  default num_threads = 2
+}
+
+ #$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd"
+ $disk1_image="%simics%/targets/qsp-x86/images/UefiAppLab.vhd"
 
 run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
-
 ```
 
 
@@ -228,8 +226,7 @@ $> cd simics-projects/my-simics-project-1
 $> ./simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
-
-Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 3. At the UEFI Shell prompt
 
@@ -336,8 +333,8 @@ $cp ~/FW/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/HelloWorl
 $> ./simics target/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
-(Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell")
 
 6. At the Shell prompt
 
@@ -422,14 +419,14 @@ Edit **SampleApp.inf**
 ```
 [Defines]
   INF_VERSION         = 0x00010005
-  BASE_NAME           = XXXXXXXXXXXX
-  FILE_GUID           = XXXXXXXXXXXX
-  MODULE_TYPE         = XXXXXXXXXXXX
+  BASE_NAME           = SampleApp
+  FILE_GUID           = XXXXXXXXXXX  #get a GUID 
+  MODULE_TYPE         = UEFI_APPLICATION
   VERSION_STRING      = 1.0
   ENTRY_POINT         = UefiMain
 
 [Sources]
-  XXXXXXXXX
+  SampleApp.c
 [Packages]
   #XXXXXXXX
   
@@ -446,7 +443,7 @@ Get a GUID [guidgenerator.com/](https://www.guidgenerator.com/) or [https://www.
 ---
 ## Slide 21 Lab 2: Sample Application 'C' file
 
-```
+```c
 /** @file
   This is a simple shell application
 **/
@@ -557,6 +554,18 @@ Copy SampleApp.efi from the build directory to the VHD Disk
 $ cp ~/fw/edk2-ws/edk2/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi ~/VHD
 ```
 
+
+**BUILD ERRORS:**
+
+If there are build errors, set `NUMBER_OF_PROCESSORS = 1` in the `build.cfg` file to better see where the build error occurs
+
+- The `build.cfg` file is in the `~/fw/edk2-ws/edk2-platforms/Platform/Intel/`  direcotry
+- edit `build.cfg` and set  `NUMBER_OF_PROCESSORS = 1` then try re-building to see where the error occurs
+
+
+`NUMBER_OF_PROCESSORS`  is set to 0 by default which will use all processoring power of your development machine
+
+
 ---
 ## Slide 26 Invoke Simics & Run SampleApp
 
@@ -566,8 +575,7 @@ $ cp ~/fw/edk2-ws/edk2/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/Sam
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
-
-Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 2. At the UEFI Shell Prompt
 
@@ -589,6 +597,11 @@ Notice that the program will immediately unload beacuse the main function is emp
 
 ---
 ## Slide 27 Possible Build Errors
+
+**BUILD ERRORS:**
+
+If there are build errors, set `NUMBER_OF_PROCESSORS = 1` in the `build.cfg` file to better see where the build error occurs
+
 
 Error on SampleApp.inf
 
@@ -697,8 +710,7 @@ Run the qsp-modern-core script from Terminal Command Prompt:
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
-
-Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 At the UEFI Shell prompt
 
@@ -745,6 +757,8 @@ Update line 388 of build_bios.py to include `-D ADD_SHELL_STRING`
 ```python
 command = ["build", "-n", config["NUMBER_OF_PROCESSORS"], "-D", "ADD_SHELL_STRING"]
 ```
+**OR** use the python script `build_bios_ADD_SHELL_STRING.py` instead of `build_bios.py` that already has the update
+
 
 Re-Build BoardX58Ich10
 From a Terminal Command Prompt
@@ -767,7 +781,8 @@ Calling build -n 0 -D ADD_SHELL_STRING --log=Build.log --report-file=BuildReport
 
 1. Invoke Simics and Test Shell `Ver` Command
 
-Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd` To 
+Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58ICH10.fd` <br>
+To 
 `<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
 
 Run the qsp-modern-core script from Terminal Command Prompt
@@ -776,8 +791,7 @@ Run the qsp-modern-core script from Terminal Command Prompt
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ``` 
-
-Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 At the UEFI Shell prompt, type: ver
 
@@ -844,8 +858,7 @@ Run the qsp-modern-core script from a Terminal Command Prompt
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
-
-Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 At the UEFI Shell prompt, type: ver
 
@@ -960,7 +973,7 @@ Note:
 
 **SampleApp.c**
 
-```
+```c
 SampleApp.c
 #include <Uefi.h>
 #include <Library/UefiApplicationEntryPoint.h>
@@ -973,7 +986,7 @@ UefiMain (
   IN EFI_SYSTEM_TABLE  *SystemTable
   )
 {
-  Print(L"System Table: 0x%p/n“, SystemTable); 
+  Print(L"System Table: 0x%p\n", SystemTable); 
   return EFI_SUCCESS;
 }
 ```
@@ -1011,6 +1024,8 @@ $> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi ~/V
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 4. At the UEFI Shell prompt
 
@@ -1101,7 +1116,7 @@ UINTN               EventIndex;     // Line 410
 
 Add the following to SampleApp.c
 
-```
+```c
 UINTN                      EventIndex; 
 Print(L"System Table: 0x%p\n",SystemTable); // From Lab 3
 Print(L"\nPress any Key to continue : \n");
@@ -1172,6 +1187,7 @@ $> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
 $>  ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 4. At the UEFI Shell prompt
 
@@ -1255,7 +1271,7 @@ Create a simple Typewriter Function using the SampleApp from Lab 4
 
 1. Check the MdeModulePkg/MdeModulePkg.dec and search for the "PcdHelloWorldPrintEnable" PCD.
     - Notice that it is in the \[PcdsFeatureFlag\] section
-2. Add a similar section in MyPkg, `edk2/MyPkg/MyPkg.dec` file and add a flag “PcdTypeWriterFeatureEnable” default, TRUE. (it can be added to the end of the file)
+2. Add a similar section in MyPkg, `edk2/MyPkg/MyPkg.dec` file and add a flag "PcdTypeWriterFeatureEnable” default, TRUE. (it can be added to the end of the file)
 3. Next Update the SampleApp.inf to include: `MyPkg/MyPkg.dec`, the new PCD, and the `PcdLib` ( hint, see how HelloWorld.inf used the PCD enable )
 4. SampleApp.c can now use the newly created PCD 
 
@@ -1320,17 +1336,16 @@ UefiMain (
   EFI_INPUT_KEY  Key;
   
 // Lab 3
- Print(L"System Table: 0xp/n",SystemTable); 
+ Print(L"System Table: 0xp\n",SystemTable); 
 
 //Lab 4
- Print( L"/nPress any Key to continue : /n");
+ Print( L"\nPress any Key to continue : \n");
  gBS->WaitForEvent (1, &gST->ConIn->WaitForKey,EventIndex);
 
 // Lab 5
  gST->ConIn->ReadKeyStroke (gST->ConIn, &Key);
  if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
-   Print(L"Enter text. Include a dot ('.') in a /
-     sentence then <Enter> to exit:/n/n");
+   Print(L"Enter text. Include a dot ('.') in a sentence then <Enter> to exit:\n\n");
    ZeroMem (&Key, sizeof (EFI_INPUT_KEY));
    ExitLoop = FALSE;
    do {
@@ -1343,13 +1358,13 @@ UefiMain (
    } while (!(Key.UnicodeChar == CHAR_CARRIAGE_RETURN) || 
               !(ExitLoop) );
  } // end if
- Print(L"/n");
+ Print(L"\n");
  return EFI_SUCCESS;
 }
 ```
 
 
-Copy and Paste from LabGuide (This document)
+
 
 ---
 ## Slide 62 Lab 5: Build and Test SampleApp
@@ -1373,6 +1388,7 @@ $ cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleAp
 $> ./simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 4. Run SampleApp
 
@@ -1434,6 +1450,9 @@ $> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
+
 5. Run SampleApp
 
 ```
@@ -1481,6 +1500,9 @@ $> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
+
 5. Run SampleApp
 
 
@@ -1547,6 +1569,8 @@ $> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 6. Run SampleApp
 
@@ -1724,7 +1748,7 @@ $ cd ~/fw/edk2-ws/
 $ . setenv.sh 
 $ cd edk2 
 $ . edksetup.sh 
-$> build -p AppPkg/AppPkg.dsc -m AppPkg/Applications/SampleCApp/SampeCApp.inf
+$> build -p AppPkg/AppPkg.dsc -m AppPkg/Applications/SampleCApp/SampleCApp.inf
 ```
 
 2. Copy the build application SampleCApp.efi to the VHD Drive
@@ -1739,6 +1763,8 @@ $ cp ~/fw/edk2-ws/Build/AppPkg/DEBUG_GCC5/X64/SampleCApp.efi ~/VHD
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 4. Run SampleCApp
 
@@ -1802,20 +1828,18 @@ In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This l
 #include <Library/UefiBootServicesTableLib.h>
 // . . .
    char c;
-   printf("System Table: %p /n", gST) ; 
+   printf("System Table: %p \n", gST) ; 
    
-   puts("Press any Key and then <Enter> 
-         to continue : ");
+   puts("Press any Key and then <Enter> to continue : ");
    c=(char)getchar();
    
    if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
-     puts ("Enter text. Include a dot ('.') in a 
-         sentence then <Enter> to exit:");
+     puts ("Enter text. Include a dot ('.') in a sentence then <Enter> to exit:");
      do {
         c=(char)getchar();
         } while (c != '.');
    }
-   puts ("/n");
+   puts ("\n");
 
    return 0;
  }
@@ -1867,20 +1891,18 @@ In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This l
 #include <Library/UefiBootServicesTableLib.h>           /** 3 **/
 // . . .
    char c;
-   printf("System Table: %p /n", gST) ;                 /** 3 **/
+   printf("System Table: %p \n", gST) ;                 /** 3 **/
    
-   puts("Press any Key and then <Enter> 
-         to continue : ");
+   puts("Press any Key and then <Enter> to continue : ");
    c=(char)getchar();
    
    if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
-     puts ("Enter text. Include a dot ('.') in a 
-         sentence then <Enter> to exit:");
+     puts ("Enter text. Include a dot ('.') in a sentence then <Enter> to exit:");
      do {
         c=(char)getchar();
         } while (c != '.');
    }
-   puts ("/n");
+   puts ("\n");
 
    return 0;
  }
@@ -1931,20 +1953,18 @@ In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This l
 #include <Library/UefiBootServicesTableLib.h>           /** 3 **/
 // . . .
    char c;
-   printf("System Table: %p /n", gST) ;                 /** 3 **/
+   printf("System Table: %p \n", gST) ;                 /** 3 **/
    
-   puts("Press any Key and then <Enter>
-         to continue : ");                              /** 4 **/
-   c=(char)getchar();                                   /** 4 **/
+   puts("Press any Key and then <Enter> to continue : ");  /** 4 **/
+   c=(char)getchar();                                      /** 4 **/
    
    if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {
-     puts ("Enter text. Include a dot ('.') in a 
-         sentence then <Enter> to exit:");
+     puts ("Enter text. Include a dot ('.') in a sentence then <Enter> to exit:");
      do {
         c=(char)getchar();
         } while (c != '.');
    }
-   puts ("/n");
+   puts ("\n");
 
    return 0;
  }
@@ -1995,20 +2015,18 @@ In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This l
 #include <Library/UefiBootServicesTableLib.h>           /** 3 **/
 // . . .
    char c;
-   printf("System Table: %p /n", gST) ;                 /** 3 **/
+   printf("System Table: %p \n", gST) ;                 /** 3 **/
    
-   puts("Press any Key and then <Enter>
-         to continue : ");                              /** 4 **/
-   c=(char)getchar();                                   /** 4 **/
+   puts("Press any Key and then <Enter> to continue : "); /** 4 **/
+   c=(char)getchar();                                     /** 4 **/
    
    if (FeaturePcdGet(PcdTypeWriterFeatureEnable)) {     /** 5 **/
-     puts ("Enter text. Include a dot ('.') in a 
-         sentence then <Enter> to exit:");              /** 5 **/
+     puts ("Enter text. Include a dot ('.') in a sentence then <Enter> to exit:");              /** 5 **/
      do {
         c=(char)getchar();                              /** 5 **/
         } while (c != '.');                             /** 5 **/
    }
-   puts ("/n");
+   puts ("\n");
 
    return 0;
  }
@@ -2054,7 +2072,7 @@ In this lab, you'll add functionality to SampleCApp the same as in Lab 5. This l
 1. Build the AppPkg at a NEW Terminal Prompt
 
 ```bash
-$> build -p AppPkg/AppPkg.dsc -m AppPkg/Applications/SampleCApp/SampeCApp.inf
+$> build -p AppPkg/AppPkg.dsc -m AppPkg/Applications/SampleCApp/SampleCApp.inf
 ```
 
 2. Copy the build application SampleCApp.efi to the VHD Drive
@@ -2069,6 +2087,7 @@ $ cp ~/fw/edk2-ws/Build/AppPkg/DEBUG_GCC5/X64/SampleCApp.efi ~/VHD
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 4. Run SampleCApp
 

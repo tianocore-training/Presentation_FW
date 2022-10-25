@@ -167,23 +167,25 @@ The Platform DSC & FDF file are in `edk2-platforms/Platform/Intel/SimicsOpenBoar
 edk2/ https://github.com/tianocore/edk2
  . . .
 edk2-platforms/ https://github.com/tianocore/edk2-platforms 
-  Platform/
-      Intel/                     # Invoke the Build .py from here
-		  BoardModulePkg /
-		  SimicsOpenBoardPkg/
-   			 BoardX58Ich10/      # Platform DSC & FDF here
-		  MinPlatformPkg/
-  Silicon/
-	  Intel/
-		  SimicsIch10Pkg/
-		  SimicsX58ktPkg/
+|--Platform/
+|----Intel/                     # Invoke the Build .py from here
+|------BoardModulePkg /
+|------SimicsOpenBoardPkg/
+|---------BoardX58Ich10/        # Platform DSC & FDF here
+|------MinPlatformPkg/
+|--Silicon/
+|----Intel/
+|------SimicsIch10Pkg/
+|--------SimicsX58ktPkg/
 . . .
- Features/Intel
-		    AdvancedFeaturePkg/
+|--Features/Intel
+|------AdvancedFeaturePkg/
+. . .
 edk2-non-osi/ https://github.com/tianocore/edk2-non-osi
-   Silicon/
-	  Intel/
-		   SimicsIch10BinPkg/
+|--Silicon/
+|----Intel/
+|------SimicsIch10BinPkg/
+. . .
 FSP/  https://github.com/IntelFsp/FSP
 
 ```
@@ -256,15 +258,17 @@ Where `38-32` is the version of Python you have installed
 ---
 ## Slide 15 Examine Build Parameters
 
-```bash
+```shell
 Python build_bios.py -p BoardX58Ich10 -t VS2015x86
 
 . . .
-Calling build -n 0 --log=Build.log --report-file=BuildReport.log and from \edk2-ws\conf\target.txt
+Calling build -n 0 --log=Build.log --report-file=BuildReport.log 
+and from \edk2-ws\conf\target.txt and from build.cfg
 ```
 
 | PARAMETER | VALUE | PURPOSE | 
 | --- | --- | --- |
+| MAX_THREAD_COUNT <BR> build.cfg  NUMBER_OF_PROCESSORS|= 0  or "-n 0" as above | Implies **all** processors used |
 | TARGET | = DEBUG | Build Mode |
 | TARGET_ARCH | = IA32 X64 | CPU Architecture |
 | TOOL_CHAIN_TAG | = VS2015x86 | VS Tool Chain |
@@ -312,6 +316,11 @@ Copy  C:\fw\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\FV\BOARD
 ```
 Where XX is `15x86` or `17` or `19`
 
+**NOTE**: if the `%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\images` 
+directory does not exist check where the install of the Intel Simics Package manager is located.
+
+The directory `simics-qsp-x86-6.0.57\targets\qsp-x86\images`  will exist in the Simics install directory.  
+
 
 ---
 ## Slide 20 Update the Simics Script
@@ -328,13 +337,13 @@ Replace `SIMICSX58IA32X64_1_0_0_bp_r.fd` with `BOARDX58ICH10.fd`
 
 File: gsp-uefi.include
 
-```bash
+```shell
 decl {
-	params from "gsp-images.include"
-	default bios image =
-		%simics%/targets/qsp-x86/images/BOARDX58ICH10.fd
-#		%simics%/targets/qsp-x86/images/SIMICSX58IA32X64_1_0_0_bp_r.fd
-	default enable_efi = TRUE
+ params from "qsp-images.include"
+  default bios_image =
+   "%simics%/targets/qsp-x86/images/BOARDX58ICH10.fd"
+#   "%simics%/targets/qsp-x86/images/SIMICSX58IA32X64_1_0_0_bp_r.fd"
+  default enable_efi = TRUE
 }
 ```
 Save qsp-uefi.include
@@ -378,7 +387,9 @@ After invoking the First Steps script, **many** Simics windows will have opened:
 Simics Getting Started: [Link](https://www.intel.com/content/www/us/en/developer/articles/guide/simics-simulator-get-started.html)
 
 (see PDF for Simic windows examples)
+
 ---
+
 ## Slide 23 Run Simics to Boot Target
 
 1. Next type "run" in the Simics command line
@@ -412,9 +423,9 @@ $ .\simics targets/qsp-x86/qsp-modern-core.simics
 
 ---
 ## Slide 26 Summary
-Build and Run the EmulatorPkg
-Build a EDK II Platform using Simics Open Source QSP Board
-Run Simics with the QSP Board
+- Build and Run the EmulatorPkg
+- Build a EDK II Platform using Simics Open Source QSP Board
+- Run Simics with the QSP Board
 
 ---
 ## Slide 27 Questions?

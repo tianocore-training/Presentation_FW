@@ -158,27 +158,30 @@ Below the Build script is invoked form the `edk2-platforms/Platform/Intel/`
 
 The Platform DSC & FDF file are in `edk2-platforms/Platform/Intel/SimicsOpenBoardPkg/BoardX58Ich10`
 
+
 ```
 edk2/ https://github.com/tianocore/edk2
  . . .
 edk2-platforms/ https://github.com/tianocore/edk2-platforms 
-  Platform/
-      Intel/						# Invoke the Build .py from here
-		  BoardModulePkg /
-		  SimicsOpenBoardPkg/
-   			 BoardX58Ich10/         # Platform DSC & FDF here
-		  MinPlatformPkg/
-  Silicon/
-	  Intel/
-		  SimicsIch10Pkg/
-		  SimicsX58ktPkg/
+|--Platform/
+|----Intel/                     # Invoke the Build .py from here
+|------BoardModulePkg /
+|------SimicsOpenBoardPkg/
+|---------BoardX58Ich10/        # Platform DSC & FDF here
+|------MinPlatformPkg/
+|--Silicon/
+|----Intel/
+|------SimicsIch10Pkg/
+|--------SimicsX58ktPkg/
 . . .
- Features/Intel
-		    AdvancedFeaturePkg/
+|--Features/Intel
+|------AdvancedFeaturePkg/
+. . .
 edk2-non-osi/ https://github.com/tianocore/edk2-non-osi
-   Silicon/
-	  Intel/
-		   SimicsIch10BinPkg/
+|--Silicon/
+|----Intel/
+|------SimicsIch10BinPkg/
+. . .
 FSP/  https://github.com/IntelFsp/FSP
 
 ```
@@ -249,14 +252,17 @@ Rebuild takes about 2 minutes
 Python build_bios.py -p BoardX58Ich10 -t GCC5
 
 . . .
-Calling build -n 0 --log=Build.log --report-file=BuildReport.log and from \edk2-ws\conf\target.txt
+Calling build -n 0 --log=Build.log --report-file=BuildReport.log 
+and from /edk2-ws/conf/target.txt and from build.cfg
+
 ```
 
 | PARAMETER | VALUE | PURPOSE | 
 | --- | --- | --- |
+| MAX_THREAD_COUNT <BR> build.cfg  NUMBER_OF_PROCESSORS|= 0  or "-n 0" as above | Implies **all** processors used |
 | TARGET | = DEBUG | Build Mode |
 | TARGET_ARCH | = IA32 X64 | CPU Architecture |
-| TOOL_CHAIN_TAG | = GCC5 | VS Tool Chain |
+| TOOL_CHAIN_TAG | = GCC5 | Tool Chain to build |
 | ACTIVE_PLATFORM | = ... /SimicsOpenBoardPkg/BoardX58Ich10/OpenBoardPkg.dsc | Platform DSC file
 | Report file created (via python script) | = BuildReport.log | PCDs, Libs, etc. |
 
@@ -308,7 +314,7 @@ Update the Simics Script to Use the BoardX85Ich10.fd image just built
 
 Edit the file:
 
-*<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/qsp-uefi.include*
+*\<SimicsInstallDir\>*/simics-qsp-x86-6.0.57/targets/qsp-x86/qsp-uefi.include
 
 Where *SimicsInstallDir* is the directory selected to install simics, e.g., `Computer/usr/bin/simics`
 
@@ -316,13 +322,13 @@ Replace `SIMICSX58IA32X64_1_0_0_bp_r.fd` with `BOARDX58ICH10.fd`
 
 File: gsp-uefi.include
 
-```
+```shell
 decl {
-	params from "gsp-images.include"
-	default bios image =
-		%simics%/targets/qsp-x86/images/BOARDX58ICH10.fd
-#		%simics%/targets/qsp-x86/images/SIMICSX58IA32X64_1_0_0_bp_r.fd
-	default enable_efi = TRUE
+ params from "qsp-images.include"
+  default bios_image =
+   "%simics%/targets/qsp-x86/images/BOARDX58ICH10.fd"
+#   "%simics%/targets/qsp-x86/images/SIMICSX58IA32X64_1_0_0_bp_r.fd"
+  default enable_efi = TRUE
 }
 ```
 Save qsp-uefi.include

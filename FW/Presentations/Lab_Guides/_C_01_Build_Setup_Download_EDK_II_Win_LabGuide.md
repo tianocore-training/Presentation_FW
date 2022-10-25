@@ -203,7 +203,8 @@ $ C:\fw\edk2-ws> cd ..
 Download Checkout the Sha tag for edk2-platforms repo
 ```bash
 $ C:\fw\edk2-ws> cd edk2-platforms
-$ C:\fw\edk2-ws> git reset --hard c546cc01f1517b42470f3ae44d67efcb8ee257fc
+$ C:\fw\edk2-ws\edk2-platforms> git reset --hard c546cc01f1517b42470f3ae44d67efcb8ee257fc
+$ C:\fw\edk2-ws\edk2-platforms> cd ..
 ```
 
 (reset to this commit since this is used with all the labs)
@@ -216,6 +217,7 @@ OR
 
 Use `git clone` to download the Lab_Material_FW
 ```bash
+C:\> cd C:\
 C:\> git clone https://github.com/tianocore-training/Lab_Material_FW.git
 ```
 Directory Lab_Material_FW will be created

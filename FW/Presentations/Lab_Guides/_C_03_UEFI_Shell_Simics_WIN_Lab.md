@@ -88,8 +88,14 @@ Run the qsp-modern-core script:
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
-simics> run (Press "F2" at the logo)
+simics> run 
 ```
+Press "F2" at the Logo 
+
+From QSP Setup
+1. Click on "Boot Manager"
+2. Click on "EFI Internal Shell"
+
 
 ---
 ## Slide 5 UEFI Shell Commands
@@ -803,10 +809,10 @@ Shell>
 ###  UEFI Shell Scripts 
 
 
-The UEFI Shell can execute commands from a file, which is called a batch script file (<font face="consolas" color="cyan"><b>.nsh</b></font> files).  
+The UEFI Shell can execute commands from a file, which is called a batch script file **`.nsh`** files
 
 
-**Benefits:** These files allow users to simplify routine or repetitive tasks. <br>
+**Benefits:** These files allow users to simplify routine or repetitive tasks. 
 
 - Perform basic flow control.  
 - Allow branching and looping in a script.  
@@ -852,7 +858,7 @@ Edit the file: `qsp-modern-core.simics` from
 
 
 ```
-%USERPROFILE%\ \AppData\Local\Programs\Simics\simics-qsp-cpu-6.0.4\targets\qsp-x86\qsp-modern-core.simics
+%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-cpu-6.0.4\targets\qsp-x86\qsp-modern-core.simics
 ```
 
 Add the following line:
@@ -878,7 +884,7 @@ default cpu_comp_class = "x86QSP2"
 default num_cores = 2  
 default num_threads = 2
 } 
-$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd“
+$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd"
 
 run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
 
@@ -891,8 +897,9 @@ Re-run the qsp-modern-core script from the Simics Command Prompt:
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
-simics> run (Press "F2" at the logo)
+simics> run 
 ```
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 Note: now there is a "FS1" file system
 
@@ -906,7 +913,7 @@ Note: now there is a "FS1" file system
 
 With the UEFI shell There is an editor included. This is a very simple editor but can help if running on the target system without an OS "Nice" editor available.
 
-Shell editor help  menu - Cnt W
+Shell editor help  menu - Ctrl-E to exit Help use Ctrl-W
 
 At the shell prompt
 ```
@@ -955,6 +962,16 @@ FS0:\>
 ---
 ## Slide 31 UEFI Shell Script Example
 
+At the shell prompt type:
+
+```
+Shell> fs1:
+FS1:\> cd ShellScripts
+FS1:\ShellScripts\> type Script1.nsh
+FS1:\ShellScripts\> type Script2.nsh
+```
+
+
 Script1.nsh
 
 ```
@@ -967,7 +984,7 @@ endif
 echo "%HThank you." "%VByeBye:) %N"
 ```
 
-Script2.sh
+Script2.nsh
 
 ```
 # Show nested scripts
@@ -988,12 +1005,11 @@ walk through the script calling the second script
 ## Slide  32  Run UEFI Shell Scripts 
 ###  Run UEFI Shell Scripts 
 
+At the shell prompt type: CD to `FS1:\ShellScripts\>`  if not already in this directory at the shell
 
- At the Shell prompt Type  
- 
+Then type:
+
 ```
-Shell> fs1:
-FS1:\> cd ShellScripts
 FS1:\ShellScripts\> Script1
 ```
 
@@ -1048,6 +1064,25 @@ Type
 FS1:\ShellScripts\> Script1
 ```
 
+Output:
+```
+FS1\ShellScripts:\> echo  -off
+3 counting down
+2 counting down
+1 counting down 
+18:03:54 (LOCAL)
+
+Thank you.  ByeBye  :)   Done
+```
+
+
+```bash
+FS1:\ShellScripts\> cd ..
+FS1:\
+```
+
+
+
 
 ---
 ## Slide 34 UEFI Shell Global Variables
@@ -1101,7 +1136,7 @@ Variable NV+RT+BS 'EFIGlobalVariable:BootOrder' DataSize = 0x12
 
 Solution:
 ```
-bcfg boot mv 09 00
+bcfg boot mv 08 00
 ```
 ---
 ## Slide 38  Use the BCFG to Add a boot item  
@@ -1152,6 +1187,8 @@ Verify:
 - EFI Internal Shell - item 1
 - Old EFI Shell 1.0 - item 8
 
+boot to the old EFI Shell 1.0 and use the shell command `ver -s` to verify that the Old Shell is running
+
 ---
 ## Slide 40 Exit QSP UEFI Shell & Simics
 
@@ -1194,8 +1231,7 @@ Verify:
 ## Slide  38  Acknowledgements
 #### Acknowledgements 
 
-```
-/**
+
 Redistribution and use in source (original document form) and 'compiled' forms (converted
 to PDF, epub, HTML and other formats) with or without modification, are permitted provided
 that the following conditions are met:
@@ -1220,6 +1256,3 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE 
 OF SUCH DAMAGE.
 
 Copyright (c) 2021-2022, Intel Corporation. All rights reserved.
-**/
-
-```

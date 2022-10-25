@@ -243,7 +243,9 @@ Run the qsp-modern-core script from Simics Command Prompt :
 $> ./simics target/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
-(Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell")
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
+
 
 At the Shell prompt
 ```
@@ -366,6 +368,9 @@ $> cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/MyWizar
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
+
 
 4. At the UEFI Shell prompt Load the UEFI Driver from the shell
 
@@ -669,8 +674,7 @@ The Simics Serial Console Output  will show Debug Messages
 ```c++
 if (FirstAlloc) {
 		SetMem16(DummyBufferfromStart, (DUMMY_SIZE * sizeof(CHAR16)), 0x004A);  // Fill buffer with J's
-		DEBUG((DEBUG_INFO, "\n*******\n***[MyWizardDriver] Buffer 0x%p  ***\n*******\n"
-             DummyBufferfromStart));
+		DEBUG((DEBUG_INFO, "\n*******\n***[MyWizardDriver] Buffer 0x%p  ***\n*******\n", DummyBufferfromStart));
   }
 ```	
 
@@ -706,6 +710,9 @@ $> cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/MyWizar
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
+
 
 4. At the UEFI Shell prompt
 
@@ -862,17 +869,23 @@ MYWIZARDDRIVER_CONFIGURATION   *mMyWizDrv_Conf = &mMyWizDrv_Conf_buffer;  //use 
 ```
   EFI_STATUS                Status;
 ```
-**Copy & Paste** &nbsp;&nbsp; the below 6 lines just before the line "`return EFI_SUPPORTED`": 1) new call to "`CreateNVVariable();`" 2-6) `if` statement with DEBUG and 7) "`return`"  as below: 
+**Copy & Paste** &nbsp;&nbsp; the below 6 lines just before the line "` } return EFI_SUPPORTED`": 1) new call to "`CreateNVVariable();`" 2-6) `if` statement with DEBUG and inside the “if (FirstAlloc)” as below:  
 
-```C++
-  Status = CreateNVVariable();
+```C
+	// Only init our NVRam and Data structures on first pass
+	if (FirstAlloc) {
+		SetMem16(DummyBufferfromStart, (DUMMY_SIZE * sizeof(CHAR16)), 0x004A);  // Fill buffer with J's
+		DEBUG((DEBUG_INFO, "\n*******\n***[MyWizardDriver] Buffer 0x%p  ***\n*******\n", DummyBufferfromStart));
+
+    //start  of code to add
+    Status = CreateNVVariable();
 	if (EFI_ERROR(Status)) {
 		DEBUG((EFI_D_ERROR, "[MyWizardDriver] NV Variable already created \n"));
 	}
 	else {
 		DEBUG((EFI_D_ERROR, "[MyWizardDriver] Created NV Variable in the Start \n"));
 	}
-
+	//end of code to add
   }
   return EFI_SUCCESS;
 ```
@@ -980,11 +993,16 @@ Before the call to `CreateNVVariable()` in the `MyWizardDriverDriverBindingStart
 2. Use "`StrCpyS`" to store the string: "`UEFI-Training-Class-MWD`" to the NVRAM Variable String
 
 ```c
-  // store the address and string value in the NvRam Variable  - this ALlows DMPSTORE to display our buffer address
- mMyWizDrv_Conf_buffer.MyWizardDriverNvRamAddress = DummyBufferfromStart;
- StrCpyS(mMyWizDrv_Conf_buffer.MyWizardDriverStringData, (MYWIZARDDRIVER_STRING_SIZE * sizeof(CHAR16)), 
-       L"UEFI-Training-Class-MWD");
+	  // store the address and string value in the NvRam Variable  - this ALlows DMPSTORE to display our buffer address
+	  mMyWizDrv_Conf_buffer.MyWizardDriverNvRamAddress = DummyBufferfromStart;
+	  StrCpyS(mMyWizDrv_Conf_buffer.MyWizardDriverStringData, 
+	         (MYWIZARDDRIVER_STRING_SIZE * sizeof(CHAR16)), 
+	         L"UEFI-Training-Class-MWD");
+
+	  // Create the NVRAM Variable MWD_NVData
+	  Status = CreateNVVariable();
 ```
+
 
 Save   "`~/fw/edk2-ws/edk2/MyPkg/MyWizardDriver/MyWizardDriver.c`"
 
@@ -1017,6 +1035,9 @@ cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/MyWizardDr
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
+
 
 4. At the UEFI Shell prompt
 
@@ -1201,6 +1222,8 @@ $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
 
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
+
 4. At the UEFI Shell prompt
 
 ```
@@ -1311,6 +1334,8 @@ Run the qsp-modern-core script from Simics Command Prompt :
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run   
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 At the Shell prompt, type  `Shell> drivers`
 

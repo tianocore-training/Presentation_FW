@@ -185,7 +185,6 @@ Save `qsp-modern-core.simics`
 File: 	`qsp-modern-core.simics`
 
 ```
-Decl{
 decl {
 ! Script that runs the Quick Start Platform (QSP) with a modern 
 !   processor core. 
@@ -238,7 +237,7 @@ Run the qsp-modern-core script from Windows Command Prompt :
 $> .\simics target/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
-(Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell")
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 At the Shell prompt
 ```
@@ -266,7 +265,7 @@ It will be the last driver listed and have the name "MyWizardDriver"
 
 ---
 ## Slide 14   Lab 2: Test Driver -Dh
-### <span class="gold" >Lab 2: Test Driver  
+###  Lab 2: Test Driver  
 
 
 At the shell prompt using the handle from the `drivers` command, Type: 
@@ -361,6 +360,7 @@ $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\My
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 4. At the UEFI Shell prompt Load the UEFI Driver from the shell
 
@@ -663,8 +663,7 @@ The Simics Serial Console Output  will show Debug Messages
 ```c++
 if (FirstAlloc) {
 		SetMem16(DummyBufferfromStart, (DUMMY_SIZE * sizeof(CHAR16)), 0x004A);  // Fill buffer with J's
-		DEBUG((DEBUG_INFO, "\n*******\n***[MyWizardDriver] Buffer 0x%p  ***\n*******\n"
-             DummyBufferfromStart));
+		DEBUG((DEBUG_INFO, "\n*******\n***[MyWizardDriver] Buffer 0x%p  ***\n*******\n", DummyBufferfromStart));
   }
 ```	
 
@@ -700,6 +699,8 @@ $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\My
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 4. At the UEFI Shell prompt
 
@@ -856,17 +857,23 @@ MYWIZARDDRIVER_CONFIGURATION   *mMyWizDrv_Conf = &mMyWizDrv_Conf_buffer;  //use 
 ```
   EFI_STATUS                Status;
 ```
-**Copy & Paste** &nbsp;&nbsp; the below 6 lines just before the line "`return EFI_SUPPORTED`": 1) new call to "`CreateNVVariable();`" 2-6) `if` statement with DEBUG and 7) "`return`"  as below: 
+**Copy & Paste** &nbsp;&nbsp; the below 6 lines just before the line "` } return EFI_SUPPORTED`": 1) new call to "`CreateNVVariable();`" 2-6) `if` statement with DEBUG and inside the “if (FirstAlloc)” as below:  
 
 ```C++
-  Status = CreateNVVariable();
+	// Only init our NVRam and Data structures on first pass
+	if (FirstAlloc) {
+		SetMem16(DummyBufferfromStart, (DUMMY_SIZE * sizeof(CHAR16)), 0x004A);  // Fill buffer with J's
+		DEBUG((DEBUG_INFO, "\n*******\n***[MyWizardDriver] Buffer 0x%p  ***\n*******\n", DummyBufferfromStart));
+
+    //start  of code to add
+    Status = CreateNVVariable();
 	if (EFI_ERROR(Status)) {
 		DEBUG((EFI_D_ERROR, "[MyWizardDriver] NV Variable already created \n"));
 	}
 	else {
 		DEBUG((EFI_D_ERROR, "[MyWizardDriver] Created NV Variable in the Start \n"));
 	}
-
+	//end of code to add
   }
   return EFI_SUCCESS;
 ```
@@ -974,10 +981,14 @@ Before the call to `CreateNVVariable()` in the `MyWizardDriverDriverBindingStart
 2. Use "`StrCpyS`" to store the string: "`UEFI-Training-Class-MWD`" to the NVRAM Variable String
 
 ```c
-  // store the address and string value in the NvRam Variable  - this ALlows DMPSTORE to display our buffer address
- mMyWizDrv_Conf_buffer.MyWizardDriverNvRamAddress = DummyBufferfromStart;
- StrCpyS(mMyWizDrv_Conf_buffer.MyWizardDriverStringData, (MYWIZARDDRIVER_STRING_SIZE * sizeof(CHAR16)), 
-       L"UEFI-Training-Class-MWD");
+	  // store the address and string value in the NvRam Variable  - this ALlows DMPSTORE to display our buffer address
+	  mMyWizDrv_Conf_buffer.MyWizardDriverNvRamAddress = DummyBufferfromStart;
+	  StrCpyS(mMyWizDrv_Conf_buffer.MyWizardDriverStringData, 
+	         (MYWIZARDDRIVER_STRING_SIZE * sizeof(CHAR16)), 
+	         L"UEFI-Training-Class-MWD");
+
+	  // Create the NVRAM Variable MWD_NVData
+	  Status = CreateNVVariable();
 ```
 
 Save   "`C:\FW\edk2-ws\edk2\MyPkg\MyWizardDriver\MyWizardDriver.c`"
@@ -1011,6 +1022,9 @@ $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\My
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
+
 
 4. At the UEFI Shell prompt
 
@@ -1195,6 +1209,8 @@ $> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
 
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
+
 4. At the UEFI Shell prompt
 
 ```
@@ -1304,6 +1320,8 @@ $> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run   
 ```
 
+Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
+
 At the Shell prompt, type  `Shell> drivers`
 
 
@@ -1395,7 +1413,7 @@ https://github.com/tianocore-training/Tianocore_Training_Contents/wiki
 ---
 ## Slide 64   Acknowledgements
 
-```
+
 Redistribution and use in source (original document form) and 'compiled‘ forms (converted to PDF, epub, HTML and other formats) with or without modification, are permitted provided that the following conditions are met:
 
 Redistributions of source code (original document form) must retain the above copyright notice, this list of conditions and the following disclaimer as the first lines of this file unmodified.
@@ -1405,5 +1423,5 @@ Redistributions in compiled form (transformed to other DTDs, converted to PDF, e
 THIS DOCUMENTATION IS PROVIDED BY TIANOCORE PROJECT "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL TIANOCORE PROJECT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (c) 2022, Intel Corporation. All rights reserved.
-```
+
 

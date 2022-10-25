@@ -143,8 +143,8 @@ default cpu_comp_class = "x86QSP2"
 default num_cores = 2  
 default num_threads = 2
 } 
-#$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd“
-$disk1_image="%simics%/targets/qsp-x86/images/UefiAppLab.vhd“
+#$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd"
+$disk1_image="%simics%/targets/qsp-x86/images/UefiAppLab.vhd"
 
 run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
 
@@ -267,6 +267,8 @@ $> cd simics-projects\my-simics-project-1
 $> .\simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
+
+
 ---
 
 ### **Linux**
