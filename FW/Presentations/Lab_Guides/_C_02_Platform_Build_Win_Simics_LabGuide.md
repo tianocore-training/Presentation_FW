@@ -94,8 +94,9 @@ $> edksetup.bat
 
 ### Build EmulatorPkg
 ```bash
-$> build -D ADD_SHELL_STRING -a X64 -p EmulatorPkg\EmulatorPkg.dsc
+$> build -D ADD_SHELL_STRING -a X64 -p EmulatorPkg\EmulatorPkg.dsc -t VS20XX
 ```
+- Where XX is `15x86` or `17` or `19`
 ---
 ## Slide 5 Build EDK II
 ### Build EDK II
