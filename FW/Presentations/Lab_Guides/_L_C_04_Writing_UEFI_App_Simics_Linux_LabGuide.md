@@ -220,12 +220,18 @@ Copy
 $> cd simics-projects/my-simics-project-1
 ```
 
-2. Run the qsp-modern-core script:
+2. Run the `qsp-modern-core.simics` or `firststeps.simics` script :
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
+or
+```bash
+$> ./simics target/qsp-x86/firststeps.simics 
+simics> run
+```
+
 Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 3. At the UEFI Shell prompt
@@ -569,7 +575,7 @@ If there are build errors, set `NUMBER_OF_PROCESSORS = 1` in the `build.cfg` fil
 ---
 ## Slide 26 Invoke Simics & Run SampleApp
 
-1. Run the qsp-modern-core script from Terminal Command Prompt:
+1. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Terminal Command Prompt:
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -704,7 +710,7 @@ Shell>
 
 ### Check Result without the build switch
 
-Run the qsp-modern-core script from Terminal Command Prompt:
+Run the `qsp-modern-core.simics` or `firststeps.simics` script from Terminal Command Prompt:
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -785,7 +791,7 @@ Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58
 To 
 `<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
 
-Run the qsp-modern-core script from Terminal Command Prompt
+Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Terminal Command Prompt
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -852,7 +858,7 @@ Copy `~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/FV/BOARDX58
 
 `<SimicsInstallDir>/simics-qsp-x86-6.0.57/targets/qsp-x86/images`
 
-Run the qsp-modern-core script from a Terminal Command Prompt
+Run the `qsp-modern-core.simics` or `firststeps.simics` script from a Terminal Command Prompt
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -1018,7 +1024,7 @@ $> python build_bios.py -p BoardX58Ich10 -t GCC5
 $> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi ~/VHD
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Terminal Command Prompt
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -1181,7 +1187,7 @@ $> python build_bios.py -p BoardX58Ich10 GCC5
 $> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Terminal Command Prompt
 
 ```bash
 $>  ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -1382,7 +1388,7 @@ $> python build_bios.py -p BoardX58Ich10 -t GCC5
 $ cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/SampleApp.efi UefiAppLab ~/VHD
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Terminal Command Prompt
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics 
@@ -1444,7 +1450,7 @@ $> python build_bios.py -p BoardX58Ich10 -t GCC5
 $> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
 ```
 
-4. Run the qsp-modern-core script from Terminal Prompt:
+4. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Terminal Prompt:
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -1494,7 +1500,7 @@ $> python build_bios.py -p BoardX58Ich10 -t GCC5
 $> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
 ```
 
-4. Run the qsp-modern-core script from Terminal Prompt:
+4. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Terminal Prompt:
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -1563,7 +1569,7 @@ $> python build_bios.py -p BoardX58Ich10 -t GCC5
 $> cp ../Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/SampleApp.efi ~/VHD
 ```
 
-5. Run the qsp-modern-core script from Terminal Prompt:
+5. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Terminal Prompt:
 
 ```
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -1757,7 +1763,7 @@ $> build -p AppPkg/AppPkg.dsc -m AppPkg/Applications/SampleCApp/SampleCApp.inf
 $ cp ~/fw/edk2-ws/Build/AppPkg/DEBUG_GCC5/X64/SampleCApp.efi ~/VHD
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Terminal Command Prompt
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -2081,7 +2087,7 @@ $> build -p AppPkg/AppPkg.dsc -m AppPkg/Applications/SampleCApp/SampleCApp.inf
 $ cp ~/fw/edk2-ws/Build/AppPkg/DEBUG_GCC5/X64/SampleCApp.efi ~/VHD
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Terminal Command Prompt
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics

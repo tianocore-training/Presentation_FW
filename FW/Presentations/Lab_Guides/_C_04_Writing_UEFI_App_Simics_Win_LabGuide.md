@@ -245,7 +245,7 @@ Where `38-32` is the version of Python you have installed
 $> cd simics-projects\my-simics-project-1
 ```
 
-2. Run the qsp-modern-core.simics or firststeps.simics script:
+2. Run the `qsp-modern-core.simics` or `firststeps.simics` script:
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics 
@@ -617,7 +617,7 @@ If there are build errors, set `NUMBER_OF_PROCESSORS = 1` in the `build.cfg` fil
 ---
 ## Slide 26 Invoke Simics & Run SampleApp
 
-1. Run the qsp-modern-core script from Terminal Command Prompt:
+1. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Terminal Command Prompt:
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -753,12 +753,18 @@ Shell>
 
 ### Check Result without the build switch
 
-Run the qsp-modern-core script from  Windows Command Prompt:
+Run the `qsp-modern-core.simics` or `firststeps.simics` script from  Windows Command Prompt:
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run
 ```
+or
+```bash
+$> .\simics target/qsp-x86/firststeps.simics 
+simics> run
+```
+
 Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 At the UEFI Shell prompt
@@ -837,7 +843,7 @@ Calling build -n 0 -D ADD_SHELL_STRING --log=Build.log --report-file=BuildReport
 `%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\images`
 
 
-Run the qsp-modern-core script from Terminal Command Prompt
+Run the `qsp-modern-core.simics` or `firststeps.simics` script from Terminal Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -906,7 +912,7 @@ Invoke Simics and test Shell `Ver` command
 `%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\images`
 
 
-Run the qsp-modern-core script from a Windows Command Prompt
+Run the `qsp-modern-core.simics` or `firststeps.simics` script from a Windows Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -1074,7 +1080,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Terminal Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -1234,7 +1240,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 $> copy  C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-3. Run the qsp-modern-core script from Windows Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Windows Command Prompt
 
 ```bash
 $>  .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -1436,7 +1442,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-3. Run the qsp-modern-core script from Windows Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Windows Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics 
@@ -1496,7 +1502,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-4. Run the qsp-modern-core script from Windows Command Prompt
+4. Run the `qsp-modern-core.simics` or `firststeps.simics` scriptfrom Windows Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics 
@@ -1544,7 +1550,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-4. Run the qsp-modern-core script from Windows Command Prompt
+4. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Windows Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics 
@@ -1609,7 +1615,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\SampleApp.efi X:
 ```
 
-5. Run the qsp-modern-core script from Windows Command Prompt
+5. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Windows Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics 
@@ -1814,7 +1820,7 @@ $> build -p AppPkg\AppPkg.dsc -m AppPkg\Applications\SampleCApp\SampleCApp.inf
 $> copy C:\fw\edk2-ws\Build\AppPkg\DEBUG_VS20XX\X64\SampleCApp.efi  X:
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Terminal Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -2137,7 +2143,7 @@ $> build -p AppPkg\AppPkg.dsc -m AppPkg\Applications\SampleCApp\SampleCApp.inf
 $> copy C:\fw\edk2-ws\Build\AppPkg\DEBUG_VS20XX\X64\SampleCApp.efi  X:
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Terminal Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics

@@ -84,7 +84,7 @@ Copy the ...\Build\...\FV\BOARDX58ICH10.fd to %USERPROFILE%\AppData\Local\Progra
 
 Open a Windows Command Prompt in the Simics project directory e.g. `%USERPROFILE%/simics-projects/my-simics-project-1`
 
-Run the qsp-modern-core script:
+Run the `qsp-modern-core.simics` or `firststeps.simics` script:
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -928,8 +928,7 @@ run-command-file "%script%/qsp-clear-linux.simics"
 ---
 ## Slide 28 Run Simics QSP Script
 
-Re-run the qsp-modern-core script from the Simics Command Prompt:
-
+re-run the `qsp-modern-core.simics` or `firststeps.simics` script
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run 

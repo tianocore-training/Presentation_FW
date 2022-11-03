@@ -238,9 +238,15 @@ $ cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_VS2015x86/X64/MyW
 
 
 
-Run the qsp-modern-core script from Simics Command Prompt :
+Run the `qsp-modern-core.simics` or `firststeps.simics` script from Simics Command Prompt :
 ```bash
 $> ./simics target/qsp-x86/qsp-modern-core.simics 
+simics> run
+```
+
+or
+```bash
+$> ./simics target/qsp-x86/firststeps.simics 
 simics> run
 ```
 
@@ -362,7 +368,7 @@ $> python build_bios.py -p BoardX58Ich10  -t GCC5
 $> cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/MyWizardDriver.efi ~/VHD
 ```
 
-3. Run the qsp-modern-core script from the Simics Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script from the Simics Terminal Command Prompt
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -704,7 +710,7 @@ $> python build_bios.py -p BoardX58Ich10  -t GCC5
 $> cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/MyWizardDriver.efi ~/VHD
 ```
 
-3. Run the qsp-modern-core script from Simics Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Simics Command Prompt
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -1029,7 +1035,7 @@ $> python build_bios.py -p BoardX58Ich10  -t GCC5
 cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/MyWizardDriver.efi ~/VHD
 ```
 
-3. Run the qsp-modern-core script from Simics Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script from Simics Command Prompt
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -1215,7 +1221,7 @@ $> python build_bios.py -p BoardX58Ich10  -t GCC5
 cp ~/fw/edk2-ws/Build/SimicsOpenBoardPkg/BoardX58Ich10/DEBUG_GCC5/X64/MyWizardDriver.efi ~/VHD
 ```
 
-3. Run the qsp-modern-core script from Simics Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Simics Terminal Command Prompt
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
@@ -1329,7 +1335,7 @@ $> python build_bios.py -p BoardX58Ich10  -t GCC5
 ---
 ## Slide 56   Lab 7: Verify Driver Got Installed
 
-Run the qsp-modern-core script from Simics Command Prompt :
+Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Simics Command Prompt :
 ```
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run   

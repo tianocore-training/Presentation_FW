@@ -1051,13 +1051,17 @@ run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
 $> cd simics-projects\my-simics-project-1
 ```
 
-2. Run the qsp-modern-core script:
+2. Run the `qsp-modern-core.simics` or `firststeps.simics` script :
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
-
+or
+```bash
+$> .\simics target/qsp-x86/firststeps.simics 
+simics> run
+```
 
 #### 6.5.2 Linux
 
@@ -1067,13 +1071,17 @@ simics> run
 $> cd simics-projects/my-simics-project-1
 ```
 
-2. Run the qsp-modern-core script:
+2. Run the `qsp-modern-core.simics` or `firststeps.simics` script :
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
-
+or
+```bash
+$> ./simics target/qsp-x86/firststeps.simics 
+simics> run
+```
 #### 6.5.3 Both Linux and Windows
 Press "F2" at the logo, then select "Boot Manager" followed by "EFI Internal Shell"
 

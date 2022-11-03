@@ -257,11 +257,17 @@ But can keep open for this Lab
 
 
 
-Run the qsp-modern-core script from Windows Command Prompt :
+Run the `qsp-modern-core.simics` or `firststeps.simics` script from Windows Command Prompt :
 ```bash
 $> .\simics target/qsp-x86/qsp-modern-core.simics 
 simics> run
 ```
+or
+```bash
+$> .\simics target/qsp-x86/firststeps.simics 
+simics> run
+```
+
 Press "F2" at the logo then "`Boot Manager`" then "`EFI Internal Shell`"
 
 At the Shell prompt
@@ -379,7 +385,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\MyWizardDriver.efi X:
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Terminal Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -718,7 +724,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\MyWizardDriver.efi  X:
 ```
 
-3. Run the qsp-modern-core script from Windows Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Windows Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -1041,7 +1047,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\MyWizardDriver.efi  X:
 ```
 
-3. Run the qsp-modern-core script from Windows Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Windows Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -1227,7 +1233,7 @@ $> python build_bios.py -p BoardX58Ich10  -t VS20XX
 $> copy C:\FW\edk2-ws\Build\SimicsOpenBoardPkg\BoardX58Ich10\DEBUG_VS20XX\X64\MyWizardDriver.efi  X:
 ```
 
-3. Run the qsp-modern-core script from Terminal Command Prompt
+3. Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Terminal Command Prompt
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
@@ -1339,7 +1345,7 @@ To
 ---
 ## Slide 56   Lab 7: Verify Driver Got Installed
 
-Run the qsp-modern-core script from Windows Command Prompt :
+Run the `qsp-modern-core.simics` or `firststeps.simics` script  from Windows Command Prompt :
 ```
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run   

@@ -69,12 +69,18 @@ Copy the .../Build/.../FV/BOARDX58ICH10.fd to \<SimicsInstallDir\>/simics-qsp-x8
 
 Open Terminal Prompt in the Simics project directory e.g. `$ HOME/simics-projects/my-simics-project-1`
 
-Run the qsp-modern-core script:
+Run the `qsp-modern-core.simics` or `firststeps.simics` script :
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
 simics> run 
 ```
+or
+```bash
+$> ./simics target/qsp-x86/firststeps.simics 
+simics> run
+```
+
 Press "F2" at the Logo 
 
 From QSP Setup
@@ -819,7 +825,7 @@ run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
 ---
 ## Slide 28 Run Simics QSP Script
 
-Re-run the qsp-modern-core script from the Simics Command Prompt:
+Re-run the `qsp-modern-core.simics` or `firststeps.simics` script  from the Simics Command Prompt:
 
 ```bash
 $> ./simics targets/qsp-x86/qsp-modern-core.simics
