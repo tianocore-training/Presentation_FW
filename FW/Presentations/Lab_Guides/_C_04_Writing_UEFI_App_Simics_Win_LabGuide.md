@@ -151,6 +151,12 @@ Edit the file: `gsp-modern-core.simics` from
 
 `%USERPROFILE%\ \AppData\Local\Programs\Simics\simics-qsp-cpu-6.0.4\targets\qsp-x86\qsp-modern-core.simics`
 
+**Note:** if `qsp-modern-core.simics` is not found then use `firststeps.simics` from
+
+```
+%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\
+```
+
 
 Add the following line:
 
@@ -163,7 +169,7 @@ Before the `run-command-file` line
 
 Comment if `$disk1_image` was added from a previous lab using "#" at the line beginning
 
-Save `qsp-modern-core.simics`
+Save `qsp-modern-core.simics` or `firststeps.simics`
 
 
 File: 	`qsp-modern-core.simics`
@@ -182,6 +188,26 @@ decl {
  $disk1_image="%simics%/targets/qsp-x86/images/UefiAppLab.vhd"
 
 run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
+```
+**OR**
+
+File: `firststeps.simics`
+
+```
+decl {
+ ! Example x86 machine referred to by different documents going with Simics.
+ ! It is identical to <tt>qsp-clear-linux.simics</tt> but with some harmless
+ ! warnings disabled.
+
+ params from "qsp-clear-linux.simics"
+
+ result system : string
+ result eth_link : string or nil
+ result service_node : string or nil
+}
+#$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd"
+$disk1_image="%simics%/targets/qsp-x86/images/UefiAppLab.vhd"
+run-command-file "%script%/qsp-clear-linux.simics"
 ```
 
 ---
@@ -219,7 +245,7 @@ Where `38-32` is the version of Python you have installed
 $> cd simics-projects\my-simics-project-1
 ```
 
-2. Run the qsp-modern-core script:
+2. Run the qsp-modern-core.simics or firststeps.simics script:
 
 ```bash
 $> .\simics targets/qsp-x86/qsp-modern-core.simics 

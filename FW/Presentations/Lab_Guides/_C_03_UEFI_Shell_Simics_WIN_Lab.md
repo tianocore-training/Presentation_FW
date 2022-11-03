@@ -90,6 +90,12 @@ Run the qsp-modern-core script:
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
 simics> run 
 ```
+**Note:** if `qsp-modern-core.simics` is not found then use
+
+```bash
+$> .\simics targets/qsp-x86/fiststeps.simics
+```
+
 Press "F2" at the Logo 
 
 From QSP Setup
@@ -861,6 +867,13 @@ Edit the file: `qsp-modern-core.simics` from
 %USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-cpu-6.0.4\targets\qsp-x86\qsp-modern-core.simics
 ```
 
+
+**Note:** if `qsp-modern-core.simics` is not found then use `firststeps.simics` from
+
+```
+%USERPROFILE%\AppData\Local\Programs\Simics\simics-qsp-x86-6.0.57\targets\qsp-x86\
+```
+
 Add the following line:
 
 ```
@@ -869,7 +882,7 @@ $disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd"
 
 Before the "`run-command-file`" line
 
-Save qsp-modern-core.simics
+Save qsp-modern-core.simics  or  firststeps.simics
 
 File: qsp-modern-core.simics
 
@@ -889,6 +902,28 @@ $disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd"
 run-command-file "%simics%/targets/qsp-x86/qsp-clear-linux.simics"
 
 ```
+
+OR
+
+File: firststeps.simics
+
+```
+decl {
+ ! Example x86 machine referred to by different documents going with Simics.
+ ! It is identical to <tt>qsp-clear-linux.simics</tt> but with some harmless
+ ! warnings disabled.
+
+ params from "qsp-clear-linux.simics"
+
+ result system : string
+ result eth_link : string or nil
+ result service_node : string or nil
+}
+$disk1_image="%simics%/targets/qsp-x86/images/ShellLab.vhd"
+run-command-file "%script%/qsp-clear-linux.simics"
+```
+
+
 
 ---
 ## Slide 28 Run Simics QSP Script

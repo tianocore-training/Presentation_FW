@@ -361,7 +361,11 @@ Invoke the qsp-modern-core script:
 $> .\simics targets/qsp-x86/qsp-modern-core.simics
 ```
 
+**Note:** if qsp-modern-core.simics is not found then use
 
+```bash
+$> .\simics targets/qsp-x86/fiststeps.simics
+```
 
 ---
 ## Slide 22 Simics Windows
@@ -422,6 +426,11 @@ Boots to UEFI Shell
 $ .\simics targets/qsp-x86/qsp-modern-core.simics
 ```
 
+**Note:** if qsp-modern-core.simics is not found then use
+
+```bash
+$> .\simics targets/qsp-x86/fiststeps.simics
+```
 ---
 ## Slide 26 Summary
 - Build and Run the EmulatorPkg
