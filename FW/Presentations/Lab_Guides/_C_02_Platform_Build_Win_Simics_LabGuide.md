@@ -364,7 +364,7 @@ $> .\simics targets/qsp-x86/qsp-modern-core.simics
 **Note:** if qsp-modern-core.simics is not found then use
 
 ```bash
-$> .\simics targets/qsp-x86/fiststeps.simics
+$> .\simics targets/qsp-x86/firststeps.simics
 ```
 
 ---
@@ -429,7 +429,7 @@ $ .\simics targets/qsp-x86/qsp-modern-core.simics
 **Note:** if qsp-modern-core.simics is not found then use
 
 ```bash
-$> .\simics targets/qsp-x86/fiststeps.simics
+$> .\simics targets/qsp-x86/firststeps.simics
 ```
 ---
 ## Slide 26 Summary
